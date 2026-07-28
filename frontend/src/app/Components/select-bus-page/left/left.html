@@ -1,0 +1,103 @@
+<div class="left">
+  <div class="left_filters">
+    <p>Filters</p>
+    <ul>
+      <li (click)="handlelivetrackingclick()">
+        <div class="first-section">
+          <mat-icon>gps_fixed</mat-icon>
+          <span>Live Tracking</span>
+
+          @if (sidefiltervalues.livetracking) {
+            <mat-icon style="color: green;">check_circle_outline</mat-icon>
+          }
+        </div>
+      </li>
+
+      <li (click)="handlerescheduleclick()">
+        <div class="first-section">
+          <mat-icon>restore</mat-icon>
+          <span>Reschedulable</span>
+
+          @if (sidefiltervalues.reschedulable) {
+            <mat-icon style="color: green;">check_circle_outline</mat-icon>
+          }
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="left_filters">
+    <p>DEPARTURE TIME</p>
+    <ul>
+      @for (key of getobjectkey(sidefiltervalues.departuretime); track key) {
+        <li class="first-section">
+          <input
+            type="checkbox"
+            [name]="key"
+            [id]="key"
+            [checked]="sidefiltervalues.departuretime[key]"
+            (change)="handledeparturetimeclick($event, key)"
+          />
+          <label [for]="key">
+              <mat-icon>av_timer</mat-icon>
+              <span>{{ key }}</span>
+            </label>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <div class="left_filters">
+    <p>BUS TYPES</p>
+    <ul>
+      @for (key of getobjectkey(sidefiltervalues.bustype); track key) {
+        <li class="first-section">
+          <input
+            type="checkbox"
+            [id]="key"
+            [name]="key"
+            [checked]="sidefiltervalues.bustype[key]"
+            (change)="handlebustypeclick($event, key)"
+          />
+          <label [for]="key">
+              <mat-icon>airline_seat_legroom_extra</mat-icon>
+              <span>{{ key }}</span>
+            </label>  
+        </li>
+      }
+    </ul>
+  </div>
+
+  <div class="left_filters">
+    <p>ARRIVAL TIME</p>
+    <ul>
+      @for (key of getobjectkey(sidefiltervalues.arrivaltime); track key) {
+        <li class="first-section">
+          <input
+            type="checkbox"
+            [name]="key"
+            [checked]="sidefiltervalues.arrivaltime[key]"
+            (change)="handlearivaltimeclick($event, key)"
+          />
+          <label >
+
+              <mat-icon>av_timer</mat-icon>
+              <span>{{ key }}</span>
+            </label>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <div class="left_filters">
+    <p>AMENITIES</p>
+    <ul>
+      @for (key of getobjectkey(sidefiltervalues.amenities); track key) {
+        <li class="first-section">
+          <mat-icon>{{ amenityIcon[key] }}</mat-icon>
+          <span>{{ key }}</span>
+        </li>
+      }
+    </ul>
+  </div>
+</div>
