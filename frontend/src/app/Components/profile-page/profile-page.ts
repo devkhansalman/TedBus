@@ -18,15 +18,15 @@ export class ProfilePage{
     this.selecteditem=selected
   }
   // constructor(private busbooking:BusService){}
-  // ngOnInit(): void {
-  //   this.currentcustomer=sessionStorage.getItem('Loggedinuser')
-  //   const user=JSON.parse(this.currentcustomer)
-  //   this.currentname=user.name;
-  //   this.currentemail=user.email;
-  //   this.busbooking.getbusmongo(user._id).subscribe((response:any)=>{
-  //     this.mytrip=response
-  //     console.log(this.mytrip)
-  //   }
-  // )
-  // }
+  ngOnInit(): void {
+    this.currentcustomer=sessionStorage.getItem('Loggedinuser')
+    const user=JSON.parse(this.currentcustomer)
+    this.currentname=user.name;
+    this.currentemail=user.email;
+    // this.busbooking.getbusmongo(user._id).subscribe((response:any)=>{
+    //   this.mytrip=response
+    //   console.log(this.mytrip)
+    // }
+  
+  }
 }
