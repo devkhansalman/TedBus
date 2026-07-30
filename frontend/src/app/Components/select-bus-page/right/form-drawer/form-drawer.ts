@@ -1,4 +1,4 @@
-import { Component,Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-form-drawer',
@@ -7,17 +7,29 @@ import { Component,Input } from '@angular/core';
   styleUrl: './form-drawer.css',
 })
 export class FormDrawer {
-   @Input() selectedseat:number[]=[]
-  @Input() seatprice:number=0;
+  @Input() selectedseat: number[] = [];
+  @Input() seatprice: number = 0;
   @Input() routedetails: any;
-  @Input() busid:string=''
-  @Input() busarrivaltime: number =0;
-  @Input() busdeparturetime:number=0;
-  @Input() operatorname:string=''
-  formdrawerstate:boolean=false;
-  sidenavopened=false;
+  @Input() busid: string = '';
+  @Input() busarrivaltime: number = 0;
+  @Input() busdeparturetime: number = 0;
+  @Input() operatorname: string = '';
 
-  toogledrawer(open:boolean):void{
-    this.formdrawerstate=open
+  isOpen: boolean = false;
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  open(): void {
+    if (!this.selectedseat || this.selectedseat.length === 0) {
+      alert('Please select at least one seat before proceeding to book.');
+      return;
+    }
+    this.isOpen = true;
+    this.cdr.detectChanges();
+  }
+
+  close(): void {
+    this.isOpen = false;
+    this.cdr.detectChanges();
   }
 }

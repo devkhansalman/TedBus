@@ -16,11 +16,11 @@ export class LandingPage {
 
   fromEvent(option:string){
     this.fromOption=option;
-    console.log(option);
+    // console.log(option);
   }
   toEvent(option:string){
     this.toOption=option;
-    console.log(option);
+    // console.log(option);
   }
   matchDate(event:any){
     if(event.value){
@@ -31,9 +31,18 @@ export class LandingPage {
       this.date=`${year}-${month}-${day}`
     }
     else this.date="null"
-    console.log(this.date); 
+    // console.log(this.date); 
+  }
+  isLoggedIn():boolean{
+    return !!sessionStorage.getItem("Loggedinuser")
   }
   submit(){
+    if(!this.isLoggedIn){
+      alert("Login to continue")
+    }
+    else{
+
+    
     if(this.fromOption && this.toOption && this.date){
       if (this.fromOption === 'Delhi' && this.toOption === 'Jaipur' || this.fromOption === 'Mumbai' && this.toOption === 'Goa' || this.fromOption === 'Bangalore' && this.toOption === 'Mysore' || this.fromOption === 'Kolkata' && this.toOption === 'Darjeeling' || this.fromOption === 'Chennai' && this.toOption === 'Pondicherry') {
         this.router.navigate(['select-bus'],{
@@ -48,12 +57,13 @@ export class LandingPage {
         const dialogRef = this.dialog.open(Dialog);
 
         dialogRef.afterClosed().subscribe(result => {
-          console.log(`Dialog result: ${result}`);
+          // console.log(`Dialog result: ${result}`);
         });
       }
     }
     else {
       alert("fill up the details!!!")
     }
+  }
   }
 }

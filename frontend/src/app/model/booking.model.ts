@@ -24,10 +24,11 @@ export interface Booking {
     age: number;
   }
   
+  // Fixed: backend schema has { city, time, date } — removed 'location', added 'date'
   interface TripDetails {
     city: string;
-    location: string;
     time: number | string;
+    date: string;
   }
   
   interface BusinessDetails {

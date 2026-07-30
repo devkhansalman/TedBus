@@ -1,132 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 .mainContainer {
-    width: 100%;
-    min-height: 350px;
-    height: auto;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    background-color: #eeeded;
-  }
-  
-  /* container 1.....bus seats */
-  .mainContainer1 {
-    width: 560px;
-    height: 200px;
-    display: flex;
-    margin-right: 40px;
-    margin-left: 40px;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-  }
-  
-  .mainContainer1Left {
-    width: 10%;
-    height: 100%;
-    border-left: 4px solid black;
-    display: flex;
-    justify-content: center;
-    padding-top: 17px;
-  }
-  
-  .mainContainer1Right {
-    width: 90%;
-    height: 90%;
-    border-left: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-left: 15px;
-    padding-right: 20px;
-  }
-  
-  .mainContainer1Right > div {
-    width: 100%;
-    height: 17%;
-    display: flex;
-    justify-content: space-between;
-  }
-  
- 
-  
-  .mainContainer2 {
-    width: 470px;
-    height: 400px;
-    padding: 20px 10px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    background-color: rgb(248, 248, 248);
-  }
-  
-  .mainContainer2 > div {
-    width: 100%;
-  }
-  
-  .mainContainer21 {
-    margin-bottom: 10px;
-    font-size: 16px;
-    font-weight: 700;
-    color: #3e3e52;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .mainContainer21 > div:nth-child(2) {
-    font-size: 14px;
-    font-weight: 700;
-    color: #5279d0;
-    cursor: pointer;
-    text-transform: uppercase;
-  }
-  
-  .mainContainer22,
-  .mainContainer23 {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .mainContainer22 > div,
-  .mainContainer23 > div {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .mainContainer24 {
-    height: 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .mainContainer24 > div {
-    font-size: 14px;
-    color: #4a4a4a;
-    font-weight: 700;
-  }
-  
-  .mainContainer24 > div:nth-child(1) {
-    font-size: 16px;
-  }
-  
-  .mainContainer25 {
-    margin-top: 13px;
-    font-size: 16px;
-    color: #4a4a4a;
-    font-weight: 700;
-  }
-  
-  .mainContainer26 {
-    margin-top: 13px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .mainContainer26 > div:nth-child(2) {
-    font-weight: 700;
-    font-size: 14px;
-    text-align: right;
-    color: #3e3e52;
-  }
+  width: 100%;
+  background: #f4f5f7;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 20px 16px;
+  box-sizing: border-box;
+}
+
+/* ─── Seat Map Section ──────────────────────────────────────── */
+.mainContainer1 {
+  flex: 1;
+  min-width: 260px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.seat-map-header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.4px;
+}
+
+.seat-legend {
+  display: flex;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #fafafa;
+  border-bottom: 1px solid #eee;
+  font-size: 11px;
+  font-family: 'Inter', sans-serif;
+  color: #666;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.legend-dot.available { background: #2d6a4f; }
+.legend-dot.selected  { background: #3a86ff; }
+.legend-dot.booked    { background: #e63946; }
+
+/* Bus silhouette + seat rows */
+.mainContainer1Left {
+  display: none; /* replaced by header */
+}
+
+.mainContainer1Right {
+  padding: 12px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mainContainer1Right > div {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+/* ─── Booking Summary Panel ─────────────────────────────────── */
+.mainContainer2 {
+  flex: 1;
+  min-width: 220px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  padding: 16px 16px 14px;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
+/* Boarding & Dropping header */
+.mainContainer21 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.mainContainer21 > div:first-child {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.mainContainer21 > div:last-child {
+  font-size: 12px;
+  font-weight: 600;
+  color: #3a86ff;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Departure / Arrival rows */
+.mainContainer22,
+.mainContainer23 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+
+.mainContainer22 > div,
+.mainContainer23 > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.time-badge {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a2e;
+  background: #e8f4ff;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* Selected Seats row */
+.mainContainer24 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0 8px;
+  border-top: 1px solid #f0f0f0;
+  margin-top: 4px;
+}
+
+.mainContainer24 > div:first-child {
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mainContainer24 > div:last-child {
+  font-size: 13px;
+  font-weight: 700;
+  color: #3a86ff;
+  background: #e8f4ff;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+/* Fare header */
+.mainContainer25 {
+  font-size: 12px;
+  font-weight: 700;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 10px 0 6px;
+}
+
+/* Fare amount row */
+.mainContainer26 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #fff9f0 0%, #fff3e6 100%);
+  border: 1px solid #ffddb3;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+
+.mainContainer26 > div:first-child {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.mainContainer26 > div:last-child {
+  font-size: 18px;
+  font-weight: 800;
+  color: #e07b00;
+}
+
+/* Proceed button container */
+.mainContainer27 {
+  /* inherits from app-form-drawer's own styling */
+}

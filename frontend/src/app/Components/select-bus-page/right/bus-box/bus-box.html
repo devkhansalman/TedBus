@@ -1,4 +1,4 @@
-<div class="bus-box">
+<div class="bus-box" *ngIf="routedetails">
     <div class="busBoxSection1">
         <div class="busBoxSection11">
             <div>{{operatorname}}</div>
@@ -12,7 +12,7 @@
         </div>
         <div class="busBoxSection13">
             <div>
-                {{routedetails.duration}} &nbsp;h
+                {{routedetails.duration}}&nbsp;h
             </div>
         </div>
         <div class="busBoxSection14">

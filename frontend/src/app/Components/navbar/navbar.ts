@@ -102,7 +102,11 @@ export class Navbar implements OnInit, AfterViewInit {
     window.location.reload();
   }
 
-  navigate(route: string): void {
-    this.router.navigate([route]);
+  navigate(route: string, tab?: string): void {
+    if (tab) {
+      this.router.navigate([route], { queryParams: { tab } });
+    } else {
+      this.router.navigate([route]);
+    }
   }
 }

@@ -18,7 +18,7 @@
                         <mat-menu #menu="matMenu">
                             <button mat-menu-item (click)="fromEvent('Delhi')">Delhi</button>
                             <button mat-menu-item (click)="fromEvent('Mumbai')">Mumbai</button>
-                            <button mat-menu-item (click)="fromEvent('Banglore')">Banglore</button>
+                            <button mat-menu-item (click)="fromEvent('Bangalore')">Bangalore</button>
                             <button mat-menu-item (click)="fromEvent('Kolkata')">Kolkata</button>
                             <button mat-menu-item (click)="fromEvent('Chennai')">Chennai</button>
                         </mat-menu>
@@ -48,10 +48,10 @@
                     <div class="px-7 py-8 flex items-center h-full gap-3 group relative pr-12">
 
                        <i class="fa-solid fa-calendar-days text-gray-500 text-2xl"></i>
-                        <input matInput class="outline-none opacity-0 scale-[3] h-14 w-[30px] absolute left-14 z-10"
+                        <input matInput class="outline-none opacity-0 scale-[3] h-14 w-[30px] absolute left-14 z-10 cursor-pointer"
                             placeholder="Date" (dateChange)="matchDate($event)" [matDatepicker]="picker" (click)="picker.open()"
                             >
-                        <p class="text-gray-400">Date</p>
+                        <p [class]="date && date !== 'null' ? 'text-gray-700' : 'text-gray-400'">{{ (date && date !== 'null') ? date : 'Date' }}</p>
                         <mat-datepicker #picker></mat-datepicker>
                         <!-- <p class="text-gray-400">Date</p> -->
                     </div>

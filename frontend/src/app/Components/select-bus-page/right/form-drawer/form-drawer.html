@@ -1,9 +1,26 @@
-<button class="proceedButton" (click)="drawer.toggle()">Proceed To Book</button>
-<mat-drawer-container class="example-container">
-    <mat-drawer #drawer position='end' mode="over" class="example-sidenav">
-        <div style="width: 600px;">
-            <app-bus-booking-form [selectedseat]="selectedseat" [seatprice]="seatprice" [routedetails]="routedetails"
-                [busid]="busid" [busarrivaltime]="busarrivaltime" [busdeparturetime]="busdeparturetime" [operatorname]="operatorname"></app-bus-booking-form>
-        </div>
-    </mat-drawer>
-</mat-drawer-container>
+<!-- Trigger Button -->
+<button class="proceedButton" (click)="open()">
+  <i class="material-icons" style="font-size:18px;vertical-align:middle;">confirmation_number</i>
+  Proceed to Book
+</button>
+
+<!-- Dark backdrop — click to close -->
+<div class="drawer-backdrop" *ngIf="isOpen" (click)="close()"></div>
+
+<!-- Slide-in panel from the right -->
+<div class="drawer-panel" [class.drawer-open]="isOpen">
+  <!-- Close button inside panel -->
+  <button class="drawer-close-btn" (click)="close()">
+    <i class="material-icons">close</i>
+  </button>
+
+  <app-bus-booking-form
+    [selectedseat]="selectedseat"
+    [seatprice]="seatprice"
+    [routedetails]="routedetails"
+    [busid]="busid"
+    [busarrivaltime]="busarrivaltime"
+    [busdeparturetime]="busdeparturetime"
+    [operatorname]="operatorname">
+  </app-bus-booking-form>
+</div>

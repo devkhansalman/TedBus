@@ -2,15 +2,15 @@
 <nav
     class="px-4 md:px-14 py-1 md:py-3 flex text-xs md:text-base font-normal items-center justify-between sticky top-0 bg-white z-20 drop-shadow-xl">
     <div class="flex gap-2 md:gap-16 items-center w-full justify-between md:w-auto md:justify-start">
-        <div class="grid place-content-center">
+        <div class="grid place-content-center cursor-pointer" (click)="navigate('/')">
             <img class="md:w-18 md:h-auto w-12 h-10"
                 src="assets/red-bus-with-word-bus-it_600323-482.avif" alt="Tedbus Logo"
                 >
         </div>
         <div class="h-6 w-px bg-gray-200"></div>
         <div class="flex gap-3">
-            <a 
-                class="flex flex-col items-center text-center gap-1 px-2 py-3 rounded-lg group hover:bg-gray-100 bg-main-color sm:bg-transparent">
+            <a (click)="navigate('/')"
+                class="flex flex-col items-center text-center gap-1 px-2 py-3 rounded-lg group hover:bg-gray-100 bg-main-color sm:bg-transparent cursor-pointer">
                 <svg class="group-hover:fill-main-color fill-white sm:fill-black" width="29" height="20"
                     viewBox="0 0 29 20">
                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -81,10 +81,10 @@
             <i class="fa-solid fa-angle-down  text-[#4a4a4a] text-xl"></i>
         </button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item>My Trips</button>
-            <button mat-menu-item>Wallet/Cards</button>
-            <button mat-menu-item (click)="navigate('/profile')">My Profile</button>
-            <button mat-menu-item>Wallet</button>
+            <button mat-menu-item (click)="navigate('/profile', 'trips')">My Trips</button>
+            <button mat-menu-item (click)="navigate('/profile', 'wallet')">Wallet/Cards</button>
+            <button mat-menu-item (click)="navigate('/profile', 'profile')">My Profile</button>
+            <button mat-menu-item (click)="navigate('/profile', 'dashboard')">Dashboard</button>
             <button mat-menu-item (click)="handlelogout()">Sign Out</button>
           </mat-menu>
     </div>

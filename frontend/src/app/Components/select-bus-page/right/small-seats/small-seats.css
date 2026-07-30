@@ -1,3 +1,33 @@
-.main-container{
-    cursor: pointer;
+.main-container {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  transition: transform 0.15s ease, background 0.15s ease;
+  position: relative;
+}
+
+.main-container:hover {
+  transform: scale(1.18);
+}
+
+.main-container .material-icons {
+  font-size: 22px;
+  transition: color 0.15s ease;
+}
+
+/* Seat number tooltip */
+.main-container::after {
+  content: attr(data-seat);
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  color: #888;
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
 }

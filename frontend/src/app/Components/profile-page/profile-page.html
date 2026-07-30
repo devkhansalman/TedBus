@@ -1,31 +1,23 @@
 <div class="ProfilePannel">
     <div class="leftPart">
       <ul class="leftPannel">
-        <li class="leftPannel_eachListItem">
-          <mat-icon style="color: grey; font-size: 30px; height: 100% ;width:100%;">perm_identity</mat-icon>
-  
-          <div class="leftPannel_eachListItem_text">
-            'Dashboard' 
-          </div>
-  
+        <li class="leftPannel_eachListOption" [class.active]="selecteditem === 'dashboard'" (click)="handlelistitemclick('dashboard')">
+          <i class="material-icons">dashboard</i>
+          <div class="leftPannel_eachListItem_text">Dashboard</div>
         </li>
-        <div class="line">Line</div>
-        <!-- Other list items -->
-        <li class="leftPannel_eachListOption" (click)="handlelistitemclick('trips')">
-          <i class="material-icons" style="color: grey; font-size: 30px;">location_on</i>
-  
+        <div class="line"></div>
+        <li class="leftPannel_eachListOption" [class.active]="selecteditem === 'trips'" (click)="handlelistitemclick('trips')">
+          <i class="material-icons">location_on</i>
           <div class="leftPannel_eachListItem_text">My Trips</div>
         </li>
         <div class="line"></div>
-        <!-- Add other list items here -->
-        <li class="leftPannel_eachListOption" (click)="handlelistitemclick('profile')">
-          <i class="material-icons" style="color: grey; font-size: 30px;">settings</i>
+        <li class="leftPannel_eachListOption" [class.active]="selecteditem === 'profile'" (click)="handlelistitemclick('profile')">
+          <i class="material-icons">person</i>
           <div class="leftPannel_eachListItem_text">My Profile</div>
         </li>
         <div class="line"></div>
-        <li class="leftPannel_eachListOption" (click)="handlelistitemclick('wallet')">
-          <i class="material-icons" style="color: grey; font-size: 30px;">account_balance_wallet</i>
-  
+        <li class="leftPannel_eachListOption" [class.active]="selecteditem === 'wallet'" (click)="handlelistitemclick('wallet')">
+          <i class="material-icons">account_balance_wallet</i>
           <div class="leftPannel_eachListItem_text">Wallet</div>
         </li>
         <div class="line"></div>
@@ -33,6 +25,9 @@
     </div>
     <div class="seprator"></div>
   
+    <div *ngIf="selecteditem === 'dashboard'" >
+      Dashboard feature coming soon...
+    </div>
     <div *ngIf="selecteditem === 'trips'">
       <!-- MyTrips component or content -->
       <app-my-trip [booking]="mytrip"></app-my-trip> 

@@ -7,32 +7,25 @@
         <div class="heading" style="font-weight: 600; font-size: large;">Bus Details</div>
         <!-- Insertion for Departure, Arrival details, and fare -->
         <p>
-          <span class="material-icons" ></span> Departure Location: 
-          <!-- {{ booking.departureDetails.city }} -->
+          <span class="material-icons" >radio_button_checked</span> Departure Location: {{ booking.departureDetails.city }}
         </p>
         <p>
-          <span class="material-icons" ></span> Departure Time: 
-          <!-- {{ booking.departureDetails.time }}:00 hrs -->
+          <span class="material-icons" >radio_button_checked</span> Departure Time: {{ booking.departureDetails.time }}:00 hrs
         </p>
         <p>
-          <span class="material-icons" ></span> Departure Date: 
-          <!-- {{ booking.departureDetails.date }} -->
+          <span class="material-icons" >radio_button_checked</span> Departure Date: {{ booking.departureDetails.date }}
         </p>
         <p>
-          <span class="material-icons" ></span> Arrival Location: 
-          <!-- {{ booking.arrivalDetails.city }} -->
+          <span class="material-icons" >radio_button_checked</span> Arrival Location: {{ booking.arrivalDetails.city }}
         </p>
         <p>
-          <span class="material-icons" ></span> Arrival Time: 
-          <!-- {{ booking.arrivalDetails.time }}:00 hrs -->
+          <span class="material-icons" >radio_button_checked</span> Arrival Time: {{ booking.arrivalDetails.time }}:00 hrs
         </p>
         <p>
-          <span class="material-icons" ></span> Arrival Date: 
-          <!-- {{ booking.arrivalDetails.date }} -->
+          <span class="material-icons" >radio_button_checked</span> Arrival Date: {{ booking.arrivalDetails.date }}
         </p>
         <p>
-          <span class="material-icons" ></span> Total Fare:
-           <!-- {{ booking.fare }} -->
+          <span class="material-icons" >radio_button_checked</span> Total Fare: {{ booking.fare }}
         </p>
       </div>
       <div class="SingleTrip__persondetails">
@@ -40,26 +33,21 @@
 
         <!-- Insertion for Passenger details -->
         <p>
-          <span class="bullet" ></span> Contact Email: 
-          <!-- {{ booking.email }} -->
+          <span class="material-icons" >arrow_right_alt</span> Contact Email: {{ booking.email }}
           </p>
           <p>
-            <span class="bullet" ></span> Contact Phone Number: 
-            <!-- {{ booking.phoneNumber }} -->
+            <span class="material-icons" >arrow_right_alt</span> Contact Phone Number: {{ booking.phoneNumber }}
           </p>
           <div class="SingleTrip__customerDetails__passenger">
             <div *ngFor="let passenger of booking.passengerDetails">
               <p>
-                <span class="bullet" ></span> Name: 
-                <!-- {{ passenger.name }} -->
+                <span class="material-icons" >arrow_right_alt</span> Name: {{ passenger.name }}
               </p>
               <p>
-                <span class="bullet" ></span> Gender: 
-                <!-- {{ passenger.gender }} -->
+                <span class="material-icons" >arrow_right_alt</span> Gender: {{ passenger.gender }}
               </p>
               <p>
-                <!-- <span class="material-icons" >arrow_right_alt</span> Age:  -->
-                <!-- {{ passenger.age }} -->
+                <span class="material-icons" >arrow_right_alt</span> Age: {{ passenger.age }}
               </p>
             </div>
           </div>

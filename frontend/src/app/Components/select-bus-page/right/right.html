@@ -1,12 +1,33 @@
 <div>
     <app-sorting-bar></app-sorting-bar>
-     <div *ngFor="let bus of matchedbus; index as i">
-        <div *ngFor="let key of getkeys()">
-            <div *ngIf="bus._id === key">
-                <app-bus-box [rating]=[4.2] [operatorname]="'TravelXpress'" [bustype]="'sleeper'"
-                    [departuretime]="'8:00'" [livetracking]=1 [filledseats]="[1,5,21,8,2]" [reschedulable]=1 
-                    [routedetails]="{departureLocation:{name:'Delhi'},arrivalLocation:{name:'Jaipur'},duration:5}"></app-bus-box>
-            </div>
-        </div>
+
+    <!-- Loading state -->
+    <div *ngIf="isLoading" style="padding: 20px; text-align: center;">
+        Loading buses...
+    </div>
+
+    <!-- Error state -->
+    <div *ngIf="errorMessage" style="padding: 20px; color: red; text-align: center;">
+        {{ errorMessage }}
+    </div>
+
+    <!-- No buses found -->
+    <div *ngIf="!isLoading && !errorMessage && matchedbus.length === 0" style="padding: 20px; text-align: center;">
+        No buses found for the selected route and date.
+    </div>
+
+    <!-- Bus list: iterate over each bus and pass real data -->
+    <div *ngFor="let bus of matchedbus">
+        <app-bus-box
+            [busid]="bus._id || ''"
+            [rating]="bus.rating"
+            [operatorname]="bus.operatorName"
+            [bustype]="bus.busType"
+            [departuretime]="bus.departureTime"
+            [livetracking]="bus.liveTracking"
+            [reschedulable]="bus.reschedulable"
+            [filledseats]="seats[bus._id || ''] || []"
+            [routedetails]="route">
+        </app-bus-box>
     </div>
 </div>

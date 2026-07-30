@@ -29,7 +29,8 @@ const busSchema = new Schema({
   },
   images: {
     type: String,
-    required: true,
+    required: false,  // Fixed: was required:true but TravelXpress has no image
+    default: '',
   },
   liveTracking: {
     type: Number,
@@ -42,4 +43,5 @@ const busSchema = new Schema({
 });
 
 module.exports = mongoose.model("Buses", busSchema);
+
 
