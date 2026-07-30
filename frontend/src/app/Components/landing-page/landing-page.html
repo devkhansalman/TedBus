@@ -48,7 +48,7 @@
                     <div class="px-7 py-8 flex items-center h-full gap-3 group relative pr-12">
 
                        <i class="fa-solid fa-calendar-days text-gray-500 text-2xl"></i>
-                        <input matInput class="outline-none opacity-0 scale-[3] h-14 w-[30px] absolute left-14 z-10 cursor-pointer"
+                        <input matInput class="outline-none opacity-0 scale-[3] h-14 w-7.5 absolute left-14 z-10 cursor-pointer"
                             placeholder="Date" (dateChange)="matchDate($event)" [matDatepicker]="picker" (click)="picker.open()"
                             >
                         <p [class]="date && date !== 'null' ? 'text-gray-700' : 'text-gray-400'">{{ (date && date !== 'null') ? date : 'Date' }}</p>
@@ -87,7 +87,7 @@
 
                 <!-- offer card one  -->
                 <div
-                    class="h-36 w-64 rounded-xl bg-linear-to-r from-blue-800 to-blue-500 flex p-3 cursor-pointer flex-shrink-0">
+                    class="h-36 w-64 rounded-xl bg-linear-to-r from-blue-800 to-blue-500 flex p-3 cursor-pointer shrink-0">
                     <div class="h-full grid place-content-center px-2">
                         <img class="rounded-full w-24" src="/assets/offer1.png" alt="">
                     </div>
