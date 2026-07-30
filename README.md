@@ -1,121 +1,128 @@
-# 🚌 Tedbus
+# Tedbus
 
 <p align="center">
-  <a href="https://github.com/">
-    <img src="https://img.shields.io/badge/GitHub-Explore%20the%20project-181717?logo=github&logoColor=white" alt="GitHub" />
-  </a>
-  <img src="https://img.shields.io/badge/Angular-21-DD0031?logo=angular&logoColor=white" alt="Angular 21" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4" />
-  <img src="https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white" alt="TypeScript 5.9" />
+	<img src="https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white" alt="Angular Badge" />
+	<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js Badge" />
+	<img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express Badge" />
+	<img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB Badge" />
+	<img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS Badge" />
+	<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript Badge" />
+	<img src="https://img.shields.io/badge/pnpm-F69220?style=for-the-badge&logo=pnpm&logoColor=white" alt="pnpm Badge" />
+	<img src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" alt="License Badge" />
 </p>
 
-Tedbus is a responsive Angular single-page application that demonstrates an online bus-ticket booking journey. It recreates the core user experience of searching routes, reviewing a bus, choosing seats, entering traveller details, and viewing a payment summary.
+Tedbus is a full-stack online bus ticket booking application built with Angular, Node.js, Express, and MongoDB. It supports route searching, live seat layout selection, passenger booking management, payment workflow simulation, and customer profile trip history.
 
-> This repository currently contains the frontend only. Its routes, buses, fares, and profile data are demo data; no backend, authentication, persistence, or payment gateway is connected.
+## Table of Contents
 
-## ✨ Features
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [Scripts](#scripts)
+- [Usage](#usage)
+- [License](#license)
 
-- Search from a curated set of origin and destination cities with a Material date picker.
-- Display available demo routes in a dialog when the selected journey is not supported.
-- Browse a bus-results page with route context, filters, sorting controls, safety messaging, and bus details.
-- Expand bus detail tabs for amenities, boarding information, policies, and seat selection.
-- Select available seats from a 40-seat layout and see the running fare total.
-- Collect passenger and contact details in a booking drawer, with optional business-travel and insurance selections.
-- Navigate to a payment-summary experience offering card, wallet, net-banking, and UPI UI options.
-- Provide a profile area with My Trips, profile, and wallet views.
-- Use responsive layouts, Angular Material components, Tailwind CSS utilities, and local visual assets.
+## Overview
 
-## 🛠️ Technology
+The application uses Angular 21 for the single-page frontend UI, Express for REST API routing, and MongoDB with Mongoose for data persistence. Users can search routes between major cities, view real-time booked seats, select available seats from an interactive layout, submit passenger details, complete payment UI simulation, and view past booking history in their profile dashboard.
 
-| Area | Tools |
-| --- | --- |
-| Framework | Angular 21 with TypeScript 5.9 |
-| UI | Angular Material and Tailwind CSS 4 |
-| Routing and forms | Angular Router and template-driven forms |
-| Build tooling | Angular CLI / `@angular/build` |
-| Testing | Vitest with jsdom via Angular CLI |
-| Package manager | pnpm lockfile (npm scripts are also available) |
+## Features
 
-## 🗂️ Project layout
+- Search routes with Material Datepicker and origin/destination selectors
+- Browse available bus listings with filters (AC/Non-AC, sleeper, price, departure time)
+- Interactive 40-seat layout with real-time booked seat tracking from MongoDB
+- Collect passenger details with optional travel insurance and business GST add-ons
+- Payment UI options (Credit/Debit Cards, Net Banking, UPI, Wallets)
+- Customer profile dashboard displaying trip history fetched from the backend API
+- Express REST API with MongoDB models for routes, buses, customers, and bookings
+- Database repair script (`fix-bus-routes.js`) for linking bus operator documents to route IDs
 
-```text
-.
-├── README.md
-└── frontend/
-    ├── public/assets/              # Logos, hero image, and offer artwork
-    ├── src/
-    │   ├── app/
-    │   │   ├── Components/
-    │   │   │   ├── landing-page/   # Search hero, offers, FAQ, route dialog
-    │   │   │   ├── select-bus-page/ # Results, filters, bus card, seats, booking form
-    │   │   │   ├── payment-page/   # Payment options and booking summary
-    │   │   │   ├── profile-page/   # Trips, profile, and wallet views
-    │   │   │   ├── navbar/         # Global navigation
-    │   │   │   └── footer/         # Global footer
-    │   │   ├── app-module.ts       # Root Angular module
-    │   │   └── app-routing-module.ts
-    │   ├── angular.json            # Angular build/serve/test configuration
-    │   ├── package.json            # Scripts and dependencies
-    │   └── pnpm-lock.yaml          # Locked dependency tree
-```
+## Tech Stack
 
-## 🚀 Getting started
+- Frontend: Angular 21, TypeScript 5.9, Angular Material, Tailwind CSS 4
+- Runtime: Node.js
+- Framework: Express 5
+- Database: MongoDB with Mongoose 9
+- State Management: RxJS `BehaviorSubject` Services
+- Package Manager: pnpm
 
-### 📋 Prerequisites
+## Getting Started
 
-- A current Node.js LTS release compatible with Angular 21.
-- [pnpm](https://pnpm.io/), recommended because the repository includes `pnpm-lock.yaml`; npm can also run the provided scripts.
+### Prerequisites
 
-### ▶️ Install and run
+- Node.js 18 or newer
+- MongoDB running locally on `127.0.0.1:27017`
+- pnpm installed locally
+
+### Installation
 
 ```bash
-cd frontend
+git clone https://github.com/M-Salman-khan/Tedbus.git
+cd Tedbus
+
+# Install backend dependencies
+cd backend
+pnpm install
+
+# Install frontend dependencies
+cd ../frontend
 pnpm install --frozen-lockfile
-pnpm start
 ```
 
-Open `http://localhost:4200/` in your browser. The dev server reloads when source files change.
+## Environment Variables
 
-If you prefer npm, run `npm install` and then `npm start` from `frontend/`.
+### Backend Configuration (`backend/index.js`)
 
-## ⌨️ Available commands
+Default configuration values used by the server:
 
-Run these from the `frontend/` directory.
-
-| Command | Purpose |
-| --- | --- |
-| `pnpm start` | Start the Angular development server. |
-| `pnpm build` | Create an optimized production build in `dist/`. |
-| `pnpm watch` | Rebuild in development mode when files change. |
-| `pnpm test` | Run the Angular/Vitest unit-test suite. |
-| `pnpm ng -- <command>` | Invoke Angular CLI commands directly. |
-
-## 🧭 Application routes
-
-| Path | View |
-| --- | --- |
-| `/` | Landing page and bus search |
-| `/select-bus` | Bus results and seat-selection flow |
-| `/payment/...` | Payment options and booking summary; parameters are passed by the booking form |
-| `/profile` | Account dashboard and trip/profile placeholders |
-
-## 🎟️ Booking flow
-
-```text
-Landing search → Bus results → Bus details → Seat selection
-      → Traveller form → Payment summary
+```env
+PORT=8000
+MONGODB_URL=mongodb://127.0.0.1:27017/tedbus-server
 ```
 
-Supported demo journeys include Delhi–Jaipur, Mumbai–Goa, Bangalore–Mysore, Kolkata–Darjeeling, and Chennai–Pondicherry. Other origin/destination combinations surface an availability dialog rather than navigating to results.
+### Frontend Configuration (`frontend/src/app/config/index.ts`)
 
-## 🧑‍💻 Development notes
+API Base URL configuration:
 
-- Components are declared in a module-based Angular application (`AppModule`), not standalone components.
-- Angular Material provides the menus, date picker, dialogs, table, drawer, divider, list, and icons; the primary responsive layout is styled with Tailwind utilities and component CSS.
-- The current bus-results page renders a single hard-coded `TravelXpress` sleeper bus for the Delhi–Jaipur route context. Filter and sort controls are presentational at this stage.
-- The payment view is UI-only. No payment action is wired to Stripe or the listed payment methods.
-- Existing component tests are basic creation tests. Add behavioural and integration coverage before production use.
+```typescript
+export const url: string = 'http://localhost:8000/';
+```
 
-## 🔒 Production considerations
+## Scripts
 
-To evolve this prototype into a production product, add a backend/API layer for route search, operator inventory, seat locks, booking records, authentication, and payments. Validate all traveller inputs, preserve booking state safely across navigation, replace placeholder data, and integrate a PCI-compliant payment provider.
+### Backend Scripts (`cd backend`)
+
+```bash
+pnpm start               # Starts Express backend server with Nodemon on port 8000
+node fix-bus-routes.js   # Fixes bus-route ObjectId relationships in MongoDB
+```
+
+### Frontend Scripts (`cd frontend`)
+
+```bash
+pnpm start               # Starts Angular development server on http://localhost:4200
+pnpm build               # Compiles production build in dist/ directory
+pnpm test                # Runs unit tests via Vitest & jsdom
+```
+
+## Usage
+
+1. Start MongoDB service locally on port `27017`.
+2. Start the backend server:
+   ```bash
+   cd backend
+   pnpm start
+   ```
+3. Start the frontend client in a new terminal:
+   ```bash
+   cd frontend
+   pnpm start
+   ```
+4. Open `http://localhost:4200` in your web browser.
+5. Search for a route (e.g., *Delhi to Jaipur*), select available seats, enter traveller details, and complete the booking process.
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
