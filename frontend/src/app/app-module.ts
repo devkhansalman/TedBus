@@ -34,7 +34,8 @@ import { PaymentPage } from './Components/payment-page/payment-page';
 import { ProfilePage } from './Components/profile-page/profile-page';
 import { MyTrip } from './Components/profile-page/my-trip/my-trip';
 
-import {HttpClientModule} from "@angular/common/http"
+import { HttpClientModule } from '@angular/common/http';
+// import { Bus } from './service/bus/bus';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import {HttpClientModule} from "@angular/common/http"
     PaymentPage,
     ProfilePage,
     MyTrip,
+    // Bus,
   ],
   imports: [
     BrowserModule,

@@ -25,10 +25,10 @@ export class LandingPage {
   matchDate(event:any){
     if(event.value){
       const date= new Date(event.value);
-      const day = date.getDay().toString().padStart(2,'0')
+      const day = date.getDate().toString().padStart(2,'0')
       const month = (date.getMonth()+1).toString().padStart(2,'0')
-      const year = (date.getFullYear()).toString().substr(-2)
-      this.date=`${day}/${month}/${year}`
+      const year = date.getFullYear();
+      this.date=`${year}-${month}-${day}`
     }
     else this.date="null"
     console.log(this.date); 

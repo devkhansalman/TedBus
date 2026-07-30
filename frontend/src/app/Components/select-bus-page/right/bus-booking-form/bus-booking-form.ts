@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { Dataservice } from '../../../../service/dataservice';
 
 @Component({
   selector: 'app-bus-booking-form',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrl: './bus-booking-form.css',
 })
 export class BusBookingForm {
-  @Input() selectedseat:number[]=[]
+ @Input() selectedseat:number[]=[]
 @Input() seatprice:number=0
 @Input()routedetails :any
 @Input() busid:string =''
@@ -22,14 +23,14 @@ passisbuisness:boolean=false
 passinsurance:boolean=false
 sendupdates:boolean=false
 passiscovid:boolean=false
-// constructor(private router:Router, private dataservice:DataserviceService){}
-constructor(private router:Router){}
+constructor(private router:Router, private dataservice:Dataservice){}
 
 
 
 handlePassGender(event: Event, index: number): void {
   const target = event.target as HTMLInputElement;
   if (!this.passdetails[index]) {
+    // If not, initialize it with default values
     this.passdetails[index] = { name: '', age: '', gender: '' };
   }
   this.passdetails[index].gender = target.value;
@@ -38,6 +39,7 @@ handlePassGender(event: Event, index: number): void {
 handlePassName(event: Event, index: number): void {
   const target = event.target as HTMLInputElement;
   if (!this.passdetails[index]) {
+    // If not, initialize it with default values
     this.passdetails[index] = { name: '', age: '', gender: '' };
   }
   this.passdetails[index].name = target.value;
@@ -46,6 +48,7 @@ handlePassName(event: Event, index: number): void {
 handlePassAge(event: Event, index: number): void {
   const target = event.target as HTMLInputElement;
   if (!this.passdetails[index]) {
+    // If not, initialize it with default values
     this.passdetails[index] = { name: '', age: '', gender: '' };
   }
   this.passdetails[index].age = target.value;
@@ -66,8 +69,8 @@ handleproceedtopay():void{
     busdeparturetime:this.busdeparturetime
   };
 
-  // this.dataservice.passobj(this.passdetails)
-  // this.dataservice.sendobj(this.routedetails)
+  this.dataservice.passobj(this.passdetails)
+  this.dataservice.sendobj(this.routedetails)
   this.router.navigate(['/payment',routeParams])
 }
 }
