@@ -16,9 +16,14 @@ app.use(bodyparse.json())
 const customerroutes=require("./routes/customer");
 const routesroute=require("./routes/route");
 const bookingroute=require("./routes/booking")
+const reviewroute=require("./routes/review");
+const notificationroute = require('./routes/notification');
+
 app.use(bookingroute)
 app.use(routesroute)
 app.use(customerroutes)
+app.use(reviewroute)
+app.use(notificationroute)
 
 
 const DB_URL="mongodb://127.0.0.1:27017/tedbus-server"

@@ -36,6 +36,18 @@ export class Customer {
     });
   }
 
+  getLanguagePreference(email: string): Observable<{ preferredLanguage: string }> {
+    return this.http.get<{ preferredLanguage: string }>(`${url}users/preferences/language`, {
+      headers: this.profileHeaders(email),
+    });
+  }
+
+  updateLanguagePreference(email: string, preferredLanguage: string): Observable<{ preferredLanguage: string }> {
+    return this.http.patch<{ preferredLanguage: string }>(`${url}users/preferences/language`, { preferredLanguage }, {
+      headers: this.profileHeaders(email),
+    });
+  }
+
   private profileHeaders(email: string): HttpHeaders {
     return new HttpHeaders({ 'x-user-email': email });
   }

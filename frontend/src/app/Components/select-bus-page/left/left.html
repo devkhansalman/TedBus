@@ -1,11 +1,11 @@
 <div class="left">
   <div class="left_filters">
-    <p>Filters</p>
+    <p>{{ 'BOOKING.FILTERS' | translate }}</p>
     <ul>
       <li (click)="handlelivetrackingclick()">
         <div class="first-section">
           <mat-icon>gps_fixed</mat-icon>
-          <span>Live Tracking</span>
+          <span>{{ 'BOOKING.LIVE_TRACKING' | translate }}</span>
 
           @if (sidefiltervalues.livetracking) {
             <mat-icon style="color: green;">check_circle_outline</mat-icon>
@@ -16,7 +16,7 @@
       <li (click)="handlerescheduleclick()">
         <div class="first-section">
           <mat-icon>restore</mat-icon>
-          <span>Reschedulable</span>
+          <span>{{ 'BOOKING.RESCHEDULABLE' | translate }}</span>
 
           @if (sidefiltervalues.reschedulable) {
             <mat-icon style="color: green;">check_circle_outline</mat-icon>
@@ -27,7 +27,7 @@
   </div>
 
   <div class="left_filters">
-    <p>DEPARTURE TIME</p>
+    <p>{{ 'BOOKING.DEPARTURE_TIME' | translate }}</p>
     <ul>
       @for (key of getobjectkey(sidefiltervalues.departuretime); track key) {
         <li class="first-section">
@@ -48,7 +48,7 @@
   </div>
 
   <div class="left_filters">
-    <p>BUS TYPES</p>
+    <p>{{ 'BOOKING.BUS_TYPES' | translate }}</p>
     <ul>
       @for (key of getobjectkey(sidefiltervalues.bustype); track key) {
         <li class="first-section">
@@ -69,7 +69,7 @@
   </div>
 
   <div class="left_filters">
-    <p>ARRIVAL TIME</p>
+    <p>{{ 'BOOKING.ARRIVAL_TIME' | translate }}</p>
     <ul>
       @for (key of getobjectkey(sidefiltervalues.arrivaltime); track key) {
         <li class="first-section">
@@ -90,7 +90,7 @@
   </div>
 
   <div class="left_filters">
-    <p>AMENITIES</p>
+    <p>{{ 'BOOKING.AMENITIES' | translate }}</p>
     <ul>
       @for (key of getobjectkey(sidefiltervalues.amenities); track key) {
         <li class="first-section">

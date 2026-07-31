@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ReviewService } from '../../../../service/review.service';
+import { ReviewModal } from '../../../review-modal/review-modal';
 
 @Component({
   selector: 'app-bus-box',
@@ -24,10 +27,12 @@ export class BusBox implements OnInit {
   busdeparturetime: number = 0;
   busarrivaltime: number = 0;
 
-  constructor() {}
+  constructor(
+    public dialog: MatDialog,
+    private reviewService: ReviewService
+  ) {}
 
   ngOnInit(): void {
-    // Fix: use reduce for correct sum, and length for count
     if (this.rating && this.rating.length > 0) {
       const sum = this.rating.reduce((acc, val) => acc + val, 0);
       this.totalreview = this.rating.length;
@@ -37,11 +42,20 @@ export class BusBox implements OnInit {
       this.totalreview = 0;
     }
 
-    // Guard against null routedetails while data is loading
-    const duration = this.routedetails?.duration ?? 0;
+    if (this.busid) {
+      this.reviewService.getBusReviews(this.busid).subscribe({
+        next: (res) => {
+          if (res.reviews && res.reviews.length > 0) {
+            this.totalreview = res.reviews.length;
+            const sum = res.reviews.reduce((acc, r) => acc + r.rating, 0);
+            this.avgrating = +(sum / res.reviews.length).toFixed(1);
+          }
+        },
+        error: () => {}
+      });
+    }
 
-    // Fix: normalize busType to lowercase and strip spaces/slashes for reliable matching
-    // DB has: "Standard", "standard", "Sleeper", "A/C Seater", "AC Seater", "AC Sleeper"
+    const duration = this.routedetails?.duration ?? 0;
     const normalizedType = this.bustype.toLowerCase().replace(/[\s\/\-]/g, '');
 
     if (normalizedType === 'standard') {
@@ -51,11 +65,9 @@ export class BusBox implements OnInit {
       this.seatprivce = 100 * Math.floor(duration) / 2;
       this.bustypename = 'Sleeper';
     } else if (normalizedType === 'acseater') {
-      // Matches: "A/C Seater", "AC Seater"
       this.seatprivce = 125 * Math.floor(duration) / 2;
       this.bustypename = 'A/C Seater';
     } else if (normalizedType === 'acsleeper') {
-      // Matches: "AC Sleeper"
       this.seatprivce = 150 * Math.floor(duration) / 2;
       this.bustypename = 'A/C Sleeper';
     } else {
@@ -66,5 +78,16 @@ export class BusBox implements OnInit {
     const numericvalue = parseInt(this.departuretime, 10) || 0;
     this.busdeparturetime = numericvalue;
     this.busarrivaltime = (numericvalue + duration) % 24;
+  }
+
+  openReviews(): void {
+    this.dialog.open(ReviewModal, {
+      data: {
+        busid: this.busid,
+        operatorname: this.operatorname,
+      },
+      width: '680px',
+      maxWidth: '95vw',
+    });
   }
 }

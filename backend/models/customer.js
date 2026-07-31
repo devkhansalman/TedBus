@@ -34,6 +34,11 @@ const customerSchema = new Schema({
     enum: ["light", "dark"],
     default: "light",
   },
+  preferredLanguage: {
+    type: String,
+    enum: ["en", "hi", "fr", "de", "es", "ta"],
+    default: "en",
+  },
 });
 
 module.exports=mongoose.model("Customers",customerSchema)

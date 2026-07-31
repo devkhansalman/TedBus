@@ -3,7 +3,7 @@
 
     <!-- Loading state -->
     <div *ngIf="isLoading" style="padding: 20px; text-align: center;">
-        Loading buses...
+        {{ 'LOADING.LOADING' | translate }}
     </div>
 
     <!-- Error state -->
@@ -13,7 +13,7 @@
 
     <!-- No buses found -->
     <div *ngIf="!isLoading && !errorMessage && matchedbus.length === 0" style="padding: 20px; text-align: center;">
-        No buses found for the selected route and date.
+        {{ 'EMPTY.NO_RESULTS' | translate }}
     </div>
 
     <!-- Bus list: iterate over each bus and pass real data -->

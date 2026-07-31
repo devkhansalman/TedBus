@@ -1,181 +1,488 @@
-<div class="drawer-inner">
+<div class="booking-wizard-sidebar space-y-3">
 
-  <!-- ── Header ───────────────────────────────────────────────────── -->
-  <div class="form-header">
-    <div class="form-header-title">Complete Your Booking</div>
-    <div class="form-header-subtitle">Fill in passenger details to proceed</div>
+  <!-- ── WIZARD STEPPER HEADER ──────────────────────────────────────── -->
+  <div class="stepper-nav p-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+    <div class="stepper-track flex items-center justify-between">
+      <!-- Step 1 Badge -->
+      <button type="button" class="stepper-item flex flex-col items-center gap-1 text-[11px] font-bold transition"
+              [class.text-red-500]="currentStep === 1"
+              [class.text-emerald-600]="maxReachedStep > 1"
+              [class.text-slate-400]="currentStep !== 1 && maxReachedStep <= 1"
+              (click)="setStep(1)">
+        <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold border transition"
+             [class.bg-red-500]="currentStep === 1"
+             [class.text-white]="currentStep === 1"
+             [class.border-red-500]="currentStep === 1"
+             [class.bg-emerald-500]="maxReachedStep > 1 && currentStep !== 1"
+             [class.border-emerald-500]="maxReachedStep > 1 && currentStep !== 1"
+             [class.bg-slate-100]="maxReachedStep <= 1 && currentStep !== 1"
+             [class.dark:bg-slate-800]="maxReachedStep <= 1 && currentStep !== 1"
+             [class.border-slate-300]="maxReachedStep <= 1 && currentStep !== 1">
+          <i *ngIf="maxReachedStep > 1 && currentStep !== 1" class="material-icons text-xs text-white">check</i>
+          <span *ngIf="maxReachedStep <= 1 || currentStep === 1">1</span>
+        </div>
+        <span>{{ 'COMMON.SEATS' | translate }}</span>
+      </button>
+
+      <div class="stepper-line flex-1 h-0.5 mx-1.5 transition-colors" [class.bg-emerald-500]="maxReachedStep >= 2" [class.bg-slate-200]="maxReachedStep < 2" [class.dark:bg-slate-800]="maxReachedStep < 2"></div>
+
+      <!-- Step 2 Badge -->
+      <button type="button" class="stepper-item flex flex-col items-center gap-1 text-[11px] font-bold transition"
+              [class.text-red-500]="currentStep === 2"
+              [class.text-emerald-600]="maxReachedStep > 2"
+              [class.text-slate-400]="currentStep !== 2 && maxReachedStep <= 2"
+              [disabled]="maxReachedStep < 2"
+              (click)="setStep(2)">
+        <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold border transition"
+             [class.bg-red-500]="currentStep === 2"
+             [class.text-white]="currentStep === 2"
+             [class.border-red-500]="currentStep === 2"
+             [class.bg-emerald-500]="maxReachedStep > 2 && currentStep !== 2"
+             [class.border-emerald-500]="maxReachedStep > 2 && currentStep !== 2"
+             [class.bg-slate-100]="maxReachedStep <= 2 && currentStep !== 2"
+             [class.dark:bg-slate-800]="maxReachedStep <= 2 && currentStep !== 2"
+             [class.border-slate-300]="maxReachedStep <= 2 && currentStep !== 2">
+          <i *ngIf="maxReachedStep > 2 && currentStep !== 2" class="material-icons text-xs text-white">check</i>
+          <span *ngIf="maxReachedStep <= 2 || currentStep === 2">2</span>
+        </div>
+        <span>{{ 'BOOKING.PASSENGER_DETAILS' | translate }}</span>
+      </button>
+
+      <div class="stepper-line flex-1 h-0.5 mx-1.5 transition-colors" [class.bg-emerald-500]="maxReachedStep >= 3" [class.bg-slate-200]="maxReachedStep < 3" [class.dark:bg-slate-800]="maxReachedStep < 3"></div>
+
+      <!-- Step 3 Badge -->
+      <button type="button" class="stepper-item flex flex-col items-center gap-1 text-[11px] font-bold transition"
+              [class.text-red-500]="currentStep === 3"
+              [class.text-emerald-600]="maxReachedStep > 3"
+              [class.text-slate-400]="currentStep !== 3 && maxReachedStep <= 3"
+              [disabled]="maxReachedStep < 3"
+              (click)="setStep(3)">
+        <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold border transition"
+             [class.bg-red-500]="currentStep === 3"
+             [class.text-white]="currentStep === 3"
+             [class.border-red-500]="currentStep === 3"
+             [class.bg-emerald-500]="maxReachedStep > 3 && currentStep !== 3"
+             [class.border-emerald-500]="maxReachedStep > 3 && currentStep !== 3"
+             [class.bg-slate-100]="maxReachedStep <= 3 && currentStep !== 3"
+             [class.dark:bg-slate-800]="maxReachedStep <= 3 && currentStep !== 3"
+             [class.border-slate-300]="maxReachedStep <= 3 && currentStep !== 3">
+          <i *ngIf="maxReachedStep > 3 && currentStep !== 3" class="material-icons text-xs text-white">check</i>
+          <span *ngIf="maxReachedStep <= 3 || currentStep === 3">3</span>
+        </div>
+        <span>{{ 'BOOKING.CONTACT_INFO' | translate }}</span>
+      </button>
+
+      <div class="stepper-line flex-1 h-0.5 mx-1.5 transition-colors" [class.bg-emerald-500]="maxReachedStep >= 4" [class.bg-slate-200]="maxReachedStep < 4" [class.dark:bg-slate-800]="maxReachedStep < 4"></div>
+
+      <!-- Step 4 Badge -->
+      <button type="button" class="stepper-item flex flex-col items-center gap-1 text-[11px] font-bold transition"
+              [class.text-red-500]="currentStep === 4"
+              [class.text-emerald-600]="maxReachedStep > 4"
+              [class.text-slate-400]="currentStep !== 4 && maxReachedStep <= 4"
+              [disabled]="maxReachedStep < 4"
+              (click)="setStep(4)">
+        <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold border transition"
+             [class.bg-red-500]="currentStep === 4"
+             [class.text-white]="currentStep === 4"
+             [class.border-red-500]="currentStep === 4"
+             [class.bg-emerald-500]="maxReachedStep > 4 && currentStep !== 4"
+             [class.border-emerald-500]="maxReachedStep > 4 && currentStep !== 4"
+             [class.bg-slate-100]="maxReachedStep <= 4 && currentStep !== 4"
+             [class.dark:bg-slate-800]="maxReachedStep <= 4 && currentStep !== 4"
+             [class.border-slate-300]="maxReachedStep <= 4 && currentStep !== 4">
+          <i *ngIf="maxReachedStep > 4 && currentStep !== 4" class="material-icons text-xs text-white">check</i>
+          <span *ngIf="maxReachedStep <= 4 || currentStep === 4">4</span>
+        </div>
+        <span>{{ 'BOOKING.TRAVEL_EXTRAS' | translate }}</span>
+      </button>
+
+      <div class="stepper-line flex-1 h-0.5 mx-1.5 transition-colors" [class.bg-emerald-500]="maxReachedStep >= 5" [class.bg-slate-200]="maxReachedStep < 5" [class.dark:bg-slate-800]="maxReachedStep < 5"></div>
+
+      <!-- Step 5 Badge -->
+      <button type="button" class="stepper-item flex flex-col items-center gap-1 text-[11px] font-bold transition"
+              [class.text-red-500]="currentStep === 5"
+              [class.text-slate-400]="currentStep !== 5"
+              [disabled]="maxReachedStep < 5"
+              (click)="setStep(5)">
+        <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold border transition"
+             [class.bg-red-500]="currentStep === 5"
+             [class.text-white]="currentStep === 5"
+             [class.border-red-500]="currentStep === 5"
+             [class.bg-slate-100]="currentStep !== 5"
+             [class.dark:bg-slate-800]="currentStep !== 5"
+             [class.border-slate-300]="currentStep !== 5">
+          <span>5</span>
+        </div>
+        <span>{{ 'BOOKING.PROCEED' | translate }}</span>
+      </button>
+    </div>
   </div>
 
-  <!-- ── Passenger Details ────────────────────────────────────────── -->
-  <div class="section-card">
-    <div class="section-title-bar">
-      <div class="section-icon passenger">
-        <i class="material-icons" style="font-size:18px;">people</i>
+
+  <!-- ── STEP 1: SEAT SELECTION SUMMARY ─────────────────────────────── -->
+  <div class="step-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-all">
+    <div class="step-card-header p-3.5 flex justify-between items-center cursor-pointer select-none border-b border-slate-100 dark:border-slate-800" (click)="setStep(1)">
+      <div class="flex items-center gap-2">
+        <span class="step-badge w-6 h-6 rounded-full text-xs font-extrabold flex items-center justify-center"
+              [class.bg-emerald-500]="maxReachedStep > 1"
+              [class.text-white]="maxReachedStep > 1"
+              [class.bg-red-500]="maxReachedStep <= 1"
+              [class.text-white]="maxReachedStep <= 1">
+          <i *ngIf="maxReachedStep > 1" class="material-icons text-xs">check</i>
+          <span *ngIf="maxReachedStep <= 1">1</span>
+        </span>
+        <h3 class="font-bold text-xs text-slate-900 dark:text-white">1. {{ 'BOOKING.SELECT_SEATS' | translate }}</h3>
       </div>
-      <div class="section-title-text">
-        <h3>Passenger Details</h3>
-        <p>Enter details for each seat selected</p>
+      <div *ngIf="currentStep !== 1 && selectedseat.length" class="text-[11px] font-bold text-red-500">
+        {{ selectedseat.length }} {{ 'COMMON.SEATS' | translate }} ({{ selectedseat.join(', ') }})
       </div>
     </div>
 
-    <div class="section-body">
-      <ng-container *ngFor="let seat of selectedseat; let idx = index">
-        <div class="passenger-block">
+    <div class="step-card-body p-3.5 space-y-3" *ngIf="currentStep === 1">
+      <div class="route-info-box p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700/60">
+        <div class="flex justify-between items-center text-xs font-bold text-slate-800 dark:text-slate-200 mb-1.5">
+          <span>{{ routedetails?.departureLocation?.name || 'Origin' }}</span>
+          <i class="material-icons text-red-500 text-sm">arrow_forward</i>
+          <span>{{ routedetails?.arrivalLocation?.name || 'Destination' }}</span>
+        </div>
+        <div class="flex justify-between text-[11px] text-slate-500 dark:text-slate-400">
+          <span>{{ 'BOOKING.DEPARTURE_TIME' | translate }}: {{ busdeparturetime }}:00</span>
+          <span>{{ 'BOOKING.ARRIVAL_TIME' | translate }}: {{ busarrivaltime }}:00</span>
+        </div>
+      </div>
 
-          <div class="passenger-header">
-            <div class="passenger-badge">{{ idx + 1 }}</div>
-            <div class="passenger-label">Passenger {{ idx + 1 }}</div>
-            <div class="seat-tag">
-              <i class="material-icons" style="font-size:11px;vertical-align:middle;">event_seat</i>
-              Seat {{ seat }}
-            </div>
+      <div class="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700/60 flex justify-between items-center">
+        <div>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400">{{ 'BOOKING.SELECTED_SEATS' | translate }}</p>
+          <p class="text-xs font-extrabold text-slate-900 dark:text-white mt-0.5">
+            {{ selectedseat.length ? selectedseat.join(', ') : ('BOOKING.NO_SEAT_SELECTED' | translate) }}
+          </p>
+        </div>
+        <div class="text-right">
+          <p class="text-[11px] text-slate-500 dark:text-slate-400">{{ 'BOOKING.SEAT_COUNT' | translate }}</p>
+          <p class="text-xs font-extrabold text-red-500 mt-0.5">{{ selectedseat.length }} {{ 'COMMON.SEATS' | translate }}</p>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center p-3 bg-amber-50 dark:bg-amber-950/40 rounded-xl border border-amber-200 dark:border-amber-800/40">
+        <span class="text-xs font-semibold text-amber-900 dark:text-amber-300">{{ 'BOOKING.BASE_FARE' | translate }}</span>
+        <span class="text-sm font-extrabold text-amber-700 dark:text-amber-400">₹{{ getBaseFare() }}</span>
+      </div>
+
+      <button type="button" (click)="goToStep2()" [disabled]="!selectedseat.length"
+              class="w-full py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-bold text-xs shadow-md shadow-red-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-1.5">
+        <span>{{ 'COMMON.CONTINUE' | translate }}</span>
+        <i class="material-icons text-sm">arrow_forward</i>
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ── STEP 2: PASSENGER DETAILS ───────────────────────────────────── -->
+  <div class="step-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-all">
+    <div class="step-card-header p-3.5 flex justify-between items-center cursor-pointer select-none border-b border-slate-100 dark:border-slate-800" (click)="setStep(2)">
+      <div class="flex items-center gap-2">
+        <span class="step-badge w-6 h-6 rounded-full text-xs font-extrabold flex items-center justify-center"
+              [class.bg-emerald-500]="maxReachedStep > 2"
+              [class.text-white]="maxReachedStep > 2"
+              [class.bg-slate-200]="maxReachedStep <= 2"
+              [class.dark:bg-slate-800]="maxReachedStep <= 2"
+              [class.text-slate-600]="maxReachedStep <= 2"
+              [class.dark:text-slate-300]="maxReachedStep <= 2">
+          <i *ngIf="maxReachedStep > 2" class="material-icons text-xs">check</i>
+          <span *ngIf="maxReachedStep <= 2">2</span>
+        </span>
+        <h3 class="font-bold text-xs text-slate-900 dark:text-white">2. {{ 'BOOKING.PASSENGER_DETAILS' | translate }}</h3>
+      </div>
+      <div *ngIf="currentStep !== 2 && maxReachedStep > 2" class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+        <i class="material-icons text-xs">check_circle</i>
+        <span>{{ 'STATUS.COMPLETED' | translate }}</span>
+      </div>
+    </div>
+
+    <div class="step-card-body p-3.5 space-y-3" *ngIf="currentStep === 2">
+      <div *ngFor="let seat of selectedseat; let idx = index" class="passenger-accordion-card rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/40 overflow-hidden">
+        <div class="pass-card-header p-2.5 flex justify-between items-center cursor-pointer select-none bg-slate-100/70 dark:bg-slate-800/80" (click)="togglePassengerCard(idx)">
+          <div class="flex items-center gap-2">
+            <span class="pass-idx w-5 h-5 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center">{{ idx + 1 }}</span>
+            <span class="text-xs font-bold text-slate-900 dark:text-white">{{ 'COMMON.PASSENGERS' | translate }} {{ idx + 1 }}</span>
+            <span class="seat-badge text-[10px] font-extrabold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded-md border border-slate-200 dark:border-slate-600">{{ 'COMMON.SEATS' | translate }} {{ seat }}</span>
+          </div>
+          <i class="material-icons text-slate-400 text-sm">
+            {{ expandedPassengerIndex === idx ? 'expand_less' : 'expand_more' }}
+          </i>
+        </div>
+
+        <div class="pass-card-body p-3 space-y-3" *ngIf="expandedPassengerIndex === idx">
+          <!-- Full Name -->
+          <div>
+            <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">{{ 'BOOKING.FULL_NAME' | translate }}</label>
+            <input type="text" placeholder="e.g. Rahul Sharma" [value]="passdetails[idx]?.name || ''"
+                   (input)="handlePassName($event, idx)"
+                   class="w-full p-2 text-xs rounded-lg border bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                   [class.border-red-500]="passengerErrors[idx]?.name" />
+            <p *ngIf="passengerErrors[idx]?.name" class="text-[10px] text-red-500 font-semibold mt-1">
+              {{ passengerErrors[idx]?.name }}
+            </p>
           </div>
 
-          <!-- Name -->
-          <div class="field-group">
-            <label class="field-label">Full Name</label>
-            <input class="field-input" type="text" placeholder="e.g. Rahul Sharma"
-                   (change)="handlePassName($event, idx)" />
-          </div>
-
-          <!-- Gender + Age side by side -->
-          <div class="field-row">
-            <div class="field-group">
-              <label class="field-label">Gender</label>
-              <div class="gender-options" (change)="handlePassGender($event, idx)">
-                <label class="gender-option">
-                  <input type="radio" [name]="'gender' + idx" value="Male" />
-                  Male
+          <!-- Gender & Age Row -->
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">{{ 'BOOKING.GENDER' | translate }}</label>
+              <div class="flex gap-1.5 text-xs">
+                <label class="flex-1 py-1.5 px-2 rounded-lg border text-center cursor-pointer select-none font-medium text-[11px]"
+                       [class.border-red-500]="passdetails[idx]?.gender === 'Male'"
+                       [class.bg-red-50]="passdetails[idx]?.gender === 'Male'"
+                       [class.dark:bg-red-950/40]="passdetails[idx]?.gender === 'Male'"
+                       [class.text-red-600]="passdetails[idx]?.gender === 'Male'"
+                       [class.border-slate-300]="passdetails[idx]?.gender !== 'Male'"
+                       [class.dark:border-slate-700]="passdetails[idx]?.gender !== 'Male'">
+                  <input type="radio" [name]="'gender' + idx" value="Male" class="hidden" (change)="handlePassGender('Male', idx)" [checked]="passdetails[idx]?.gender === 'Male'" />
+                  {{ 'BOOKING.MALE' | translate }}
                 </label>
-                <label class="gender-option">
-                  <input type="radio" [name]="'gender' + idx" value="Female" />
-                  Female
+
+                <label class="flex-1 py-1.5 px-2 rounded-lg border text-center cursor-pointer select-none font-medium text-[11px]"
+                       [class.border-red-500]="passdetails[idx]?.gender === 'Female'"
+                       [class.bg-red-50]="passdetails[idx]?.gender === 'Female'"
+                       [class.dark:bg-red-950/40]="passdetails[idx]?.gender === 'Female'"
+                       [class.text-red-600]="passdetails[idx]?.gender === 'Female'"
+                       [class.border-slate-300]="passdetails[idx]?.gender !== 'Female'"
+                       [class.dark:border-slate-700]="passdetails[idx]?.gender !== 'Female'">
+                  <input type="radio" [name]="'gender' + idx" value="Female" class="hidden" (change)="handlePassGender('Female', idx)" [checked]="passdetails[idx]?.gender === 'Female'" />
+                  {{ 'BOOKING.FEMALE' | translate }}
                 </label>
               </div>
             </div>
 
-            <div class="field-group">
-              <label class="field-label">Age</label>
-              <input class="field-input" type="number" placeholder="e.g. 25" min="1" max="120"
-                     (change)="handlePassAge($event, idx)" />
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">{{ 'BOOKING.AGE' | translate }}</label>
+              <input type="number" [placeholder]="'BOOKING.AGE' | translate" [value]="passdetails[idx]?.age || ''" min="1" max="120"
+                     (input)="handlePassAge($event, idx)"
+                     class="w-full p-2 text-xs rounded-lg border bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                     [class.border-red-500]="passengerErrors[idx]?.age" />
+              <p *ngIf="passengerErrors[idx]?.age" class="text-[10px] text-red-500 font-semibold mt-1">
+                {{ passengerErrors[idx]?.age }}
+              </p>
             </div>
           </div>
-
         </div>
-      </ng-container>
+      </div>
+
+      <button type="button" (click)="goToStep3()"
+              class="w-full py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-bold text-xs shadow-md shadow-red-500/20 transition cursor-pointer flex items-center justify-center gap-1.5 mt-2">
+        <span>{{ 'COMMON.CONTINUE' | translate }}</span>
+        <i class="material-icons text-sm">arrow_forward</i>
+      </button>
     </div>
   </div>
 
-  <!-- ── Contact Details ──────────────────────────────────────────── -->
-  <div class="section-card">
-    <div class="section-title-bar">
-      <div class="section-icon contact">
-        <i class="material-icons" style="font-size:18px;">email</i>
+
+  <!-- ── STEP 3: CONTACT DETAILS ─────────────────────────────────────── -->
+  <div class="step-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-all">
+    <div class="step-card-header p-3.5 flex justify-between items-center cursor-pointer select-none border-b border-slate-100 dark:border-slate-800" (click)="setStep(3)">
+      <div class="flex items-center gap-2">
+        <span class="step-badge w-6 h-6 rounded-full text-xs font-extrabold flex items-center justify-center"
+              [class.bg-emerald-500]="maxReachedStep > 3"
+              [class.text-white]="maxReachedStep > 3"
+              [class.bg-slate-200]="maxReachedStep <= 3"
+              [class.dark:bg-slate-800]="maxReachedStep <= 3"
+              [class.text-slate-600]="maxReachedStep <= 3"
+              [class.dark:text-slate-300]="maxReachedStep <= 3">
+          <i *ngIf="maxReachedStep > 3" class="material-icons text-xs">check</i>
+          <span *ngIf="maxReachedStep <= 3">3</span>
+        </span>
+        <h3 class="font-bold text-xs text-slate-900 dark:text-white">3. {{ 'BOOKING.CONTACT_INFO' | translate }}</h3>
       </div>
-      <div class="section-title-text">
-        <h3>Contact Details</h3>
-        <p>Your ticket will be sent to these details</p>
+      <div *ngIf="currentStep !== 3 && maxReachedStep > 3" class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+        <i class="material-icons text-xs">check_circle</i>
+        <span>{{ passemail }}</span>
       </div>
     </div>
 
-    <div class="section-body">
-      <!-- Email -->
-      <div class="field-group">
-        <label class="field-label">Email Address</label>
-        <input class="field-input" type="email" placeholder="e.g. rahul@email.com" [(ngModel)]="passemail" />
+    <div class="step-card-body p-3.5 space-y-3" *ngIf="currentStep === 3">
+      <!-- Email Address -->
+      <div>
+        <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">{{ 'BOOKING.EMAIL_ADDRESS' | translate }}</label>
+        <input type="email" placeholder="e.g. rahul@example.com" [(ngModel)]="passemail"
+               class="w-full p-2.5 text-xs rounded-lg border bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-red-500 focus:outline-none"
+               [class.border-red-500]="contactErrors.email" />
+        <p *ngIf="contactErrors.email" class="text-[10px] text-red-500 font-semibold mt-1">{{ contactErrors.email }}</p>
       </div>
 
-      <!-- Phone -->
-      <div class="field-group">
-        <label class="field-label">Phone Number</label>
-        <div class="phone-row">
-          <input class="phone-prefix" type="text" value="+91" readonly />
-          <input class="field-input" type="tel" placeholder="10-digit mobile number" [(ngModel)]="passphn" />
+      <!-- Mobile Number -->
+      <div>
+        <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">{{ 'BOOKING.MOBILE_NUMBER' | translate }}</label>
+        <div class="flex gap-2">
+          <span class="px-2.5 py-2 text-xs font-bold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-600 dark:text-slate-300 flex items-center">
+            +91
+          </span>
+          <input type="tel" placeholder="10-digit mobile number" [(ngModel)]="passphn"
+                 class="flex-1 p-2.5 text-xs rounded-lg border bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                 [class.border-red-500]="contactErrors.phone" />
         </div>
+        <p *ngIf="contactErrors.phone" class="text-[10px] text-red-500 font-semibold mt-1">{{ contactErrors.phone }}</p>
       </div>
 
       <!-- Business Travel -->
-      <div class="check-row">
-        <input type="checkbox" id="biz-travel" [(ngModel)]="passisbuisness" />
-        <label class="check-label" for="biz-travel">
-          I am booking this ticket for <strong>business travel</strong>
-        </label>
-      </div>
+      <label class="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 cursor-pointer pt-1">
+        <input type="checkbox" [(ngModel)]="passisbuisness" class="rounded accent-red-500" />
+        <span>{{ 'BOOKING.BUSINESS_TRAVEL' | translate }}</span>
+      </label>
 
-      <!-- WhatsApp updates -->
-      <div class="whatsapp-row">
-        <input type="checkbox" id="whatsapp-updates" [(ngModel)]="sendupdates" />
-        <svg class="whatsapp-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path fill="currentColor"
-            d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91c0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23c-1.48 0-2.93-.39-4.19-1.15l-.3-.17l-3.12.82l.83-3.04l-.2-.32a8.2 8.2 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.25-8.24M8.53 7.33c-.16 0-.43.06-.66.31c-.22.25-.87.86-.87 2.07c0 1.22.89 2.39 1 2.56c.14.17 1.76 2.67 4.25 3.73c.59.27 1.05.42 1.41.53c.59.19 1.13.16 1.56.1c.48-.07 1.46-.6 1.67-1.18s.21-1.07.15-1.18c-.07-.1-.23-.16-.48-.27c-.25-.14-1.47-.74-1.69-.82c-.23-.08-.37-.12-.56.12c-.16.25-.64.81-.78.97c-.15.17-.29.19-.53.07c-.26-.13-1.06-.39-2-1.23c-.74-.66-1.23-1.47-1.38-1.72c-.12-.24-.01-.39.11-.5c.11-.11.27-.29.37-.44c.13-.14.17-.25.25-.41c.08-.17.04-.31-.02-.43c-.06-.11-.56-1.35-.77-1.84c-.2-.48-.4-.42-.56-.43c-.14 0-.3-.01-.47-.01" />
-        </svg>
-        <label class="check-label" for="whatsapp-updates">
-          Send booking updates on my <strong>WhatsApp</strong>
-        </label>
-      </div>
+      <!-- WhatsApp Updates -->
+      <label class="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 cursor-pointer">
+        <input type="checkbox" [(ngModel)]="sendupdates" class="rounded accent-red-500" />
+        <span class="flex items-center gap-1">
+          {{ 'BOOKING.WHATSAPP_UPDATES' | translate }}
+        </span>
+      </label>
+
+      <button type="button" (click)="goToStep4()"
+              class="w-full py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-bold text-xs shadow-md shadow-red-500/20 transition cursor-pointer flex items-center justify-center gap-1.5 mt-2">
+        <span>{{ 'COMMON.CONTINUE' | translate }}</span>
+        <i class="material-icons text-sm">arrow_forward</i>
+      </button>
     </div>
   </div>
 
-  <!-- ── Travel Insurance ──────────────────────────────────────────── -->
-  <div class="section-card">
-    <div class="section-title-bar">
-      <div class="section-icon insurance">
-        <i class="material-icons" style="font-size:18px;">health_and_safety</i>
+
+  <!-- ── STEP 4: TRAVEL EXTRAS & COUPONS ─────────────────────────────── -->
+  <div class="step-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-all">
+    <div class="step-card-header p-3.5 flex justify-between items-center cursor-pointer select-none border-b border-slate-100 dark:border-slate-800" (click)="setStep(4)">
+      <div class="flex items-center gap-2">
+        <span class="step-badge w-6 h-6 rounded-full text-xs font-extrabold flex items-center justify-center"
+              [class.bg-emerald-500]="maxReachedStep > 4"
+              [class.text-white]="maxReachedStep > 4"
+              [class.bg-slate-200]="maxReachedStep <= 4"
+              [class.dark:bg-slate-800]="maxReachedStep <= 4"
+              [class.text-slate-600]="maxReachedStep <= 4"
+              [class.dark:text-slate-300]="maxReachedStep <= 4">
+          <i *ngIf="maxReachedStep > 4" class="material-icons text-xs">check</i>
+          <span *ngIf="maxReachedStep <= 4">4</span>
+        </span>
+        <h3 class="font-bold text-xs text-slate-900 dark:text-white">4. {{ 'BOOKING.TRAVEL_EXTRAS' | translate }}</h3>
       </div>
-      <div class="section-title-text">
-        <h3>Travel Insurance</h3>
-        <p>Powered by ICICI Lombard GIC Ltd</p>
+      <div *ngIf="currentStep !== 4 && maxReachedStep > 4" class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+        <i class="material-icons text-xs">check_circle</i>
+        <span>{{ 'STATUS.COMPLETED' | translate }}</span>
       </div>
     </div>
 
-    <div class="section-body">
-      <div class="insurance-banner">
-        ⚡ Add travel insurance for just <strong>₹15 per passenger</strong> and travel worry-free
-      </div>
-
-      <div class="insurance-perks">
-        <div class="perk-card">
-          <img src="https://s1.rdbuz.com/apps/images/india-acko-insurance/luggage.png" alt="Luggage" />
-          <div class="perk-title">Baggage Loss</div>
-          <div class="perk-desc">Upto ₹3,000 cover</div>
+    <div class="step-card-body p-3.5 space-y-3" *ngIf="currentStep === 4">
+      <!-- ICICI Lombard Insurance Card -->
+      <div class="p-3 rounded-xl border border-slate-200 dark:border-slate-700/60 bg-slate-50 dark:bg-slate-800/40 space-y-2">
+        <div class="flex justify-between items-center">
+          <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1">
+            <i class="material-icons text-amber-500 text-sm">health_and_safety</i>
+            {{ 'BOOKING.TRAVEL_INSURANCE' | translate }}
+          </span>
+          <span class="text-[10px] font-extrabold text-amber-700 dark:text-amber-400 bg-amber-100 dark:bg-amber-950 px-2 py-0.5 rounded-md">
+            ₹15 / pass
+          </span>
         </div>
-        <div class="perk-card">
-          <img src="https://s1.rdbuz.com/apps/images/india-acko-insurance/accident.png" alt="Accident" />
-          <div class="perk-title">Personal Accident</div>
-          <div class="perk-desc">₹6,00,000 cover</div>
-        </div>
-      </div>
-
-      <div class="check-row">
-        <input type="checkbox" id="insurance" [(ngModel)]="passinsurance" />
-        <label class="check-label" for="insurance">
-          Yes, secure my trip with insurance. I have read and understood the Terms &amp; Conditions.
+        <p class="text-[11px] text-slate-500 dark:text-slate-400">
+          Upto ₹6,00,000 accident cover & ₹3,000 baggage loss cover powered by ICICI Lombard.
+        </p>
+        <label class="flex items-center gap-2 text-xs font-semibold text-slate-800 dark:text-slate-200 cursor-pointer pt-1">
+          <input type="checkbox" [(ngModel)]="passinsurance" class="rounded accent-red-500" />
+          <span>{{ 'BOOKING.SECURE_TRIP' | translate }}</span>
         </label>
       </div>
 
-      <!-- COVID Donation -->
-      <div class="covid-row">
-        <i class="material-icons covid-icon">favorite</i>
-        <div>
-          <input type="checkbox" id="covid" [(ngModel)]="passiscovid" />
-          <label class="check-label" for="covid" style="display:inline; margin-left:8px;">
-            <strong>COVID Donation</strong> — Contribute to relief efforts
-          </label>
-        </div>
+      <!-- COVID Relief Donation -->
+      <div class="p-3 rounded-xl border border-slate-200 dark:border-slate-700/60 bg-slate-50 dark:bg-slate-800/40 flex items-center justify-between">
+        <label class="flex items-center gap-2 text-xs font-semibold text-slate-800 dark:text-slate-200 cursor-pointer">
+          <input type="checkbox" [(ngModel)]="passiscovid" class="rounded accent-red-500" />
+          <span>{{ 'BOOKING.COVID_RELIEF' | translate }}</span>
+        </label>
+        <i class="material-icons text-red-500 text-sm">favorite</i>
       </div>
+
+      <!-- Promo Code / Coupon Section -->
+      <div class="space-y-1.5 pt-1">
+        <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300">{{ 'BOOKING.PROMO_CODE' | translate }}</label>
+        <div class="flex gap-2" *ngIf="!appliedCoupon">
+          <input type="text" placeholder="Try TEDBUS10" [(ngModel)]="couponCode"
+                 class="flex-1 p-2 text-xs uppercase rounded-lg border bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-red-500 focus:outline-none" />
+          <button type="button" (click)="applyCoupon()"
+                  class="px-3 py-2 text-xs font-bold rounded-lg bg-slate-900 text-white hover:bg-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 transition cursor-pointer">
+            {{ 'BOOKING.APPLY' | translate }}
+          </button>
+        </div>
+
+        <div *ngIf="appliedCoupon" class="flex justify-between items-center p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-xs">
+          <span class="font-bold text-emerald-700 dark:text-emerald-400">Coupon {{ appliedCoupon }} (Saved ₹{{ couponDiscount }})</span>
+          <button type="button" (click)="removeCoupon()" class="text-red-500 text-[11px] font-bold hover:underline">{{ 'BOOKING.REMOVE' | translate }}</button>
+        </div>
+
+        <p *ngIf="couponError" class="text-[10px] text-red-500 font-semibold">{{ couponError }}</p>
+        <p *ngIf="couponSuccess" class="text-[10px] text-emerald-600 font-semibold">{{ couponSuccess }}</p>
+      </div>
+
+      <button type="button" (click)="goToStep5()"
+              class="w-full py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-bold text-xs shadow-md shadow-red-500/20 transition cursor-pointer flex items-center justify-center gap-1.5 mt-2">
+        <span>{{ 'COMMON.CONTINUE' | translate }}</span>
+        <i class="material-icons text-sm">arrow_forward</i>
+      </button>
     </div>
   </div>
 
-  <!-- ── Sticky Footer CTA ─────────────────────────────────────────── -->
-  <div class="form-footer">
-    <div class="tnc-note">
-      By proceeding, you agree to our
-      <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a>
+
+  <!-- ── STEP 5: FARE BREAKDOWN & STICKY PAYMENT CTA ─────────────────── -->
+  <div class="step-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-all" [class.ring-2]="currentStep === 5" [class.ring-red-500]="currentStep === 5">
+    <div class="step-card-header p-3.5 flex justify-between items-center cursor-pointer select-none border-b border-slate-100 dark:border-slate-800" (click)="setStep(5)">
+      <div class="flex items-center gap-2">
+        <span class="step-badge w-6 h-6 rounded-full text-xs font-extrabold flex items-center justify-center bg-red-500 text-white">5</span>
+        <h3 class="font-bold text-xs text-slate-900 dark:text-white">5. {{ 'BOOKING.FARE_SUMMARY' | translate }}</h3>
+      </div>
     </div>
-    <button class="submit-btn" (click)="handleproceedtopay()">
-      <i class="material-icons" style="font-size:20px;">payment</i>
-      Proceed to Pay
-    </button>
+
+    <div class="step-card-body p-3.5 space-y-3" *ngIf="currentStep === 5">
+      <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700/60 space-y-2 text-xs">
+        <div class="flex justify-between text-slate-600 dark:text-slate-300">
+          <span>{{ 'BOOKING.BASE_FARE' | translate }} ({{ selectedseat.length }} {{ 'COMMON.SEATS' | translate }})</span>
+          <span class="font-semibold text-slate-900 dark:text-white">₹{{ getBaseFare() }}</span>
+        </div>
+
+        <div *ngIf="passinsurance" class="flex justify-between text-slate-600 dark:text-slate-300">
+          <span>{{ 'BOOKING.TRAVEL_INSURANCE' | translate }}</span>
+          <span class="font-semibold text-slate-900 dark:text-white">₹{{ getInsuranceCost() }}</span>
+        </div>
+
+        <div *ngIf="passiscovid" class="flex justify-between text-slate-600 dark:text-slate-300">
+          <span>{{ 'BOOKING.COVID_RELIEF' | translate }}</span>
+          <span class="font-semibold text-slate-900 dark:text-white">₹{{ getCovidDonation() }}</span>
+        </div>
+
+        <div class="flex justify-between text-slate-600 dark:text-slate-300">
+          <span>{{ 'BOOKING.GST_TAX' | translate }}</span>
+          <span class="font-semibold text-slate-900 dark:text-white">₹{{ getGstTax() }}</span>
+        </div>
+
+        <div *ngIf="couponDiscount" class="flex justify-between text-emerald-600 font-bold border-t border-slate-200 dark:border-slate-700 pt-2">
+          <span>{{ 'BOOKING.PROMO_DISCOUNT' | translate }}</span>
+          <span>- ₹{{ couponDiscount }}</span>
+        </div>
+
+        <div class="flex justify-between text-sm font-extrabold text-slate-900 dark:text-white border-t border-slate-200 dark:border-slate-700 pt-2">
+          <span>{{ 'COMMON.TOTAL' | translate }}</span>
+          <span class="text-base text-red-500">₹{{ getTotalAmount() }}</span>
+        </div>
+      </div>
+
+      <!-- T&C Note -->
+      <p class="text-[10px] text-slate-400 text-center leading-tight">
+        By clicking Proceed to Pay, you agree to Tedbus {{ 'FOOTER.TERMS' | translate }} &amp; {{ 'FOOTER.PRIVACY_POLICY' | translate }}.
+      </p>
+
+      <!-- Large Red Sticky Payment Button -->
+      <button type="button" (click)="handleproceedtopay()"
+              class="w-full py-3.5 rounded-xl bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white font-extrabold text-sm shadow-xl shadow-red-500/25 transition hover:scale-[1.01] cursor-pointer flex items-center justify-center gap-2">
+        <i class="material-icons text-base">payment</i>
+        <span>{{ 'BOOKING.PROCEED' | translate }} ₹{{ getTotalAmount() }}</span>
+      </button>
+    </div>
   </div>
 
 </div>

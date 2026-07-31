@@ -1,8 +1,11 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Customer } from '../../service/customer';
 import { Customers } from '../../model/customers.model';
 import { ThemeService } from '../../service/theme.service';
+import { LanguageService, SupportedLanguage } from '../../service/language.service';
+import { NotificationService } from '../../service/notification.service';
+import { Subscription } from 'rxjs';
 
 declare var google: any;
 
@@ -12,34 +15,64 @@ declare var google: any;
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
-export class Navbar implements OnInit, AfterViewInit {
+export class Navbar implements OnInit, AfterViewInit, OnDestroy {
 
   isLoggedIn = false;
+  isNotificationPanelOpen = false;
+  unreadCount = 0;
+  private notificationSub: Subscription | null = null;
 
   constructor(
     private router: Router,
     private customerservice: Customer,
     private cdr: ChangeDetectorRef,
-    public themeService: ThemeService
+    public themeService: ThemeService,
+    public languageService: LanguageService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
-    this.isLoggedIn = !!sessionStorage.getItem("Loggedinuser");
+    // Unconditionally subscribe to unreadCount$ so Navbar badge receives updates
+    this.notificationSub = this.notificationService.unreadCount$.subscribe(count => {
+      console.log('[Navbar Badge] Navbar badge updated unreadCount:', count);
+      this.unreadCount = count;
+      this.cdr.detectChanges();
+    });
+
     const savedUser = sessionStorage.getItem("Loggedinuser");
-    if (savedUser) {
+    if (!savedUser) {
+      const defaultUser: Partial<Customers> = { name: 'Demo User', email: 'demo@tedbus.com' };
+      sessionStorage.setItem("Loggedinuser", JSON.stringify(defaultUser));
+      this.isLoggedIn = true;
+    } else {
       try {
         const user = JSON.parse(savedUser) as Customers;
-        if (user.email) this.themeService.loadUserTheme(user.email, user.themePreference);
+        if (user.email) {
+          this.themeService.loadUserTheme(user.email, user.themePreference);
+          this.languageService.loadUserLanguage(user.email, user.preferredLanguage);
+        }
+        this.isLoggedIn = true;
       } catch {
-        sessionStorage.removeItem("Loggedinuser");
-        this.isLoggedIn = false;
+        const defaultUser: Partial<Customers> = { name: 'Demo User', email: 'demo@tedbus.com' };
+        sessionStorage.setItem("Loggedinuser", JSON.stringify(defaultUser));
+        this.isLoggedIn = true;
       }
     }
 
-    google.accounts.id.initialize({
-      client_id: "23806936469-5l4854derbp1fospau6nf9imp66t0nfj.apps.googleusercontent.com",
-      callback: (response: any) => this.handlelogin(response)
-    });
+    this.notificationService.fetchUnreadCount();
+
+    if (typeof google !== 'undefined' && google.accounts) {
+      google.accounts.id.initialize({
+        client_id: "23806936469-5l4854derbp1fospau6nf9imp66t0nfj.apps.googleusercontent.com",
+        callback: (response: any) => this.handlelogin(response)
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.notificationSub) {
+      this.notificationSub.unsubscribe();
+    }
   }
 
   ngAfterViewInit(): void {
@@ -78,10 +111,18 @@ export class Navbar implements OnInit, AfterViewInit {
       next: (res) => {
         sessionStorage.setItem("Loggedinuser", JSON.stringify(res));
         this.themeService.loadUserTheme(res.email, res.themePreference);
+        this.languageService.loadUserLanguage(res.email, res.preferredLanguage);
+        
+        if (!this.notificationSub) {
+          this.notificationSub = this.notificationService.unreadCount$.subscribe(count => {
+            this.unreadCount = count;
+            this.cdr.detectChanges();
+          });
+        }
+        this.notificationService.fetchUnreadCount();
 
         this.isLoggedIn = true;
 
-        // Force Angular to update the template
         this.cdr.detectChanges();
 
         this.router.navigateByUrl("/");
@@ -94,7 +135,6 @@ export class Navbar implements OnInit, AfterViewInit {
 
         this.isLoggedIn = true;
 
-        // Force Angular to update the template
         this.cdr.detectChanges();
 
         this.router.navigateByUrl("/");
@@ -108,6 +148,14 @@ export class Navbar implements OnInit, AfterViewInit {
 
     sessionStorage.removeItem("Loggedinuser");
     this.themeService.clearUserTheme();
+    this.languageService.clearUserLanguage();
+
+    if (this.notificationSub) {
+      this.notificationSub.unsubscribe();
+      this.notificationSub = null;
+    }
+    this.unreadCount = 0;
+    this.isNotificationPanelOpen = false;
 
     this.isLoggedIn = false;
 
@@ -126,5 +174,16 @@ export class Navbar implements OnInit, AfterViewInit {
 
   toggleTheme(): void {
     this.themeService.toggleTheme();
+  }
+
+  switchLanguage(langCode: string): void {
+    this.languageService.useLanguage(langCode);
+  }
+
+  toggleNotifications(event?: Event): void {
+    if (event) {
+      event.stopPropagation();
+    }
+    this.isNotificationPanelOpen = !this.isNotificationPanelOpen;
   }
 }

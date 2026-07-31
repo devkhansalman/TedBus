@@ -2,44 +2,42 @@
 <div class="payment__fullContainer">
     <!-- left Container -->
     <div class="payment__fullContainer_leftContainer">
-        <input class="payment__fullContainer_rightContainer_inputOfferCOde" placeholder="ENTER OFFER CODE" />
+        <input class="payment__fullContainer_rightContainer_inputOfferCOde" [placeholder]="'PAYMENT.OFFER_CODE_PLACEHOLDER' | translate" />
         <div class="payment__fullContainer_rightContainer_infobar">
             <div class="banner_chip">
                 <img src="https://s3.rdbuz.com/Images/webplatform/Common/Payment/safe-payments.svg" alt="CC" />
                 <div class="banner_text">
                   
-                    <div>Safe and Secure</div>
-                    <div>Online Payments</div>
+                    <div>{{ 'PAYMENT.SAFE_AND_SECURE' | translate }}</div>
+                    <div>{{ 'PAYMENT.ONLINE_PAYMENTS' | translate }}</div>
                 </div>
             </div>
             <div class="banner_chip">
                 <img src="https://s3.rdbuz.com/Images/webplatform/Common/Payment/transactions.svg"
                     alt="Million Transactions" />
                 <div class="banner_text">
-                    <div>60+ million</div>
-                    <div>transactions</div>
+                    <div>{{ 'PAYMENT.TRANSACTIONS_COUNT' | translate }}</div>
                 </div>
             </div>
             <div class="banner_chip">
                 <img src="https://s3.rdbuz.com/Images/webplatform/Common/Payment/trust.svg" alt="Reliable" />
                 <div class="banner_text">
-                    <div>10+ years of</div>
-                    <div>Trust</div>
+                    <div>{{ 'PAYMENT.YEARS_OF_TRUST' | translate }}</div>
                 </div>
             </div>
         </div>
         <div class="payment__fullContainer_leftContainer_paymentInstruments">
             <!-- Payment methods -->
             <div class="Payment__stripe">
-                <button class="Payment__stripe__button" (click)="makepayment()">Pay With Stripe</button>
+                <button class="Payment__stripe__button" (click)="makepayment()">{{ 'PAYMENT.PAY_WITH_STRIPE' | translate }}</button>
             </div>
             <!-- Other Payment Methods -->
-            <div class="choose_payment_heading">Choose Other Payment Method</div>
+            <div class="choose_payment_heading">{{ 'PAYMENT.CHOOSE_OTHER_METHOD' | translate }}</div>
             <div class="payment__fullContainer_leftContainer_paymentInstrument">
                 <!-- Credit Card -->
                 <div class="payment__fullContainer_leftContainer_eachPaymentInstruments">
                     <input class="radioButton" type="radio" />
-                    <div class="radioButtonText">Credit Card</div>
+                    <div class="radioButtonText">{{ 'PAYMENT.CREDIT_CARD' | translate }}</div>
                     <div class="paymentIconList">
                         <img class="payment_icon_img" src="https://st.redbus.in/paas/images/mobile/v2/visa.png"
                             alt="" />
@@ -52,7 +50,7 @@
                 <!-- Debit Card -->
                 <div class="payment__fullContainer_leftContainer_eachPaymentInstruments">
                     <input class="radioButton" type="radio" />
-                    <div class="radioButtonText">Debit Card</div>
+                    <div class="radioButtonText">{{ 'PAYMENT.DEBIT_CARD' | translate }}</div>
                     <div class="paymentIconList">
                         <img class="payment_icon_img" src="https://st.redbus.in/paas/images/mobile/v2/visa.png"
                             alt="" />
@@ -65,13 +63,13 @@
                 <!-- Wallets -->
                 <div class="payment__fullContainer_leftContainer_eachPaymentInstruments">
                     <input class="radioButton" type="radio" />
-                    <div class="radioButtonText">Wallets</div>
+                    <div class="radioButtonText">{{ 'PAYMENT.WALLETS' | translate }}</div>
                     <img class="payment_icon_img" src="https://st.redbus.in/paas/images/web/v2/amazonpay.png" alt="" />
                 </div>
                 <!-- Net Banking -->
                 <div class="payment__fullContainer_leftContainer_eachPaymentInstruments">
                     <input class="radioButton" type="radio" />
-                    <div class="radioButtonText">Net Banking</div>
+                    <div class="radioButtonText">{{ 'PAYMENT.NET_BANKING' | translate }}</div>
                     <div class="paymentIconList">
                         <img class="payment_icon_img" src="https://st.redbus.in/paas/images/web/v2/axis.png" alt="" />
                         <img class="payment_icon_img" src="https://st.redbus.in/paas/images/web/v2/sbi.png" alt="" />
@@ -83,14 +81,14 @@
             </div>
         </div>
         <div class="UpiPaymentText">
-            UPI PAYMENT USING PHONEPAY / GPAY / AMAZONPAY ETC...
+            {{ 'PAYMENT.UPI_HEADER' | translate }}
         </div>
         <div class="payment__fullContainer_leftContainer_paymentInstrument">
             <!-- UPI payment methods -->
             <div class="payment__fullContainer_leftContainer_eachPaymentInstruments">
                 <input class="radioButton" type="radio" />
-                <div class="radioButtonText">Pay through QR Code</div>
-                <div class="payment__fullContainer_leftContainer_eachPaymentInstruments_new">New</div>
+                <div class="radioButtonText">{{ 'PAYMENT.PAY_VIA_QR' | translate }}</div>
+                <div class="payment__fullContainer_leftContainer_eachPaymentInstruments_new">{{ 'COMMON.NEW' | translate }}</div>
                 <div class="paymentIconList">
                     <img class="payment_icon_img" src="https://st.redbus.in/paas/images/web/v2/upi/gpay.svg" alt="" />
                     <img class="payment_icon_img" src="https://st.redbus.in/paas/images/web/v2/upi/phonepe.svg"
@@ -102,8 +100,8 @@
             <!-- Pay through UPI ID -->
             <div class="payment__fullContainer_leftContainer_eachPaymentInstruments">
                 <input class="radioButton" type="radio" />
-                <div class="radioButtonText">Pay through UPI ID</div>
-                <div class="payment__fullContainer_leftContainer_eachPaymentInstruments_new">New</div>
+                <div class="radioButtonText">{{ 'PAYMENT.PAY_VIA_UPI_ID' | translate }}</div>
+                <div class="payment__fullContainer_leftContainer_eachPaymentInstruments_new">{{ 'COMMON.NEW' | translate }}</div>
                 <div class="paymentIconList">
                     <img class="payment_icon_img" src="https://st.redbus.in/paas/images/web/v2/upi/gpay.svg" alt="" />
                     <img class="payment_icon_img" src="https://st.redbus.in/paas/images/web/v2/upi/phonepe.svg"
@@ -126,14 +124,14 @@
             <div style="display: flex; justify-content: space-between; width: 200px;">
               <mat-icon class="icons">date_range</mat-icon>
               <div style="display: flex; flex-direction: column;">
-                <div class="travel_specification">Booking Date</div>
+                <div class="travel_specification">{{ 'COMMON.DATE' | translate }}</div>
                 <div style="display: flex; width: 150px;">
                   <div>{{ bookingdate | date: 'yyyy-MM-dd' }}</div>
                 </div>
               </div>
             </div>
             <div style="display: flex; flex-direction: column; margin-right: 10px;">
-              <div>Seats Booked</div>
+              <div>{{ 'BOOKING.SEATS_BOOKED' | translate }}</div>
               <div>{{ passseatarray }}</div>
             </div>
           </div>
@@ -142,7 +140,7 @@
             <div style="display: flex; justify-content: space-between; width: 150px;">
               <mat-icon class="icons">location_on</mat-icon>
               <div style="display: flex; flex-direction: column;">
-                <div class="travel_specification">Boarding Point</div>
+                <div class="travel_specification">{{ 'BOOKING.BOARDING_POINT' | translate }}</div>
                 <div>{{ routedetails?.departureLocation?.name }}</div>                
                 <div>{{ bookingdate }}</div>
                 <div>{{ busdepauturetime }}:00</div> 
@@ -151,7 +149,7 @@
               </div>
             </div>
             <div style="display: flex; flex-direction: column;">
-              <div class="travel_specification">Dropping Point</div>
+              <div class="travel_specification">{{ 'BOOKING.DROPPING_POINT' | translate }}</div>
               <div>{{ routedetails?.arrivalLocation?.name }}</div> 
               <div>{{ bookingdate }}</div>
               <div>{{ busarrivaltime }}:00</div>
@@ -164,12 +162,12 @@
         </div>
         <div class="payment__fullContainer_rightContainer_fair_container">
           <div style="display: flex; justify-content: space-between;">
-            <div class="travel_title">FARE BREAKUP</div>
+            <div class="travel_title">{{ 'BOOKING.FARE_SUMMARY' | translate }}</div>
             <img src="https://s3.rdbuz.com/Images/webplatform/Common/Payment/down.svg" width="14" height="14" alt="">
           </div>
           <div style="display: flex; justify-content: space-between; margin-top: 10px;"></div>
           <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-            <div class="travel_specification" style="font-weight: bold;">Total Payable</div>
+            <div class="travel_specification" style="font-weight: bold;">{{ 'COMMON.TOTAL' | translate }}</div>
             <div class="travel_specification" style="font-weight: bold;">Rs. {{passfare}}</div>
           </div>
         </div>

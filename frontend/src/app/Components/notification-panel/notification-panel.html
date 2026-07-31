@@ -1,0 +1,100 @@
+<div *ngIf="isOpen" class="fixed inset-0 z-40">
+  <!-- Backdrop -->
+  <div class="absolute inset-0 bg-black/20 dark:bg-black/40"
+       [ngClass]="isClosing ? 'animate-backdropOut' : 'animate-backdropIn'"
+       (click)="onClose()"></div>
+  
+  <!-- Panel -->
+  <div class="absolute right-4 md:right-14 top-[70px] w-full max-w-[420px] max-h-[500px] bg-white dark:bg-gray-800 rounded-xl shadow-2xl flex flex-col overflow-hidden transition-all"
+       [ngClass]="isClosing ? 'animate-panelOut' : 'animate-panelIn'"
+       (click)="$event.stopPropagation()">
+    
+    <!-- Header -->
+    <div class="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-700">
+      <div class="flex items-center gap-2">
+        <h3 class="font-semibold text-gray-800 dark:text-white text-lg">Notifications</h3>
+        <span *ngIf="unreadCount > 0" class="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+          {{ unreadCount }}
+        </span>
+      </div>
+      <div class="flex items-center gap-3">
+        <button *ngIf="unreadCount > 0" (click)="onMarkAllAsRead()" 
+                class="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+          Mark all as read
+        </button>
+        <button (click)="onClose()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Body / List -->
+    <div class="flex-1 overflow-y-auto custom-scrollbar">
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="p-4 space-y-4">
+        <div *ngFor="let i of [1,2,3]" class="flex animate-pulse gap-4">
+          <div class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex-shrink-0"></div>
+          <div class="flex-1 space-y-2 py-1">
+            <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+            <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="!isLoading && templateDataLength === 0" class="flex flex-col items-center justify-center p-8 text-center h-full min-h-[300px]">
+        <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
+          <i class="fa-regular fa-bell-slash text-3xl text-gray-400 dark:text-gray-500"></i>
+        </div>
+        <h4 class="font-semibold text-gray-800 dark:text-white mb-2">No notifications yet</h4>
+        <p class="text-sm text-gray-500 dark:text-gray-400">We'll notify you about your bookings and updates here.</p>
+      </div>
+
+      <!-- Notification List -->
+      <div *ngIf="!isLoading && templateDataLength > 0" class="divide-y divide-gray-100 dark:divide-gray-700">
+        <div *ngFor="let notification of notifications" 
+             (click)="onMarkAsRead(notification._id, notification.isRead)"
+             class="notification-card flex gap-3 p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer transition-colors relative"
+             [ngClass]="{
+               'bg-blue-50/30 dark:bg-blue-900/10': !notification.isRead,
+               'border-l-4 border-l-blue-500': !notification.isRead,
+               'pl-3': !notification.isRead
+             }">
+          
+          <!-- Icon -->
+          <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+               [ngClass]="getTypeColor(notification.type)">
+            <mat-icon class="text-xl">{{ notification.icon }}</mat-icon>
+          </div>
+
+          <!-- Content -->
+          <div class="flex-1 min-w-0">
+            <div class="flex justify-between items-start mb-1">
+              <p class="text-sm truncate pr-2"
+                 [ngClass]="notification.isRead ? 'text-gray-700 dark:text-gray-300 font-medium' : 'text-gray-900 dark:text-white font-semibold'">
+                 <span *ngIf="notification.priority === 'high'" class="text-red-500 mr-1">!</span>
+                 {{ notification.title }}
+              </p>
+              <span class="text-[11px] text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                {{ notificationService.getRelativeTime(notification.createdAt) }}
+              </span>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 leading-snug">
+              {{ notification.message }}
+            </p>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex flex-col items-end justify-between ml-2">
+            <div class="w-2 h-2 rounded-full mb-2" [ngClass]="notification.isRead ? 'bg-transparent' : 'bg-blue-500'"></div>
+            <button (click)="onDelete(notification._id, $event)" 
+                    class="text-gray-400 hover:text-red-500 transition-colors p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-600"
+                    title="Delete notification">
+              <i class="fa-solid fa-trash-can text-sm"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

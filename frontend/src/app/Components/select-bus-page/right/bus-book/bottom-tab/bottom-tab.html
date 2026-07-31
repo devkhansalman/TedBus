@@ -1,55 +1,55 @@
 <div class="mainBar">
   <div class="tab-item" [class.active]="tabstate[0]" (click)="handletabstate(0)">
     <i class="material-icons" style="font-size:14px;">local_offer</i>
-    Amenities
+    {{ 'BOOKING.AMENITIES' | translate }}
   </div>
   <span class="tab-separator">|</span>
   <div class="tab-item" [class.active]="tabstate[1]" (click)="handletabstate(1)">
     <i class="material-icons" style="font-size:14px;">location_on</i>
-    Stops
+    {{ 'BOOKING.STOPS' | translate }}
   </div>
   <span class="tab-separator">|</span>
   <div class="tab-item" [class.active]="tabstate[2]" (click)="handletabstate(2)">
     <i class="material-icons" style="font-size:14px;">star</i>
-    Reviews
+    {{ 'REVIEW.TITLE' | translate }}
   </div>
   <span class="tab-separator">|</span>
   <div class="tab-item" [class.active]="tabstate[3]" (click)="handletabstate(3)">
     <i class="material-icons" style="font-size:14px;">policy</i>
-    Policies
+    {{ 'BOOKING.POLICIES' | translate }}
   </div>
   <span class="tab-separator">|</span>
   <div class="tab-item view-seats-tab" [class.active]="tabstate[4]" (click)="handletabstate(4)">
     <i class="material-icons" style="font-size:14px;">event_seat</i>
-    VIEW SEATS
+    {{ 'COMMON.SEATS' | translate }}
   </div>
 </div>
 
 <div class="displayArea" *ngIf="tabstate[0]">
   <div class="tab-placeholder">
     <i class="material-icons" style="font-size:32px;color:#ddd;display:block;margin-bottom:8px;">local_offer</i>
-    Amenities coming soon
+    {{ 'BOOKING.AMENITIES_COMING_SOON' | translate }}
   </div>
 </div>
 
 <div class="displayArea" *ngIf="tabstate[1]">
   <div class="tab-placeholder">
     <i class="material-icons" style="font-size:32px;color:#ddd;display:block;margin-bottom:8px;">location_on</i>
-    Boarding &amp; Dropping points coming soon
+    {{ 'BOOKING.STOPS_COMING_SOON' | translate }}
   </div>
 </div>
 
 <div class="displayArea" *ngIf="tabstate[2]">
   <div class="tab-placeholder">
     <i class="material-icons" style="font-size:32px;color:#ddd;display:block;margin-bottom:8px;">star</i>
-    Reviews coming soon
+    {{ 'REVIEW.REVIEWS_COMING_SOON' | translate }}
   </div>
 </div>
 
 <div class="displayArea" *ngIf="tabstate[3]">
   <div class="tab-placeholder">
     <i class="material-icons" style="font-size:32px;color:#ddd;display:block;margin-bottom:8px;">policy</i>
-    Booking policies coming soon
+    {{ 'BOOKING.POLICIES_COMING_SOON' | translate }}
   </div>
 </div>
 

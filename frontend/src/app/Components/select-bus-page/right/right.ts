@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { BusService } from '../../../service/bus';
 import { Bus } from '../../../model/bus.model';
 import { Route } from '../../../model/routes.model';
@@ -21,13 +22,11 @@ export class Right implements OnInit {
   arrival: string = '';
   date: string = '';
 
-  // Inject ChangeDetectorRef — required because this app has NO zone.js
-  // (zone.js is absent from package.json). Without it, async HTTP callbacks
-  // don't trigger Angular's change detection, so the UI stays frozen.
   constructor(
     private activatedRoute: ActivatedRoute,
     private busservice: BusService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private translate: TranslateService
   ) {}
 
   getkeys() {
@@ -55,15 +54,12 @@ export class Right implements OnInit {
           this.route      = response.route || null;
           this.seats      = response.busidwithseatobj || {};
           this.isLoading  = false;
-          // console.log('Buses fetched:', this.matchedbus);
-          // console.log('Route:', this.route);
-          this.cdr.detectChanges(); // <-- KEY FIX: force UI update after async HTTP
+          this.cdr.detectChanges();
         },
         error: (err: any) => {
-          // console.error('Failed to fetch buses:', err);
-          this.errorMessage = 'Failed to load buses. Please try again.';
+          this.errorMessage = this.translate.instant('ERROR.FAILED_TO_LOAD_BUSES');
           this.isLoading    = false;
-          this.cdr.detectChanges(); // also force update on error
+          this.cdr.detectChanges();
         }
       });
     });

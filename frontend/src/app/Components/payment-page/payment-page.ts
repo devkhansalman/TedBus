@@ -4,6 +4,7 @@ import { Dataservice } from '../../service/dataservice';
 import { HttpClient } from '@angular/common/http';
 import { BusService } from '../../service/bus';
 import { Booking } from '../../model/booking.model';
+import { NotificationService } from '../../service/notification.service';
 
 @Component({
   selector: 'app-payment-page',
@@ -37,6 +38,7 @@ export class PaymentPage implements OnInit {
     private dataservice: Dataservice,
     private http: HttpClient,
     private busservice: BusService,
+    private notificationService: NotificationService,
     private cdr: ChangeDetectorRef   // Fix: force change detection in zoneless app
   ) { }
 
@@ -140,6 +142,8 @@ export class PaymentPage implements OnInit {
       next: (response) => {
         // console.log('Booking success', response);
         alert('Booking confirmed!');
+        this.notificationService.fetchUnreadCount();
+        this.notificationService.fetchNotifications();
         this.cdr.detectChanges();
       },
       error: (error) => {

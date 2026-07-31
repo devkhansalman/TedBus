@@ -1,11 +1,11 @@
 <div class="Header">
     <div class="HeaderOne">
         <p>
-            Home &gt; Bus Ticket &gt; {{this.departure}} Bus &gt; {{this.departure}} to {{this.arrival}}
+            {{ 'NAVBAR.HOME' | translate }} &gt; {{ 'COMMON.BUS' | translate }} &gt; {{this.departure}} {{ 'COMMON.BUS' | translate }} &gt; {{this.departure}} {{ 'COMMON.TO' | translate }} {{this.arrival}}
         </p>
-        <p>Fare Starts from INR 100</p>
+        <p>{{ 'BOOKING.FARE_STARTS_FROM' | translate }}</p>
     </div>
     <div class="HeaderTwo">
-        <h3>Departure to {{this.arrival}} on {{this.date}}</h3>
+        <h3>{{ 'BOOKING.DEPARTURE_TO' | translate }} {{this.arrival}} {{ 'BOOKING.ON' | translate }} {{this.date}}</h3>
     </div>
 </div>

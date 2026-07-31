@@ -23,7 +23,7 @@
                 {{routedetails.arrivalLocation.name}}
             </div>
         </div>
-        <div class="busBoxSection15">
+        <div class="busBoxSection15 cursor-pointer hover:opacity-80 transition" (click)="openReviews()" title="View Reviews">
             <div>
                 <i class="material-icons">star</i>
                 <div>{{avgrating}}</div>
@@ -38,14 +38,14 @@
                 <div>{{seatprivce}}</div>
             </div>
             <div><i class="material-icons">local_offer</i>
-                <div>reDeal applied</div>
+                <div>{{ 'BOOKING.DEAL_APPLIED' | translate }}</div>
             </div>
         </div>
         <div class="busBoxSection17">
             <div></div>
             <div>
                 <div>{{40 -filledseats.length}}</div>
-                <div>Seats Available</div>
+                <div>{{ 'COMMON.SEATS' | translate }}</div>
             </div>
             <div>20</div>
             <div>Window</div>
@@ -53,16 +53,16 @@
     </div>
     <div class="busBoxSection2">
         <div class="busBoxSection21">
-            <span matTooltip="Charging Point">
+            <span matTooltip="{{ 'BOOKING.AMENITY_CHARGING' | translate }}">
                 <i class="material-icons">power</i>
             </span>
-            <span matTooltip="Movie">
+            <span matTooltip="{{ 'BOOKING.AMENITY_MOVIE' | translate }}">
                 <i class="material-icons">movie_filter</i>
             </span>
-            <span matTooltip="Reading Light">
+            <span matTooltip="{{ 'BOOKING.AMENITY_READING_LIGHT' | translate }}">
                 <i class="material-icons">wb_incandescent</i>
             </span>
-            <span matTooltip="Track My Bus">
+            <span matTooltip="{{ 'BOOKING.AMENITY_TRACKING' | translate }}">
                 <i class="material-icons">directions_bus</i>
             </span>
         </div>

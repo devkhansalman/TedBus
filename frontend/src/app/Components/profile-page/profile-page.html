@@ -3,22 +3,22 @@
       <ul class="leftPannel">
         <li class="leftPannel_eachListOption" [class.active]="selecteditem === 'dashboard'" (click)="handlelistitemclick('dashboard')">
           <i class="material-icons">dashboard</i>
-          <div class="leftPannel_eachListItem_text">Dashboard</div>
+          <div class="leftPannel_eachListItem_text">{{ 'PROFILE.DASHBOARD' | translate }}</div>
         </li>
         <div class="line"></div>
         <li class="leftPannel_eachListOption" [class.active]="selecteditem === 'trips'" (click)="handlelistitemclick('trips')">
           <i class="material-icons">location_on</i>
-          <div class="leftPannel_eachListItem_text">My Trips</div>
+          <div class="leftPannel_eachListItem_text">{{ 'NAVBAR.MY_TRIPS' | translate }}</div>
         </li>
         <div class="line"></div>
         <li class="leftPannel_eachListOption" [class.active]="selecteditem === 'profile'" (click)="handlelistitemclick('profile')">
           <i class="material-icons">person</i>
-          <div class="leftPannel_eachListItem_text">My Profile</div>
+          <div class="leftPannel_eachListItem_text">{{ 'PROFILE.TITLE' | translate }}</div>
         </li>
         <div class="line"></div>
         <li class="leftPannel_eachListOption" [class.active]="selecteditem === 'wallet'" (click)="handlelistitemclick('wallet')">
           <i class="material-icons">account_balance_wallet</i>
-          <div class="leftPannel_eachListItem_text">Wallet</div>
+          <div class="leftPannel_eachListItem_text">{{ 'PROFILE.WALLET' | translate }}</div>
         </li>
         <div class="line"></div>
       </ul>
@@ -26,51 +26,51 @@
     <div class="seprator"></div>
   
     <div *ngIf="selecteditem === 'dashboard'" class="rightPannel">
-      Dashboard feature coming soon...
+      {{ 'PROFILE.DASHBOARD_COMING_SOON' | translate }}
     </div>
     <div *ngIf="selecteditem === 'trips'" class="rightPannel">
       <!-- MyTrips component or content -->
       <app-my-trip [booking]="mytrip"></app-my-trip> 
     </div>
     <div *ngIf="selecteditem === 'wallet'" class="rightPannel">
-      Wallet feature coming soon...
+      {{ 'PROFILE.WALLET_COMING_SOON' | translate }}
     </div>
     <div *ngIf="selecteditem === 'profile'" class="rightPannel">
-      <span class="profileHeading">'My Profile'</span>
+      <span class="profileHeading">{{ 'PROFILE.TITLE' | translate }}</span>
       <div class="profilebox">
         <div style="display: flex; justify-content: space-between">
           <div
             style="display: flex; flex-direction: column; margin-left: 20px; height: 50px; justify-content: space-evenly">
-            <div class="userDetailHeading">Your name</div>
+            <div class="userDetailHeading">{{ 'PROFILE.YOUR_NAME' | translate }}</div>
             <div class="userDetailInfo">{{ currentcustomer ? currentname : 'User' }}</div>
           </div>
           <div
             style="display: flex; flex-direction: column; margin-left: 20px; height: 50px; justify-content: space-evenly">
-            <div class="userDetailHeading">Date of Birth</div>
+            <div class="userDetailHeading">{{ 'PROFILE.DOB' | translate }}</div>
             <div class="userDetailInfo">1993-03-04</div>
           </div>
         </div>
         <div style="display: flex; justify-content: space-between; margin-top: 5%">
           <div
             style="display: flex; flex-direction: column; margin-left: 20px; height: 50px; justify-content: space-evenly">
-            <div class="userDetailHeading">Gender</div>
+            <div class="userDetailHeading">{{ 'BOOKING.GENDER' | translate }}</div>
             <div class="userDetailInfo">{{ currentcustomer ? currentcustomer.gender : '-' }}</div>
           </div>
         </div>
         <div style="display: flex; justify-content: space-between; margin-top: 5%">
           <div class="contactLine"></div>
-          <div class="contactDetailsHeading">Contact Details</div>
+          <div class="contactDetailsHeading">{{ 'BOOKING.CONTACT_INFO' | translate }}</div>
           <div class="contactLine"></div>
         </div>
         <div style="display: flex; justify-content: space-between; margin-top: 5%">
           <div
             style="display: flex; flex-direction: column; margin-left: 20px; height: 50px; justify-content: space-evenly">
-            <div class="userDetailHeading">email</div>
+            <div class="userDetailHeading">{{ 'PROFILE.EMAIL' | translate }}</div>
             <div class="userDetailInfo">{{ currentcustomer ? currentemail : '-' }}</div>
           </div>
           <div
             style="display: flex; flex-direction: column; margin-left: 20px; height: 50px; justify-content: space-evenly">
-            <div class="userDetailHeading">phone</div>
+            <div class="userDetailHeading">{{ 'PROFILE.PHONE' | translate }}</div>
             <div class="userDetailInfo">12345678</div>
           </div>
         </div>

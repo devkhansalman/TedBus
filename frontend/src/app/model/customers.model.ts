@@ -8,4 +8,5 @@ export interface Customers{
     dateofbirth?:string;
     profilePicture?:string;
     themePreference?: 'light' | 'dark';
+    preferredLanguage?: string;
 }

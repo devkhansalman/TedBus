@@ -1,0 +1,74 @@
+<div class="relative w-full bg-white dark:bg-[#1f2937] text-slate-900 dark:text-slate-100 rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10 flex flex-col overflow-hidden max-h-[85vh]">
+  
+  <!-- Modal Header -->
+  <div class="px-6 py-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
+    <div>
+      <h2 class="text-lg font-bold flex items-center gap-2">
+        <i class="material-icons text-amber-400 text-xl">star</i>
+        <span>{{ 'REVIEW.TITLE' | translate }}</span>
+      </h2>
+      <p class="text-xs text-slate-400 font-medium">
+        {{ 'REVIEW.REVIEWS_FOR' | translate }} {{ operatorname || 'Bus Operator' }}
+      </p>
+    </div>
+    <button (click)="close()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer">
+      <i class="material-icons text-xl">close</i>
+    </button>
+  </div>
+
+  <!-- Modal Body -->
+  <div class="p-6 space-y-4 overflow-y-auto flex-1 custom-scrollbar">
+    
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="py-12 text-center text-slate-400 space-y-2">
+      <i class="material-icons animate-spin text-3xl text-red-500">refresh</i>
+      <p class="text-xs font-medium">{{ 'LOADING.LOADING' | translate }}</p>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!isLoading && reviews.length === 0" class="py-12 text-center bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 space-y-2">
+      <i class="material-icons text-4xl text-slate-400">rate_review</i>
+      <h4 class="text-sm font-bold text-slate-700 dark:text-slate-200">{{ 'REVIEW.NO_REVIEWS_YET' | translate }}</h4>
+      <p class="text-xs text-slate-500 dark:text-slate-400">{{ 'REVIEW.FIRST_TO_REVIEW' | translate }}</p>
+    </div>
+
+    <!-- Phase 1 Simple Review List -->
+    <div *ngIf="!isLoading && reviews.length > 0" class="space-y-4">
+      <div *ngFor="let review of reviews"
+           class="p-4 rounded-xl border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-slate-900/80 space-y-3 transition hover:shadow-md">
+        
+        <div class="flex items-start justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-sm flex items-center justify-center border border-slate-300 dark:border-slate-700">
+              <span>{{ (review.customerName || 'V')[0].toUpperCase() }}</span>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-slate-900 dark:text-white">{{ review.customerName }}</p>
+              <p *ngIf="review.departure || review.arrival" class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                {{ 'COMMON.ROUTE' | translate }}: {{ review.departure }} → {{ review.arrival }}
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-col items-end">
+            <div class="flex text-amber-400 text-xs gap-0.5">
+              <span *ngFor="let s of [1,2,3,4,5]">
+                {{ review.rating >= s ? '★' : '☆' }}
+              </span>
+            </div>
+            <span class="text-[10px] text-slate-400 mt-1">
+              {{ review.createdAt | date: 'mediumDate' }}
+            </span>
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">
+          {{ review.review }}
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
