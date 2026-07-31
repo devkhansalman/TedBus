@@ -47,9 +47,6 @@ export class CommunityService {
         email = '';
       }
     }
-    if (!email) {
-      email = 'demo@tedbus.com';
-    }
     return new HttpHeaders({ 'x-user-email': email });
   }
 

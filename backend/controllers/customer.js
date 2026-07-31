@@ -32,13 +32,13 @@ exports.requireAuthenticatedCustomer = async (req, res, next) => {
     try {
         let email = req.get("x-user-email");
         if (!email) {
-            email = "demo@tedbus.com";
+            return res.status(401).json({ error: "Unauthorized: x-user-email header required" });
         }
 
         let customer = await Customer.findOne({ email }).exec();
         if (!customer) {
             customer = new Customer({
-                name: email.split('@')[0] || "Demo User",
+                name: email.split('@')[0] || "User",
                 email: email
             });
             await customer.save();

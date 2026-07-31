@@ -18,7 +18,7 @@ const seedPostsIfEmpty = async () => {
             'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=800&q=80'
           ],
           likes: 12,
-          likedBy: ['demo@tedbus.com'],
+          likedBy: [],
           commentCount: 2
         },
         {

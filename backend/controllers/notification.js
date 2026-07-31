@@ -2,7 +2,10 @@ const Notification = require('../models/notification');
 
 exports.seedNotifications = async (req, res, next) => {
     try {
-        const userId = req.customer ? req.customer.email : 'demo@tedbus.com';
+        if (!req.customer || !req.customer.email) {
+            return next();
+        }
+        const userId = req.customer.email;
         const existingCount = await Notification.countDocuments({ userId });
         
         if (existingCount === 0) {

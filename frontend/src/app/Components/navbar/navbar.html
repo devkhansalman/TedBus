@@ -82,8 +82,15 @@
       <span class="material-icons text-xl">{{ themeService.isDarkMode ? 'light_mode' : 'dark_mode' }}</span>
     </button>
 
-    <!-- Google Sign-in Button if not logged in -->
+    <!-- Google Sign-in Button & Sign-In Modal Button if not logged in -->
     <div id="google-btn" *ngIf="!isLoggedIn" class="shrink-0"></div>
+    <button *ngIf="!isLoggedIn"
+            (click)="openSignInModal()"
+            type="button"
+            class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 active:scale-95 text-white font-bold text-sm shadow-sm transition cursor-pointer">
+      <span class="material-icons text-base">login</span>
+      <span>Sign In</span>
+    </button>
 
     <!-- Logged in Account Dropdown -->
     <button *ngIf="isLoggedIn" 
@@ -160,7 +167,14 @@
     </div>
 
     <!-- Drawer Footer -->
-    <div class="pt-3 border-t border-slate-100 dark:border-slate-800">
+    <div class="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-2">
+      <button *ngIf="!isLoggedIn"
+              (click)="openSignInModal()"
+              class="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-bold text-sm transition">
+        <span class="material-icons text-base">login</span>
+        <span>Sign In</span>
+      </button>
+
       <button *ngIf="isLoggedIn"
               (click)="handlelogout()"
               class="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-red-50 text-red-600 dark:bg-red-950/40 dark:text-red-400 font-bold text-sm">

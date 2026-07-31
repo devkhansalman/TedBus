@@ -40,6 +40,7 @@ import { NotificationPanel } from './Components/notification-panel/notification-
 import { RouteDetails } from './Components/route-details/route-details';
 import { CommunityPage } from './Components/community/community';
 import { CreatePostDialog } from './Components/community/create-post-dialog/create-post-dialog';
+import { SignInModal } from './Components/sign-in-modal/sign-in-modal';
 
 import { HttpClientModule } from '@angular/common/http';
 import { provideTranslateService, provideMissingTranslationHandler, TranslatePipe, TranslateDirective } from '@ngx-translate/core';
@@ -73,6 +74,7 @@ import { CustomMissingTranslationHandler } from './service/language.service';
     RouteDetails,
     CommunityPage,
     CreatePostDialog,
+    SignInModal,
   ],
   imports: [
     BrowserModule,

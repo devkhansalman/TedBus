@@ -15,10 +15,10 @@ export class Customer {
 
   addcustomermongo(user: any): Observable<Customers> {
     const customer: Customers = {
-      name: user.name,
+      name: user.name || (user.email ? user.email.split('@')[0] : 'User'),
       email: user.email,
-      googleId: user.id,
-      profilePicture: user.picture,
+      googleId: user.sub || user.googleId || user.id || '',
+      profilePicture: user.picture || user.profilePicture || user.profilepicture || '',
     };
 
     return this.http.post<Customers>(this.apiurl, customer);

@@ -33,9 +33,6 @@ export class NotificationService {
         console.error('Error parsing logged in user', e);
       }
     }
-    if (!email) {
-      email = 'demo@tedbus.com';
-    }
     return new HttpHeaders({ 'x-user-email': email });
   }
 

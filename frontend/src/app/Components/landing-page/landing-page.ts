@@ -30,12 +30,12 @@ export class LandingPage {
     }
     else this.date="null"
   }
-  isLoggedIn():boolean{
-    return !!sessionStorage.getItem("Loggedinuser")
+  isLoggedIn(): boolean {
+    return !!sessionStorage.getItem("Loggedinuser");
   }
-  submit(){
-    if(!this.isLoggedIn){
-      alert("Login to continue")
+  submit() {
+    if (!this.isLoggedIn()) {
+      alert("Please sign in to continue");
     }
     else{
 

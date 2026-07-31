@@ -44,7 +44,7 @@ export class CommunityPage implements OnInit {
       try {
         const user = JSON.parse(savedUserJson);
         this.currentUserEmail = user.email || '';
-        this.currentUserName = user.name || (user.email ? user.email.split('@')[0] : 'Demo User');
+        this.currentUserName = user.name || (user.email ? user.email.split('@')[0] : 'User');
       } catch (e) {
         this.currentUserEmail = '';
       }

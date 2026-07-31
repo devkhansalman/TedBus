@@ -1,0 +1,65 @@
+<div class="p-6 max-w-md w-full bg-white dark:bg-[#1E293B] text-slate-900 dark:text-[#F8FAFC] rounded-2xl shadow-xl border border-slate-100 dark:border-white/10 relative transition-colors duration-300">
+
+  <!-- Close button -->
+  <button (click)="onCancel()"
+          class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition cursor-pointer p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800">
+    <span class="material-icons text-xl">close</span>
+  </button>
+
+  <!-- Header -->
+  <div class="text-center mb-6 space-y-2">
+    <div class="inline-flex p-3 rounded-full bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 mb-1">
+      <span class="material-icons text-3xl">account_circle</span>
+    </div>
+    <h2 class="text-2xl font-extrabold tracking-tight">Sign In to TedBus</h2>
+    <p class="text-xs text-slate-500 dark:text-slate-400">Access your bookings, saved trips, and exclusive travel rewards</p>
+  </div>
+
+  <!-- Error Alert -->
+  <div *ngIf="errorMessage" class="mb-4 p-3 rounded-xl bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-300 text-xs font-semibold flex items-center gap-2">
+    <span class="material-icons text-base">error_outline</span>
+    <span>{{ errorMessage }}</span>
+  </div>
+
+  <!-- Google Sign-In Section -->
+  <div class="flex flex-col items-center justify-center space-y-2 mb-5">
+    <div id="google-modal-btn" class="w-full flex justify-center"></div>
+  </div>
+
+  <!-- Divider -->
+  <div class="relative my-4 flex items-center">
+    <div class="flex-grow border-t border-slate-200 dark:border-slate-700"></div>
+    <span class="flex-shrink mx-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">or sign in with email</span>
+    <div class="flex-grow border-t border-slate-200 dark:border-slate-700"></div>
+  </div>
+
+  <!-- Manual Email Sign-In Form -->
+  <form (ngSubmit)="onSubmitManual()" class="space-y-4">
+    <div>
+      <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Full Name</label>
+      <input type="text"
+             [(ngModel)]="name"
+             name="name"
+             placeholder="e.g. Rahul Sharma"
+             class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-red-500 transition" />
+    </div>
+
+    <div>
+      <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Email Address <span class="text-red-500">*</span></label>
+      <input type="email"
+             [(ngModel)]="email"
+             name="email"
+             required
+             placeholder="e.g. rahul@example.com"
+             class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-red-500 transition" />
+    </div>
+
+    <button type="submit"
+            [disabled]="isLoading"
+            class="w-full py-3 rounded-xl bg-red-600 hover:bg-red-700 active:scale-[0.99] text-white font-extrabold text-sm shadow-md transition disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer">
+      <span *ngIf="isLoading" class="animate-spin material-icons text-base">refresh</span>
+      <span>{{ isLoading ? 'Signing in...' : 'Continue with Email' }}</span>
+    </button>
+  </form>
+
+</div>

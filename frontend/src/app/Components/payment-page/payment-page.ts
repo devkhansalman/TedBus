@@ -103,6 +103,10 @@ export class PaymentPage implements OnInit {
   }
 
   makepayment(): void {
+    if (!this.customerid || !this.customerid.email) {
+      alert('Please sign in to complete your booking.');
+      return;
+    }
     if (!this.routedetails) {
       alert('Route details not loaded. Please go back and try again.');
       return;

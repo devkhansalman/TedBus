@@ -1,10 +1,12 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { Customer } from '../../service/customer';
 import { Customers } from '../../model/customers.model';
 import { ThemeService } from '../../service/theme.service';
 import { LanguageService } from '../../service/language.service';
 import { NotificationService } from '../../service/notification.service';
+import { SignInModal } from '../sign-in-modal/sign-in-modal';
 import { Subscription } from 'rxjs';
 
 declare var google: any;
@@ -29,43 +31,34 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     public themeService: ThemeService,
     public languageService: LanguageService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    // Unconditionally subscribe to unreadCount$ so Navbar badge receives updates
     this.notificationSub = this.notificationService.unreadCount$.subscribe(count => {
       this.unreadCount = count;
       this.cdr.detectChanges();
     });
 
     const savedUser = sessionStorage.getItem("Loggedinuser");
-    if (!savedUser) {
-      const defaultUser: Partial<Customers> = { name: 'Demo User', email: 'demo@tedbus.com' };
-      sessionStorage.setItem("Loggedinuser", JSON.stringify(defaultUser));
-      this.isLoggedIn = true;
-    } else {
+    if (savedUser) {
       try {
         const user = JSON.parse(savedUser) as Customers;
-        if (user.email) {
+        if (user && user.email) {
+          this.isLoggedIn = true;
           this.themeService.loadUserTheme(user.email, user.themePreference);
           this.languageService.loadUserLanguage(user.email, user.preferredLanguage);
+          this.notificationService.fetchUnreadCount();
+        } else {
+          this.isLoggedIn = false;
         }
-        this.isLoggedIn = true;
       } catch {
-        const defaultUser: Partial<Customers> = { name: 'Demo User', email: 'demo@tedbus.com' };
-        sessionStorage.setItem("Loggedinuser", JSON.stringify(defaultUser));
-        this.isLoggedIn = true;
+        this.isLoggedIn = false;
+        sessionStorage.removeItem("Loggedinuser");
       }
-    }
-
-    this.notificationService.fetchUnreadCount();
-
-    if (typeof google !== 'undefined' && google.accounts) {
-      google.accounts.id.initialize({
-        client_id: "23806936469-5l4854derbp1fospau6nf9imp66t0nfj.apps.googleusercontent.com",
-        callback: (response: any) => this.handlelogin(response)
-      });
+    } else {
+      this.isLoggedIn = false;
     }
   }
 
@@ -76,19 +69,33 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.rendergooglebutton();
+    setTimeout(() => {
+      this.rendergooglebutton();
+    }, 300);
   }
 
   private rendergooglebutton(): void {
-    const googlebtn = document.getElementById("google-btn");
+    if (this.isLoggedIn) return;
 
-    if (googlebtn) {
-      google.accounts.id.renderButton(googlebtn, {
-        theme: "outline",
-        size: "medium",
-        shape: "pill",
-        width: 150
-      });
+    if (typeof google !== 'undefined' && google.accounts) {
+      try {
+        google.accounts.id.initialize({
+          client_id: "23806936469-5l4854derbp1fospau6nf9imp66t0nfj.apps.googleusercontent.com",
+          callback: (response: any) => this.handlelogin(response)
+        });
+
+        const googlebtn = document.getElementById("google-btn");
+        if (googlebtn) {
+          google.accounts.id.renderButton(googlebtn, {
+            theme: "outline",
+            size: "medium",
+            shape: "pill",
+            width: 150
+          });
+        }
+      } catch (err) {
+        console.warn("Google button render error:", err);
+      }
     }
   }
 
@@ -108,35 +115,56 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
 
     this.customerservice.addcustomermongo(payload).subscribe({
       next: (res) => {
-        sessionStorage.setItem("Loggedinuser", JSON.stringify(res));
-        this.themeService.loadUserTheme(res.email, res.themePreference);
-        this.languageService.loadUserLanguage(res.email, res.preferredLanguage);
-        
-        if (!this.notificationSub) {
-          this.notificationSub = this.notificationService.unreadCount$.subscribe(count => {
-            this.unreadCount = count;
-            this.cdr.detectChanges();
-          });
-        }
-        this.notificationService.fetchUnreadCount();
-
-        this.isLoggedIn = true;
-        this.cdr.detectChanges();
+        this.saveUserAndSetLoggedIn(res);
         this.router.navigateByUrl("/");
       },
       error: (err) => {
-        console.error(err);
-        sessionStorage.setItem("Loggedinuser", JSON.stringify(fallbackUser));
-        this.isLoggedIn = true;
-        this.cdr.detectChanges();
+        console.error('Customer save error:', err);
+        this.saveUserAndSetLoggedIn(fallbackUser);
         this.router.navigateByUrl("/");
       }
     });
   }
 
+  openSignInModal(): void {
+    const dialogRef = this.dialog.open(SignInModal, {
+      width: '440px',
+      maxWidth: '95vw',
+      panelClass: 'auth-modal-dialog'
+    });
+
+    dialogRef.afterClosed().subscribe((resUser) => {
+      if (resUser) {
+        this.saveUserAndSetLoggedIn(resUser);
+      }
+    });
+  }
+
+  saveUserAndSetLoggedIn(user: any): void {
+    sessionStorage.setItem("Loggedinuser", JSON.stringify(user));
+    this.isLoggedIn = true;
+
+    if (user.email) {
+      this.themeService.loadUserTheme(user.email, user.themePreference);
+      this.languageService.loadUserLanguage(user.email, user.preferredLanguage);
+    }
+
+    if (!this.notificationSub) {
+      this.notificationSub = this.notificationService.unreadCount$.subscribe(count => {
+        this.unreadCount = count;
+        this.cdr.detectChanges();
+      });
+    }
+    this.notificationService.fetchUnreadCount();
+
+    this.cdr.detectChanges();
+  }
+
   handlelogout(): void {
     if (typeof google !== 'undefined' && google.accounts) {
-      google.accounts.id.disableAutoSelect();
+      try {
+        google.accounts.id.disableAutoSelect();
+      } catch (_) {}
     }
 
     sessionStorage.removeItem("Loggedinuser");
@@ -153,7 +181,10 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
     this.isLoggedIn = false;
 
     this.cdr.detectChanges();
-    window.location.reload();
+
+    setTimeout(() => {
+      this.rendergooglebutton();
+    }, 100);
   }
 
   navigate(route: string, tab?: string): void {
