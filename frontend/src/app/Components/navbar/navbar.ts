@@ -34,7 +34,6 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     // Unconditionally subscribe to unreadCount$ so Navbar badge receives updates
     this.notificationSub = this.notificationService.unreadCount$.subscribe(count => {
-      console.log('[Navbar Badge] Navbar badge updated unreadCount:', count);
       this.unreadCount = count;
       this.cdr.detectChanges();
     });

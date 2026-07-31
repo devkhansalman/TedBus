@@ -37,7 +37,6 @@ export class NotificationPanel implements OnInit, OnDestroy, OnChanges, AfterVie
   ngOnInit(): void {
     this.subscriptions.add(
       this.notificationService.notifications$.subscribe(notifications => {
-        console.log('[Component subscription] NotificationPanel received notifications count:', notifications ? notifications.length : 0);
         this.notifications = notifications || [];
         this.isLoading = false;
         this.cdr.detectChanges();
@@ -66,9 +65,7 @@ export class NotificationPanel implements OnInit, OnDestroy, OnChanges, AfterVie
   }
 
   get templateDataLength(): number {
-    const len = this.notifications ? this.notifications.length : 0;
-    console.log('[Template data length] NotificationPanel template notifications length:', len);
-    return len;
+    return this.notifications ? this.notifications.length : 0;
   }
 
   ngAfterViewChecked(): void {
@@ -76,7 +73,6 @@ export class NotificationPanel implements OnInit, OnDestroy, OnChanges, AfterVie
       const renderedCards = document.querySelectorAll('.notification-card');
       if (renderedCards.length !== this.lastLoggedRenderedCount) {
         this.lastLoggedRenderedCount = renderedCards.length;
-        console.log('[Rendered notification count] DOM rendered notification-card elements count:', renderedCards.length);
       }
     }
   }

@@ -40,12 +40,9 @@ export class NotificationService {
   }
 
   fetchNotifications(): void {
-    console.log('[Frontend Request] NotificationService sending GET /notifications with x-user-email:', this.headers.get('x-user-email'));
     this.http.get<Notification[]>(`${url}notifications`, { headers: this.headers })
       .subscribe({
         next: (notifications) => {
-          console.log('[API Response] NotificationService received API response:', notifications ? notifications.length : 0, 'notifications');
-          console.log('[BehaviorSubject.next()] Emitting notifications array to BehaviorSubject. Length:', notifications ? notifications.length : 0);
           this.notificationsSubject.next(notifications || []);
         },
         error: (err) => {
@@ -56,11 +53,9 @@ export class NotificationService {
   }
 
   fetchUnreadCount(): void {
-    console.log('[Frontend Request] NotificationService sending GET /notifications/unread-count with x-user-email:', this.headers.get('x-user-email'));
     this.http.get<{ unreadCount: number }>(`${url}notifications/unread-count`, { headers: this.headers })
       .subscribe({
         next: (res) => {
-          console.log('[Angular Service] Received GET /notifications/unread-count response:', res.unreadCount);
           this.unreadCountSubject.next(res.unreadCount);
         },
         error: (err) => console.error('[Angular Service Error] fetching unread count', err)

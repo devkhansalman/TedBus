@@ -4,7 +4,6 @@ const notificationService = require("../services/notification.service");
 exports.addbooking = async (req, res) => {
     try {
         const booking = await Booking.create(req.body);
-        console.log("New booking created:", booking._id);
 
         if (booking && booking.email) {
             // Automatically generate Phase 2 notifications: Booking Confirmed & Payment Successful

@@ -16,11 +16,9 @@ export class LandingPage {
 
   fromEvent(option:string){
     this.fromOption=option;
-    // console.log(option);
   }
   toEvent(option:string){
     this.toOption=option;
-    // console.log(option);
   }
   matchDate(event:any){
     if(event.value){
@@ -31,7 +29,6 @@ export class LandingPage {
       this.date=`${year}-${month}-${day}`
     }
     else this.date="null"
-    // console.log(this.date); 
   }
   isLoggedIn():boolean{
     return !!sessionStorage.getItem("Loggedinuser")
@@ -57,7 +54,6 @@ export class LandingPage {
         const dialogRef = this.dialog.open(Dialog);
 
         dialogRef.afterClosed().subscribe(result => {
-          // console.log(`Dialog result: ${result}`);
         });
       }
     }

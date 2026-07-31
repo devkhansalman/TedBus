@@ -6,41 +6,27 @@ const DB_URL = "mongodb://127.0.0.1:27017/tedbus-server";
 async function seed() {
   try {
     await mongoose.connect(DB_URL);
-    console.log("Connected to DB for seeding...");
 
     const testCustomerId = "6049b8a97501a24470b9a526";
 
-    const dummyBooking = {
-      customerId: testCustomerId,
-      passengerDetails: [
-        { name: "John Doe", gender: "Male", age: 28 }
-      ],
-      email: "john.doe@example.com",
-      phoneNumber: "9876543210",
-      fare: 450,
-      status: "Completed",
-      bookingDate: "2026-07-20",
-      busId: "6049b8a97501a24470b9a526",
-      seats: [12],
-      departureDetails: {
-        city: "Delhi",
-        time: 10,
-        date: "2026-07-20"
-      },
-      arrivalDetails: {
-        city: "Jaipur",
-        time: "16:00",
-        date: "2026-07-20"
-      },
-      duration: "6 hours"
-    };
-
-    const existing = await Booking.findOne({ customerId: testCustomerId, status: "Completed" });
+    const existing = await Booking.findOne({ email: "demo@tedbus.com", status: "Completed" });
     if (!existing) {
-      await Booking.create(dummyBooking);
-      console.log("Dummy completed booking created for testing!");
-    } else {
-      console.log("Dummy completed booking already exists.");
+      await Booking.create({
+        name: "Demo Customer",
+        email: "demo@tedbus.com",
+        phone: 9876543210,
+        age: 28,
+        gender: "Male",
+        seatno: ["A1", "A2"],
+        passengerDetails: [
+          { name: "Demo Customer", age: 28, gender: "Male", seatno: "A1" }
+        ],
+        fare: 1250,
+        routeId: "delhi-jaipur",
+        busId: "bus-1",
+        status: "Completed",
+        bookingDate: new Date(Date.now() - 24 * 60 * 60 * 1000)
+      });
     }
   } catch (err) {
     console.error("Seeding error:", err);

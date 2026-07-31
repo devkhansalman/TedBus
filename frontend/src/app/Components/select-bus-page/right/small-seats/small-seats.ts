@@ -25,21 +25,15 @@ onclick():void{
   this.seatselected.emit(this.seatno)
 }
 handleselectedseats(seatno:number):void{
-  // console.log(this.alreadybookedseats)
-  // console.log('selected seat:',seatno)
 }
 handleseatbooking(seatno:number){
   if(!this.alreadybookedseats.includes(this.seatno)){
     if(this.selectedseats.includes(this.seatno)){
       const seatindex= this.selectedseats.indexOf(seatno)
       this.selectedseats.splice(seatindex,1)
-      // console.log('deselected seats', seatno)
     }else{
-      // console.log('selecting seat', this.seatno)
       this.selectedseats.push(this.seatno)
     }
-  }else{
-    console.log("Seat already booked")
   }
 }
 

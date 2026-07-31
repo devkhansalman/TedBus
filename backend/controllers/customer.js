@@ -37,7 +37,6 @@ exports.requireAuthenticatedCustomer = async (req, res, next) => {
 
         let customer = await Customer.findOne({ email }).exec();
         if (!customer) {
-            console.log(`[Auth Middleware] Creating new customer record for email: ${email}`);
             customer = new Customer({
                 name: email.split('@')[0] || "Demo User",
                 email: email

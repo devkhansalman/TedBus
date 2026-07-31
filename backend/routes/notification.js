@@ -5,8 +5,7 @@ const notificationController = require('../controllers/notification');
 const { requireAuthenticatedCustomer } = require('../controllers/customer');
 
 // Log express route access
-router.use('/notifications', (req, res, next) => {
-    console.log(`[Express Route] ${req.method} ${req.originalUrl} - x-user-email: "${req.get('x-user-email') || ''}"`);
+router.use((req, res, next) => {
     next();
 });
 

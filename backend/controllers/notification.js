@@ -3,9 +3,7 @@ const Notification = require('../models/notification');
 exports.seedNotifications = async (req, res, next) => {
     try {
         const userId = req.customer ? req.customer.email : 'demo@tedbus.com';
-        console.log(`[Seed Function] Checking collection count for userId: "${userId}"`);
         const existingCount = await Notification.countDocuments({ userId });
-        console.log(`[Seed Function] Existing notifications count in MongoDB: ${existingCount}`);
         
         if (existingCount === 0) {
             const now = Date.now();
@@ -75,9 +73,7 @@ exports.seedNotifications = async (req, res, next) => {
                 }
             ];
             
-            console.log(`[MongoDB Insert] Inserting ${dummyNotifications.length} dummy notifications for userId: "${userId}"`);
-            const inserted = await Notification.insertMany(dummyNotifications);
-            console.log(`[MongoDB Insert] Successfully inserted ${inserted.length} notifications into MongoDB collection`);
+            await Notification.insertMany(dummyNotifications);
         }
     } catch (error) {
         console.error('[Seed Function Error] Error seeding notifications:', error);
@@ -91,14 +87,11 @@ exports.getNotifications = async (req, res) => {
         // Auto-seed on first fetch
         await exports.seedNotifications(req, res);
         
-        console.log(`[MongoDB Query] Querying notifications for userId: "${userId}" sorted by createdAt DESC`);
         const notifications = await Notification.find({ userId })
             .sort({ createdAt: -1 })
             .limit(50)
             .exec();
-        console.log(`[MongoDB Query] Found ${notifications.length} notifications in MongoDB`);
             
-        console.log(`[API Response] Returning GET /notifications with status 200 and ${notifications.length} items`);
         res.status(200).json(notifications);
     } catch (error) {
         console.error('Error getting notifications', error);
@@ -113,11 +106,8 @@ exports.getUnreadCount = async (req, res) => {
         // Auto-seed on unread count fetch if collection is empty
         await exports.seedNotifications(req, res);
 
-        console.log(`[MongoDB Query] Counting unread notifications for userId: "${userId}"`);
         const unreadCount = await Notification.countDocuments({ userId, isRead: false });
-        console.log(`[MongoDB Query] Unread count result from MongoDB: ${unreadCount}`);
 
-        console.log(`[API Response] Returning GET /notifications/unread-count with unreadCount: ${unreadCount}`);
         res.status(200).json({ unreadCount });
     } catch (error) {
         console.error('Error getting unread count', error);

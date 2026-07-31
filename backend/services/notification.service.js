@@ -31,7 +31,6 @@ exports.createNotification = async ({ userId, title, message, type, priority = '
         });
 
         const saved = await notification.save();
-        console.log(`[Notification Service] Automatically created "${type}" notification for "${userId}": ${title}`);
         return saved;
     } catch (error) {
         console.error('[Notification Service Error] Failed to auto-create notification:', error);

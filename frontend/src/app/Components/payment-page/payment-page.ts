@@ -83,13 +83,11 @@ export class PaymentPage implements OnInit {
 
     this.dataservice.currentdata.subscribe(data => {
       this.routedetails = data;
-      // console.log('Route details from dataservice:', data);
       this.cdr.detectChanges();
     });
 
     this.dataservice.passdata.subscribe(data => {
       this.passengerdetails = data;
-      // console.log('Passenger details from dataservice:', data);
       this.cdr.detectChanges();
     });
   }
@@ -137,10 +135,8 @@ export class PaymentPage implements OnInit {
       isCovidDonated: this.iscoviddonated
     };
 
-    console.log('Submitting booking:', myBooking);
     this.busservice.addbusmongo(myBooking).subscribe({
       next: (response) => {
-        // console.log('Booking success', response);
         alert('Booking confirmed!');
         this.notificationService.fetchUnreadCount();
         this.notificationService.fetchNotifications();
