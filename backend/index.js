@@ -6,7 +6,7 @@ const mongoose = require("mongoose")
 const app=express()
 // const customerroutes=require('./routes/customer')
 
-const PORT=8000
+// const PORT=8000
 
 require('dotenv').config(); //load all environment variables from main configuration.
 ;
@@ -42,5 +42,5 @@ app.get("/",(req,res)=>{
 
 
 app.listen(PORT,()=>{
-    console.log(`Server running on PORT: ${PORT}`);
+    console.log(`Server running on PORT: ${process.env.PORT}`);
 })
