@@ -8,6 +8,9 @@ const app=express()
 
 const PORT=8000
 
+require('dotenv').config(); //load all environment variables from main configuration.
+;
+
 app.use(cors())
 app.use(bodyparse.json())
 // app.use(customerroutes)
@@ -28,7 +31,7 @@ app.use(notificationroute)
 app.use(communityroute)
 
 
-const DB_URL="mongodb://127.0.0.1:27017/tedbus-server"
+const DB_URL=`${process.env.DB_URL}`
 mongoose.connect(DB_URL)
 .then(()=>console.log("Connected successfully"))
 .catch((err)=>console.error("Error in connecting to DB", err))

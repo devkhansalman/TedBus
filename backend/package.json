@@ -1,16 +1,16 @@
 {
-	"name":"tedbus-server",
-	"version":"1.0.0",
-	"main":"index.js",
+	"name": "tedbus-server",
+	"version": "1.0.0",
+	"main": "index.js",
 	"scripts": {
 		"start": "nodemon index.js",
 		"start:prod": "node index.js"
 	},
-	"license":"ISC",
-
+	"license": "ISC",
 	"dependencies": {
 		"body-parser": "^2.3.0",
 		"cors": "^2.8.6",
+		"dotenv": "^17.4.2",
 		"express": "^5.2.1",
 		"mongodb": "^7.5.0",
 		"mongoose": "^9.8.0"
@@ -19,4 +19,3 @@
 		"nodemon": "^3.1.14"
 	}
 }
-
