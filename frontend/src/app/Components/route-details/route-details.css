@@ -1,0 +1,51 @@
+:host {
+  display: block;
+  width: 100%;
+  min-height: 100%;
+}
+
+/* Leaflet Map Custom Marker Styling */
+.custom-leaflet-marker {
+  background: transparent;
+  border: none;
+}
+
+.custom-leaflet-marker .marker-badge {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+}
+
+.custom-leaflet-marker:hover .marker-badge {
+  transform: scale(1.15);
+}
+
+/* Dark theme for Leaflet map tiles & controls */
+html.dark .leaflet-tile {
+  filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
+}
+
+html.dark .leaflet-container {
+  background: #0f172a !important;
+}
+
+html.dark .leaflet-popup-content-wrapper,
+html.dark .leaflet-popup-tip {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+html.dark .leaflet-control-zoom a {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #475569 !important;
+}
+
+html.dark .leaflet-popup-content h4 {
+  color: #f8fafc !important;
+}
+
+html.dark .leaflet-popup-content p {
+  color: #cbd5e1 !important;
+}

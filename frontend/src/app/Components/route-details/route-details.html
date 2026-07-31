@@ -1,0 +1,234 @@
+<div class="w-full bg-slate-50 dark:bg-[#0F172A] py-6 px-4 sm:px-6 lg:px-12 transition-colors duration-300">
+  <div class="mx-auto max-w-7xl space-y-6">
+
+    <!-- 1. Header with Title, Summary Badges & Dev Controls -->
+    <header class="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between dark:border-white/10 dark:bg-[#1E293B]">
+      <div class="flex items-center gap-3">
+        <button (click)="goBack()" 
+                type="button" 
+                class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-700 transition hover:bg-slate-100 dark:border-white/10 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 cursor-pointer"
+                title="{{ 'COMMON.BACK' | translate }}">
+          <span class="material-icons text-xl">arrow_back</span>
+        </button>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center gap-1 rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-bold text-red-600 dark:bg-red-500/15 dark:text-red-400">
+              <span class="material-icons text-xs">directions_bus</span>
+              {{ 'ROUTE_MAP.LIVE_TRACKING' | translate }}
+            </span>
+          </div>
+          <h1 class="mt-1 text-xl font-extrabold text-slate-900 sm:text-2xl dark:text-[#F8FAFC]">
+            {{ mapData?.routeName || (departure + ' to ' + arrival) }}
+          </h1>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <!-- Simulation Controls (Dev Flag) -->
+        <div *ngIf="isDevMode" class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800/80 p-1.5 rounded-xl border border-slate-200 dark:border-slate-700">
+          <button (click)="toggleTrackingPlayPause()" 
+                  type="button" 
+                  class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer"
+                  [ngClass]="trackingState?.isPlaying ? 'bg-amber-500 text-white hover:bg-amber-600' : 'bg-emerald-600 text-white hover:bg-emerald-700'">
+            <span class="material-icons text-sm">{{ trackingState?.isPlaying ? 'pause' : 'play_arrow' }}</span>
+            <span>{{ trackingState?.isPlaying ? ('ROUTE_MAP.PAUSE' | translate) : ('ROUTE_MAP.START_TRACKING' | translate) }}</span>
+          </button>
+          <button (click)="resetTracking()" 
+                  type="button" 
+                  class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-200 text-xs font-bold transition cursor-pointer"
+                  title="{{ 'ROUTE_MAP.RESET' | translate }}">
+            <span class="material-icons text-sm">restart_alt</span>
+            <span>{{ 'ROUTE_MAP.RESET' | translate }}</span>
+          </button>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 text-xs font-semibold sm:text-sm">
+          <span *ngIf="mapData?.distanceKm" class="inline-flex items-center gap-1.5 rounded-lg bg-slate-100 px-3 py-2 text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+            <span class="material-icons text-base text-red-500">straighten</span>
+            {{ mapData?.distanceKm }} {{ 'ROUTE_MAP.KM' | translate }}
+          </span>
+          <span *ngIf="mapData?.durationFormatted" class="inline-flex items-center gap-1.5 rounded-lg bg-slate-100 px-3 py-2 text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+            <span class="material-icons text-base text-amber-500">schedule</span>
+            {{ mapData?.durationFormatted }}
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 2. Grid Layout: Desktop minmax(0, 2fr) minmax(340px, 1fr), Tablet 60/40, Mobile Single Column -->
+    <div class="grid grid-cols-1 md:grid-cols-[60%_40%] lg:grid-cols-[minmax(0,2fr)_minmax(340px,1fr)] gap-6 items-start">
+
+      <!-- Left Column: Interactive Map with Animated Live Bus -->
+      <section class="w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-[#1E293B] aspect-[16/10] min-h-[480px] max-h-[620px] relative">
+        <div #mapContainer class="w-full h-full"></div>
+      </section>
+
+      <!-- Right Column: Live Tracking Information Panel -->
+      <aside class="w-full flex flex-col gap-6">
+
+        <!-- Live Bus Tracking Card & Progress Bar -->
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-[#1E293B] space-y-4">
+          
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+              <span class="inline-block h-2.5 w-2.5 rounded-full" [ngClass]="trackingState?.isArrived ? 'bg-emerald-500' : 'bg-red-500 animate-pulse'"></span>
+              {{ 'ROUTE_MAP.JOURNEY_PROGRESS' | translate }}
+            </span>
+            <span class="text-sm font-extrabold text-red-600 dark:text-red-400">
+              {{ trackingState?.progressPercentage || 0 }}% {{ 'ROUTE_MAP.COMPLETED' | translate }}
+            </span>
+          </div>
+
+          <!-- Animated Progress Bar -->
+          <div class="w-full h-3 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-red-500 to-emerald-500 rounded-full transition-all duration-500 ease-out"
+                 [style.width.%]="trackingState?.progressPercentage || 0"></div>
+          </div>
+
+          <!-- Current Location & Next Stop Grid -->
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <div class="rounded-xl bg-slate-50 p-3 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
+              <p class="text-[11px] font-bold uppercase text-slate-500 dark:text-slate-400">{{ 'ROUTE_MAP.CURRENT_LOCATION' | translate }}</p>
+              <p class="mt-1 text-sm font-extrabold text-slate-900 dark:text-[#F8FAFC] truncate">{{ trackingState?.currentStopName || 'En-Route' }}</p>
+            </div>
+            <div class="rounded-xl bg-slate-50 p-3 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
+              <p class="text-[11px] font-bold uppercase text-slate-500 dark:text-slate-400">{{ 'ROUTE_MAP.NEXT_STOP' | translate }}</p>
+              <p class="mt-1 text-sm font-extrabold text-slate-900 dark:text-[#F8FAFC] truncate">{{ trackingState?.nextStopName || 'None' }}</p>
+            </div>
+          </div>
+
+          <!-- Status, Speed, Last Updated Stats -->
+          <div class="grid grid-cols-3 gap-2 border-t border-slate-100 pt-3 dark:border-white/10">
+            <div class="text-center">
+              <p class="text-[10px] font-semibold text-slate-500 dark:text-slate-400">{{ 'ROUTE_MAP.STATUS' | translate }}</p>
+              <span class="inline-block mt-0.5 px-2 py-0.5 rounded text-[11px] font-extrabold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300">
+                {{ trackingState?.status || 'On Time' }}
+              </span>
+            </div>
+            <div class="text-center">
+              <p class="text-[10px] font-semibold text-slate-500 dark:text-slate-400">{{ 'ROUTE_MAP.SPEED' | translate }}</p>
+              <p class="mt-0.5 text-xs font-extrabold text-slate-900 dark:text-[#F8FAFC]">{{ trackingState?.speedKmH || 0 }} km/h</p>
+            </div>
+            <div class="text-center">
+              <p class="text-[10px] font-semibold text-slate-500 dark:text-slate-400">{{ 'ROUTE_MAP.LAST_UPDATED' | translate }}</p>
+              <p class="mt-0.5 text-xs font-extrabold text-slate-900 dark:text-[#F8FAFC]">{{ trackingState?.isArrived ? 'Arrived' : (trackingState?.lastUpdatedSec || 2) + 's ago' }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Distance Covered & Remaining Card -->
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-[#1E293B]">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+            {{ 'ROUTE_MAP.DISTANCE' | translate }} & {{ 'ROUTE_MAP.JOURNEY_PROGRESS' | translate }}
+          </h3>
+          <div class="grid grid-cols-3 gap-3">
+            <div class="rounded-xl bg-slate-50 p-2.5 text-center dark:bg-slate-800/60">
+              <p class="text-[10px] font-semibold text-slate-500 dark:text-slate-400">{{ 'ROUTE_MAP.DISTANCE' | translate }}</p>
+              <p class="mt-0.5 text-xs font-extrabold text-slate-900 dark:text-[#F8FAFC]">{{ trackingState?.totalKm || mapData?.distanceKm }} km</p>
+            </div>
+            <div class="rounded-xl bg-emerald-50 p-2.5 text-center dark:bg-emerald-950/20">
+              <p class="text-[10px] font-semibold text-emerald-700 dark:text-emerald-400">{{ 'ROUTE_MAP.COVERED' | translate }}</p>
+              <p class="mt-0.5 text-xs font-extrabold text-emerald-800 dark:text-emerald-300">{{ trackingState?.coveredKm || 0 }} km</p>
+            </div>
+            <div class="rounded-xl bg-amber-50 p-2.5 text-center dark:bg-amber-950/20">
+              <p class="text-[10px] font-semibold text-amber-700 dark:text-amber-400">{{ 'ROUTE_MAP.REMAINING' | translate }}</p>
+              <p class="mt-0.5 text-xs font-extrabold text-amber-800 dark:text-amber-300">{{ trackingState?.remainingKm || 0 }} km</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Live Timeline Card -->
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-[#1E293B]">
+          <h3 class="text-sm font-bold text-slate-900 dark:text-[#F8FAFC] flex items-center gap-2 mb-5">
+            <span class="material-icons text-red-500 text-lg">alt_route</span>
+            {{ 'ROUTE_MAP.NUMBER_OF_STOPS' | translate }} & Live Timeline
+          </h3>
+
+          <div class="relative pl-6 space-y-6 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200 dark:before:bg-slate-700">
+
+            <!-- Source Departure -->
+            <div class="relative flex items-start gap-3">
+              <span class="absolute -left-6 top-0.5 h-4 w-4 rounded-full border-2 border-emerald-500 bg-emerald-500 flex items-center justify-center text-white">
+                <span class="material-icons text-[10px]">check</span>
+              </span>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">{{ 'ROUTE_MAP.SOURCE' | translate }}</span>
+                <h4 class="text-xs font-bold text-slate-900 dark:text-[#F8FAFC]">{{ mapData?.departure?.name }}</h4>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{{ mapData?.departure?.label }}</p>
+              </div>
+            </div>
+
+            <!-- Intermediate Stops with Live Status & ETAs -->
+            <div *ngFor="let stop of mapData?.stops; let idx = index" class="relative flex items-start gap-3">
+
+              <!-- Completed (Green Check), Current Stop (Animated Bus), Upcoming (Gray Dot) -->
+              <ng-container [ngSwitch]="trackingState?.stopStatuses?.[idx]">
+                <!-- Completed Stop -->
+                <span *ngSwitchCase="'completed'"
+                      class="absolute -left-6 top-0.5 h-4 w-4 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-sm">
+                  <span class="material-icons text-[10px]">check</span>
+                </span>
+                
+                <!-- Current Active Stop -->
+                <span *ngSwitchCase="'current'"
+                      class="absolute -left-7 -top-0.5 h-6 w-6 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg border-2 border-white animate-bounce">
+                  <span class="material-icons text-xs">directions_bus</span>
+                </span>
+
+                <!-- Upcoming Stop -->
+                <span *ngSwitchDefault
+                      class="absolute -left-6 top-1 h-3.5 w-3.5 rounded-full border-2 border-slate-300 bg-white dark:border-slate-600 dark:bg-slate-800"></span>
+              </ng-container>
+
+              <div class="flex-1">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
+                        [ngClass]="{
+                          'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300': trackingState?.stopStatuses?.[idx] === 'completed',
+                          'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 font-bold': trackingState?.stopStatuses?.[idx] === 'current',
+                          'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400': trackingState?.stopStatuses?.[idx] === 'upcoming'
+                        }">
+                    {{ trackingState?.stopStatuses?.[idx] === 'current' ? ('ROUTE_MAP.CURRENT_STOP' | translate) : (stop.type === 'rest' ? ('ROUTE_MAP.REST_STOP' | translate) : ('ROUTE_MAP.INTERMEDIATE_STOP' | translate)) }}
+                  </span>
+                  
+                  <!-- Live ETA Display -->
+                  <span class="text-[11px] font-bold"
+                        [ngClass]="trackingState?.stopStatuses?.[idx] === 'completed' ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'">
+                    {{ trackingState?.stopETAs?.[idx] || stop.timeOffset }}
+                  </span>
+                </div>
+
+                <h4 class="text-xs font-semibold text-slate-900 dark:text-[#F8FAFC] mt-1">{{ stop.name }}</h4>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{{ stop.locationName }}</p>
+              </div>
+            </div>
+
+            <!-- Destination Arrival -->
+            <div class="relative flex items-start gap-3">
+              <span class="absolute -left-6 top-0.5 h-4 w-4 rounded-full flex items-center justify-center shadow-sm"
+                    [ngClass]="trackingState?.isArrived ? 'bg-emerald-600 text-white font-bold' : 'border-2 border-red-500 bg-white dark:bg-slate-800'">
+                <span class="material-icons text-[10px]">{{ trackingState?.isArrived ? 'flag' : 'place' }}</span>
+              </span>
+              <div>
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
+                        [ngClass]="trackingState?.isArrived ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 font-bold' : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'">
+                    {{ trackingState?.isArrived ? '🏁 Arrived' : ('ROUTE_MAP.DESTINATION' | translate) }}
+                  </span>
+                  <span class="text-[11px] font-bold" [ngClass]="trackingState?.isArrived ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-400'">
+                    {{ trackingState?.isArrived ? 'Arrived' : 'Upcoming' }}
+                  </span>
+                </div>
+                <h4 class="text-xs font-bold text-slate-900 dark:text-[#F8FAFC] mt-1">{{ mapData?.arrival?.name }}</h4>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{{ mapData?.arrival?.label }}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </aside>
+    </div>
+
+  </div>
+</div>

@@ -66,7 +66,11 @@
                 <i class="material-icons">directions_bus</i>
             </span>
         </div>
-        <div class="busBoxSection22">
+        <div class="busBoxSection22 flex items-center gap-3">
+            <button (click)="openRouteMap()" type="button" class="inline-flex items-center gap-1 text-xs font-semibold text-red-600 dark:text-red-400 hover:underline cursor-pointer bg-red-50 dark:bg-red-500/10 px-2.5 py-1 rounded-md transition">
+                <i class="material-icons text-sm text-red-500">map</i>
+                <span>{{ 'ROUTE_MAP.VIEW_ROUTE' | translate }}</span>
+            </button>
             <div *ngIf="livetracking ===1">
                 <i class="material-icons">gps_fixed</i>
                 <span>Live Tracking</span>

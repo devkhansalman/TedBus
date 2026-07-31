@@ -37,6 +37,7 @@ import { WriteReviewModal } from './Components/write-review-modal/write-review-m
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NotificationPanel } from './Components/notification-panel/notification-panel';
+import { RouteDetails } from './Components/route-details/route-details';
 
 import { HttpClientModule } from '@angular/common/http';
 import { provideTranslateService, provideMissingTranslationHandler, TranslatePipe, TranslateDirective } from '@ngx-translate/core';
@@ -67,6 +68,7 @@ import { CustomMissingTranslationHandler } from './service/language.service';
     ReviewModal,
     WriteReviewModal,
     NotificationPanel,
+    RouteDetails,
   ],
   imports: [
     BrowserModule,

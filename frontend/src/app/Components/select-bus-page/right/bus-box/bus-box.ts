@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ReviewService } from '../../../../service/review.service';
 import { ReviewModal } from '../../../review-modal/review-modal';
@@ -29,8 +30,21 @@ export class BusBox implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    private router: Router
   ) {}
+
+  openRouteMap(): void {
+    const depart = this.routedetails?.departureLocation?.name || 'Delhi';
+    const arrival = this.routedetails?.arrivalLocation?.name || 'Jaipur';
+    this.router.navigate(['/route-details'], {
+      queryParams: {
+        depart,
+        arrival,
+        busId: this.busid
+      }
+    });
+  }
 
   ngOnInit(): void {
     if (this.rating && this.rating.length > 0) {

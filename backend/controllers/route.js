@@ -47,3 +47,23 @@ exports.getoneroute = async(req,res) => {
         res.status(500).json({error: err.message});
     }
 };
+
+const routeMapHelper = require("../helpers/route-map.helper");
+
+exports.getRouteDetails = async (req, res) => {
+    try {
+        const { departure, arrival } = req.params;
+        const { busId } = req.query;
+
+        let bus = null;
+        if (busId) {
+            bus = await Bus.findById(busId).catch(() => null);
+        }
+
+        const mapData = routeMapHelper.getRouteMapData(departure, arrival, bus);
+        res.status(200).json(mapData);
+    } catch (err) {
+        console.error("Error fetching route map details:", err);
+        res.status(500).json({ error: err.message });
+    }
+};
