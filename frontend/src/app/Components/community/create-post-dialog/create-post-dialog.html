@@ -1,0 +1,65 @@
+<div class="p-6 bg-white dark:bg-[#1E293B] text-slate-900 dark:text-[#F8FAFC] rounded-2xl max-w-lg w-full transition-colors duration-300">
+  <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-700">
+    <h2 class="text-xl font-extrabold flex items-center gap-2">
+      <span class="material-icons text-red-600">rate_review</span>
+      {{ isEditing ? ('COMMUNITY.EDIT_POST' | translate) : ('COMMUNITY.CREATE_POST' | translate) }}
+    </h2>
+    <button (click)="onCancel()" type="button" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+
+  <div *ngIf="errorMessage" class="mt-4 p-3 rounded-xl bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs font-semibold">
+    {{ errorMessage }}
+  </div>
+
+  <form (ngSubmit)="onSubmit()" class="mt-4 space-y-4">
+    <div>
+      <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+        {{ 'COMMUNITY.POST_TITLE' | translate }} *
+      </label>
+      <input type="text"
+             [(ngModel)]="title"
+             name="title"
+             required
+             placeholder="{{ 'COMMUNITY.TITLE_PLACEHOLDER' | translate }}"
+             class="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm font-semibold text-slate-900 focus:border-red-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-[#F8FAFC]" />
+    </div>
+
+    <div>
+      <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+        {{ 'COMMUNITY.STORY' | translate }} *
+      </label>
+      <textarea [(ngModel)]="content"
+                name="content"
+                required
+                rows="5"
+                placeholder="{{ 'COMMUNITY.STORY_PLACEHOLDER' | translate }}"
+                class="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-900 focus:border-red-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-[#F8FAFC]"></textarea>
+    </div>
+
+    <div>
+      <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+        {{ 'COMMUNITY.IMAGE_URL' | translate }} ({{ 'COMMUNITY.OPTIONAL' | translate }})
+      </label>
+      <input type="url"
+             [(ngModel)]="imageUrl"
+             name="imageUrl"
+             placeholder="https://example.com/bus-photo.jpg"
+             class="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-900 focus:border-red-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-[#F8FAFC]" />
+    </div>
+
+    <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-700">
+      <button type="button"
+              (click)="onCancel()"
+              class="px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 transition cursor-pointer">
+        {{ 'COMMON.CANCEL' | translate }}
+      </button>
+      <button type="submit"
+              [disabled]="isLoading"
+              class="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-extrabold shadow-md transition disabled:opacity-50 cursor-pointer">
+        {{ isLoading ? ('COMMON.SAVING' | translate) : (isEditing ? ('COMMUNITY.UPDATE' | translate) : ('COMMUNITY.SUBMIT_POST' | translate)) }}
+      </button>
+    </div>
+  </form>
+</div>

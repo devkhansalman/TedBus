@@ -38,6 +38,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NotificationPanel } from './Components/notification-panel/notification-panel';
 import { RouteDetails } from './Components/route-details/route-details';
+import { CommunityPage } from './Components/community/community';
+import { CreatePostDialog } from './Components/community/create-post-dialog/create-post-dialog';
 
 import { HttpClientModule } from '@angular/common/http';
 import { provideTranslateService, provideMissingTranslationHandler, TranslatePipe, TranslateDirective } from '@ngx-translate/core';
@@ -69,6 +71,8 @@ import { CustomMissingTranslationHandler } from './service/language.service';
     WriteReviewModal,
     NotificationPanel,
     RouteDetails,
+    CommunityPage,
+    CreatePostDialog,
   ],
   imports: [
     BrowserModule,

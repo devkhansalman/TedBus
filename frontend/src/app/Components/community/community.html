@@ -1,0 +1,228 @@
+<div class="w-full bg-slate-50 dark:bg-[#0F172A] py-8 px-4 sm:px-6 lg:px-12 min-h-screen transition-colors duration-300">
+  <div class="mx-auto max-w-5xl space-y-8">
+
+    <!-- 1. Header Banner & Action Bar -->
+    <header class="flex flex-col gap-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between dark:border-white/10 dark:bg-[#1E293B]">
+      <div>
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1 text-xs font-extrabold text-red-600 dark:bg-red-500/15 dark:text-red-400">
+          <span class="material-icons text-sm">groups</span>
+          {{ 'COMMUNITY.HEADER_BADGE' | translate }}
+        </span>
+        <h1 class="mt-2 text-2xl font-black text-slate-900 sm:text-3xl dark:text-[#F8FAFC]">
+          {{ 'COMMUNITY.PAGE_TITLE' | translate }}
+        </h1>
+        <p class="mt-1 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+          {{ 'COMMUNITY.PAGE_SUBTITLE' | translate }}
+        </p>
+      </div>
+
+      <button (click)="openCreatePostDialog()"
+              type="button"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 px-5 py-3 text-xs font-black text-white shadow-lg transition hover:bg-red-700 active:scale-95 cursor-pointer shrink-0">
+        <span class="material-icons text-base">add_circle</span>
+        <span>{{ 'COMMUNITY.CREATE_POST' | translate }}</span>
+      </button>
+    </header>
+
+    <!-- 2. Search & Sort Controls Bar -->
+    <div class="flex flex-col sm:flex-row gap-4 items-center justify-between">
+      <!-- Search Input -->
+      <div class="relative w-full sm:w-80">
+        <span class="material-icons absolute left-3.5 top-3 text-slate-400 text-lg">search</span>
+        <input type="text"
+               [(ngModel)]="searchQuery"
+               (ngModelChange)="onSearchChange()"
+               placeholder="{{ 'COMMUNITY.SEARCH_PLACEHOLDER' | translate }}"
+               class="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 py-2.5 text-xs font-semibold text-slate-900 focus:border-red-500 focus:outline-none dark:border-slate-700 dark:bg-[#1E293B] dark:text-[#F8FAFC]" />
+      </div>
+
+      <!-- Sorting Options -->
+      <div class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
+        <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider whitespace-nowrap">
+          {{ 'COMMUNITY.SORT_BY' | translate }}:
+        </span>
+        <button (click)="onSortChange('latest')"
+                type="button"
+                class="px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer whitespace-nowrap"
+                [ngClass]="selectedSort === 'latest' ? 'bg-red-600 text-white shadow-sm' : 'bg-white text-slate-700 border border-slate-200 dark:bg-[#1E293B] dark:text-slate-300 dark:border-slate-700'">
+          {{ 'COMMUNITY.SORT_LATEST' | translate }}
+        </button>
+        <button (click)="onSortChange('mostLiked')"
+                type="button"
+                class="px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer whitespace-nowrap"
+                [ngClass]="selectedSort === 'mostLiked' ? 'bg-red-600 text-white shadow-sm' : 'bg-white text-slate-700 border border-slate-200 dark:bg-[#1E293B] dark:text-slate-300 dark:border-slate-700'">
+          {{ 'COMMUNITY.SORT_MOST_LIKED' | translate }}
+        </button>
+        <button (click)="onSortChange('mostCommented')"
+                type="button"
+                class="px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer whitespace-nowrap"
+                [ngClass]="selectedSort === 'mostCommented' ? 'bg-red-600 text-white shadow-sm' : 'bg-white text-slate-700 border border-slate-200 dark:bg-[#1E293B] dark:text-slate-300 dark:border-slate-700'">
+          {{ 'COMMUNITY.SORT_MOST_COMMENTED' | translate }}
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. Loading State -->
+    <div *ngIf="isLoading" class="flex flex-col items-center justify-center py-16 space-y-3">
+      <div class="h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-red-600 dark:border-slate-700"></div>
+      <p class="text-xs font-bold text-slate-500 dark:text-slate-400">{{ 'COMMUNITY.LOADING_POSTS' | translate }}</p>
+    </div>
+
+    <!-- 4. Error Message -->
+    <div *ngIf="!isLoading && errorMessage" class="rounded-2xl bg-red-50 p-6 text-center text-red-700 dark:bg-red-950/30 dark:text-red-300 border border-red-200 dark:border-red-900">
+      <span class="material-icons text-3xl">error_outline</span>
+      <p class="mt-2 text-sm font-bold">{{ errorMessage }}</p>
+      <button (click)="loadPosts()" class="mt-4 px-4 py-2 bg-red-600 text-white rounded-xl text-xs font-bold">
+        {{ 'COMMON.RETRY' | translate }}
+      </button>
+    </div>
+
+    <!-- 5. Empty State -->
+    <div *ngIf="!isLoading && !errorMessage && posts.length === 0" class="rounded-2xl border border-slate-200 bg-white p-12 text-center shadow-sm dark:border-white/10 dark:bg-[#1E293B]">
+      <span class="material-icons text-5xl text-slate-300 dark:text-slate-600">article</span>
+      <h3 class="mt-3 text-lg font-bold text-slate-900 dark:text-[#F8FAFC]">{{ 'COMMUNITY.NO_POSTS' | translate }}</h3>
+      <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">{{ 'COMMUNITY.NO_POSTS_SUBTITLE' | translate }}</p>
+      <button (click)="openCreatePostDialog()" class="mt-4 px-5 py-2.5 bg-red-600 text-white rounded-xl text-xs font-extrabold shadow-md">
+        {{ 'COMMUNITY.CREATE_FIRST_POST' | translate }}
+      </button>
+    </div>
+
+    <!-- 6. Journey Feed List -->
+    <div *ngIf="!isLoading && posts.length > 0" class="space-y-6">
+      
+      <article *ngFor="let post of posts" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-[#1E293B]">
+
+        <!-- Author Header -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <img [src]="post.authorAvatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80'"
+                 alt="{{ post.author }}"
+                 class="h-10 w-10 rounded-full object-cover border border-slate-200 dark:border-slate-700" />
+            <div>
+              <h3 class="text-sm font-extrabold text-slate-900 dark:text-[#F8FAFC]">{{ post.author }}</h3>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400">{{ formatDate(post.createdAt) }}</p>
+            </div>
+          </div>
+
+          <!-- Edit / Delete Menu for Own Post -->
+          <div *ngIf="isLoggedIn() && post.authorEmail === currentUserEmail" class="flex items-center gap-1">
+            <button (click)="openCreatePostDialog(post)"
+                    type="button"
+                    class="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                    title="{{ 'COMMUNITY.EDIT_POST' | translate }}">
+              <span class="material-icons text-base">edit</span>
+            </button>
+            <button (click)="deletePost(post)"
+                    type="button"
+                    class="p-1.5 text-slate-400 hover:text-red-600 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition"
+                    title="{{ 'COMMUNITY.DELETE_POST' | translate }}">
+              <span class="material-icons text-base">delete</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Post Title & Story Content -->
+        <div class="mt-4 space-y-2">
+          <h2 class="text-lg font-black text-slate-900 dark:text-[#F8FAFC] leading-snug">
+            {{ post.title }}
+          </h2>
+          <p class="text-sm text-slate-700 dark:text-slate-300 whitespace-pre-line leading-relaxed">
+            {{ post.content }}
+          </p>
+        </div>
+
+        <!-- Attached Images Gallery -->
+        <div *ngIf="post.images && post.images.length > 0" class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-hidden rounded-xl">
+          <img *ngFor="let img of post.images"
+               [src]="img"
+               alt="Journey Photo"
+               class="w-full h-56 object-cover rounded-xl border border-slate-100 dark:border-slate-800 hover:scale-[1.02] transition duration-300" />
+        </div>
+
+        <!-- Footer Actions Bar (Like & Comment buttons) -->
+        <div class="mt-6 flex items-center justify-between border-t border-slate-100 pt-4 dark:border-slate-800">
+          
+          <div class="flex items-center gap-6">
+            <!-- Like Button -->
+            <button (click)="toggleLike(post)"
+                    type="button"
+                    class="flex items-center gap-2 text-xs font-bold transition cursor-pointer"
+                    [ngClass]="isLikedByCurrentUser(post) ? 'text-red-600 dark:text-red-400' : 'text-slate-500 hover:text-red-600 dark:text-slate-400 dark:hover:text-red-400'">
+              <span class="material-icons text-lg" [ngClass]="isLikedByCurrentUser(post) ? 'text-red-600' : ''">
+                {{ isLikedByCurrentUser(post) ? 'favorite' : 'favorite_border' }}
+              </span>
+              <span>{{ post.likes }} {{ 'COMMUNITY.LIKES' | translate }}</span>
+            </button>
+
+            <!-- Comment Toggle Button -->
+            <button (click)="toggleComments(post)"
+                    type="button"
+                    class="flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-[#F8FAFC] transition cursor-pointer">
+              <span class="material-icons text-lg">chat_bubble_outline</span>
+              <span>{{ post.commentCount }} {{ 'COMMUNITY.COMMENTS' | translate }}</span>
+            </button>
+          </div>
+
+          <span class="text-[11px] font-semibold text-slate-400">
+            {{ post.images?.length || 0 }} {{ 'COMMUNITY.PHOTOS' | translate }}
+          </span>
+        </div>
+
+        <!-- 7. Expandable Comment Section -->
+        <div *ngIf="expandedComments[post._id]" class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-4">
+          
+          <!-- Comment List -->
+          <div *ngIf="commentsMap[post._id] && commentsMap[post._id].length > 0" class="space-y-3">
+            <div *ngFor="let comment of commentsMap[post._id]" class="flex items-start justify-between gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60">
+              <div class="flex items-start gap-3">
+                <img [src]="comment.authorAvatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80'"
+                     alt="{{ comment.author }}"
+                     class="h-7 w-7 rounded-full object-cover mt-0.5" />
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-extrabold text-slate-900 dark:text-[#F8FAFC]">{{ comment.author }}</span>
+                    <span class="text-[10px] text-slate-400">{{ formatDate(comment.createdAt) }}</span>
+                  </div>
+                  <p class="text-xs text-slate-700 dark:text-slate-300 mt-0.5">{{ comment.message }}</p>
+                </div>
+              </div>
+
+              <!-- Delete Own Comment Button -->
+              <button *ngIf="isLoggedIn() && comment.authorEmail === currentUserEmail"
+                      (click)="deleteComment(post._id, comment._id)"
+                      type="button"
+                      class="text-slate-400 hover:text-red-600 transition"
+                      title="{{ 'COMMUNITY.DELETE_COMMENT' | translate }}">
+                <span class="material-icons text-sm">close</span>
+              </button>
+            </div>
+          </div>
+
+          <div *ngIf="!commentsMap[post._id] || commentsMap[post._id].length === 0" class="text-xs text-slate-400 italic py-1">
+            {{ 'COMMUNITY.NO_COMMENTS_YET' | translate }}
+          </div>
+
+          <!-- Add Comment Input Box -->
+          <div class="flex items-center gap-2 pt-2">
+            <input type="text"
+                   [(ngModel)]="newCommentText[post._id]"
+                   (keyup.enter)="submitComment(post)"
+                   placeholder="{{ isLoggedIn() ? ('COMMUNITY.WRITE_COMMENT_PLACEHOLDER' | translate) : ('COMMUNITY.LOGIN_TO_COMMENT' | translate) }}"
+                   [disabled]="!isLoggedIn()"
+                   class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-xs text-slate-900 focus:border-red-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-[#F8FAFC] disabled:opacity-60" />
+            <button (click)="submitComment(post)"
+                    type="button"
+                    [disabled]="!isLoggedIn() || !newCommentText[post._id]?.trim()"
+                    class="px-4 py-2 rounded-xl bg-red-600 text-white text-xs font-bold hover:bg-red-700 transition disabled:opacity-40 cursor-pointer">
+              {{ 'COMMUNITY.POST_COMMENT' | translate }}
+            </button>
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+</div>

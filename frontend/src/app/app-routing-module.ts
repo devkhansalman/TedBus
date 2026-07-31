@@ -5,6 +5,7 @@ import {SelectBusPage} from './Components/select-bus-page/select-bus-page'
 import { PaymentPage } from './Components/payment-page/payment-page';
 import { ProfilePage } from './Components/profile-page/profile-page';
 import { RouteDetails } from './Components/route-details/route-details';
+import { CommunityPage } from './Components/community/community';
 
 const routes: Routes = [
   {path:'',component:LandingPage},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path:'payment',component:PaymentPage},
   {path:'profile',component:ProfilePage},
   {path:'route-details',component:RouteDetails},
+  {path:'community',component:CommunityPage},
 ];
 
 @NgModule({
