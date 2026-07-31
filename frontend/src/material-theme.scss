@@ -36,3 +36,16 @@ body {
   margin: 0;
   height: 100%;
 }
+
+html.dark,
+html.dark body {
+  background: #0f172a;
+  color: #e2e8f0;
+  color-scheme: dark;
+  --mat-sys-surface: #0f172a;
+  --mat-sys-on-surface: #e2e8f0;
+  --mat-sys-surface-container: #1e293b;
+  --mat-sys-surface-container-high: #273549;
+  --mat-sys-on-surface-variant: #cbd5e1;
+  --mat-sys-outline: #64748b;
+}

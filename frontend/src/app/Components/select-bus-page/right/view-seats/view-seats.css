@@ -207,3 +207,51 @@
 .mainContainer27 {
   /* inherits from app-form-drawer's own styling */
 }
+
+:host-context(html.dark) .mainContainer {
+  background: #0f172a;
+}
+
+:host-context(html.dark) :is(.mainContainer1, .mainContainer2) {
+  background: #1e293b;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+:host-context(html.dark) .seat-legend,
+:host-context(html.dark) :is(.mainContainer22, .mainContainer23) {
+  background: #273549;
+  border-color: #475569;
+  color: #cbd5e1;
+}
+
+:host-context(html.dark) :is(.mainContainer21 > div:first-child, .time-badge, .mainContainer24 > div:first-child, .mainContainer25) {
+  color: #f1f5f9;
+}
+
+:host-context(html.dark) .time-badge,
+:host-context(html.dark) .mainContainer24 > div:last-child {
+  background: #173b61;
+}
+
+:host-context(html.dark) .mainContainer24 {
+  border-color: #475569;
+}
+
+:host-context(html.dark) .mainContainer26 {
+  background: #3b2d12;
+  border-color: #805c20;
+}
+
+:host-context(html.dark) .mainContainer1,
+:host-context(html.dark) .mainContainer2 {
+  border: 1px solid var(--tb-border);
+  border-radius: 1rem;
+}
+
+:host-context(html.dark) .seat-map-header {
+  background: linear-gradient(135deg, #1f2937, #111827);
+}
+
+:host-context(html.dark) .legend-dot.available { background: #22c55e; }
+:host-context(html.dark) .legend-dot.selected { background: #ef4444; }
+:host-context(html.dark) .legend-dot.booked { background: #64748b; }

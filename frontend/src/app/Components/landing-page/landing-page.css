@@ -1,0 +1,27 @@
+
+:host-context(html.dark) section .bg-white {
+  background-color: var(--tb-card) !important;
+  border: 1px solid var(--tb-border);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, .2);
+}
+
+:host-context(html.dark) section input {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  min-height: 0;
+}
+
+:host-context(html.dark) section .bg-red-400 {
+  background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+:host-context(html.dark) section .bg-red-400:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 22px rgba(239, 68, 68, .3);
+}
+
+:host-context(html.dark) section :is(.text-gray-600, .text-gray-700) {
+  color: var(--tb-text) !important;
+}

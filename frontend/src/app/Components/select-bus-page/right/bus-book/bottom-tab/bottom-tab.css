@@ -91,3 +91,21 @@
   text-align: center;
   background: #fafafa;
 }
+
+:host-context(html.dark) .mainBar {
+  background: #1e293b;
+  border-color: #475569;
+}
+
+:host-context(html.dark) :is(.tab-item, .tab-separator, .tab-placeholder) {
+  color: #cbd5e1;
+}
+
+:host-context(html.dark) .tab-placeholder {
+  background: #273549;
+}
+
+:host-context(html.dark) .tab-item.view-seats-tab {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 8px 18px rgba(239, 68, 68, .28);
+}

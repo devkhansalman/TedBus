@@ -237,3 +237,83 @@
     min-height:45%;
     height: auto;
   }
+
+  /* Bus result card */
+  .bus-box {
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    background: #fff;
+    margin-top: 1rem;
+    padding: 1.25rem;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, .06);
+    transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  }
+
+  .bus-box:hover {
+    transform: translateY(-3px);
+    border-color: rgba(239, 68, 68, .32);
+    box-shadow: 0 18px 34px rgba(15, 23, 42, .13);
+  }
+
+  .busBoxSection1 {
+    align-items: flex-start;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .busBoxSection11 > div:nth-child(1),
+  .busBoxSection12 > div:nth-child(1),
+  .busBoxSection14 > div:nth-child(1),
+  .busBoxSection16 > div:nth-child(1) > div:nth-child(2) {
+    color: #0f172a;
+    font-size: 1rem;
+  }
+
+  .busBoxSection11 > div:nth-child(2),
+  .busBoxSection12 > div:nth-child(2),
+  .busBoxSection14 > div:nth-child(2),
+  .busBoxSection16 > div:nth-child(1),
+  .busBoxSection17 > div:nth-child(2),
+  .busBoxSection17 > div:nth-child(3) {
+    color: #64748b;
+  }
+
+  .busBoxSection15 > :nth-child(1) {
+    background: #22c55e;
+    border-radius: .5rem;
+  }
+
+  .busBoxSection22 > div {
+    border: 1px solid #fee2e2;
+    border-radius: 999px;
+    background: #fff1f2;
+    color: #be123c;
+    padding: .35rem .65rem;
+  }
+
+  :host-context(html.dark) .bus-box {
+    background: var(--tb-card);
+    border-color: var(--tb-border);
+    color: var(--tb-text-secondary);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .2);
+  }
+
+  :host-context(html.dark) .bus-box:hover {
+    border-color: rgba(248, 113, 113, .45);
+    box-shadow: 0 20px 38px rgba(0, 0, 0, .34);
+  }
+
+  :host-context(html.dark) :is(.busBoxSection11 > div:nth-child(1), .busBoxSection12 > div:nth-child(1), .busBoxSection14 > div:nth-child(1), .busBoxSection16 > div:nth-child(1) > div:nth-child(2), .busBoxSection17 > div:nth-child(2) > div:nth-child(1), .busBoxSection17 > div:nth-child(3) > div:nth-child(1)) {
+    color: var(--tb-text);
+  }
+
+  :host-context(html.dark) :is(.busBoxSection11 > div:nth-child(2), .busBoxSection12 > div:nth-child(2), .busBoxSection14 > div:nth-child(2), .busBoxSection16 > div:nth-child(1), .busBoxSection17 > div:nth-child(2), .busBoxSection17 > div:nth-child(3)) {
+    color: var(--tb-muted);
+  }
+
+  :host-context(html.dark) .busBoxSection22 > div {
+    background: rgba(239, 68, 68, .12);
+    border-color: rgba(248, 113, 113, .2);
+    color: #fda4af;
+  }

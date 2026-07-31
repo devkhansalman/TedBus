@@ -134,3 +134,39 @@ body {
   .leftPannel > li:hover {
     background-color: #ddd;
   }
+
+  :host-context(html.dark) .ProfilePannel {
+    background: #0f172a;
+    color: #e2e8f0;
+  }
+  :host-context(html.dark) :is(.profilebox, .leftPannel_eachListOption:hover, .leftPannel > li:hover) {
+    background-color: #1e293b;
+  }
+  :host-context(html.dark) .leftPannel_eachListOption.active {
+    background-color: #40242a;
+  }
+  :host-context(html.dark) :is(.line, .seprator) {
+    background-color: #475569;
+  }
+  :host-context(html.dark) :is(.profileName, .leftPannel_eachListItem_text, .profileHeading, .userDetailHeading, .userDetailInfo, .contactDetailsHeading) {
+    color: #e2e8f0;
+  }
+  :host-context(html.dark) .contactLine {
+    border-color: #475569;
+  }
+
+  :host-context(html.dark) .profilebox {
+    background: var(--tb-card);
+    border: 1px solid var(--tb-border);
+    border-radius: 1rem;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .25);
+  }
+
+  :host-context(html.dark) .leftPannel_eachListOption {
+    border: 1px solid transparent;
+  }
+
+  :host-context(html.dark) .leftPannel_eachListOption:hover {
+    border-color: var(--tb-border);
+    transform: translateX(2px);
+  }

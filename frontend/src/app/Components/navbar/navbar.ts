@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/co
 import { Router } from '@angular/router';
 import { Customer } from '../../service/customer';
 import { Customers } from '../../model/customers.model';
+import { ThemeService } from '../../service/theme.service';
 
 declare var google: any;
 
@@ -18,11 +19,22 @@ export class Navbar implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private customerservice: Customer,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public themeService: ThemeService
   ) {}
 
   ngOnInit(): void {
     this.isLoggedIn = !!sessionStorage.getItem("Loggedinuser");
+    const savedUser = sessionStorage.getItem("Loggedinuser");
+    if (savedUser) {
+      try {
+        const user = JSON.parse(savedUser) as Customers;
+        if (user.email) this.themeService.loadUserTheme(user.email, user.themePreference);
+      } catch {
+        sessionStorage.removeItem("Loggedinuser");
+        this.isLoggedIn = false;
+      }
+    }
 
     google.accounts.id.initialize({
       client_id: "23806936469-5l4854derbp1fospau6nf9imp66t0nfj.apps.googleusercontent.com",
@@ -65,6 +77,7 @@ export class Navbar implements OnInit, AfterViewInit {
 
       next: (res) => {
         sessionStorage.setItem("Loggedinuser", JSON.stringify(res));
+        this.themeService.loadUserTheme(res.email, res.themePreference);
 
         this.isLoggedIn = true;
 
@@ -94,6 +107,7 @@ export class Navbar implements OnInit, AfterViewInit {
     google.accounts.id.disableAutoSelect();
 
     sessionStorage.removeItem("Loggedinuser");
+    this.themeService.clearUserTheme();
 
     this.isLoggedIn = false;
 
@@ -108,5 +122,9 @@ export class Navbar implements OnInit, AfterViewInit {
     } else {
       this.router.navigate([route]);
     }
+  }
+
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
   }
 }

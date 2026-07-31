@@ -29,6 +29,11 @@ const customerSchema = new Schema({
     type: String,
     required: false,
   },
+  themePreference: {
+    type: String,
+    enum: ["light", "dark"],
+    default: "light",
+  },
 });
 
 module.exports=mongoose.model("Customers",customerSchema)

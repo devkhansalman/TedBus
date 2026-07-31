@@ -1,3 +1,123 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* App-wide dark theme. The class is managed by ThemeService and persists in localStorage. */
+html.dark app-root {
+  display: block;
+  min-height: 100%;
+  background: #0f172a;
+}
+
+/* Tedbus design tokens — shared by every dark surface. */
+html.dark {
+  --tb-bg: #0f172a;
+  --tb-surface: #1e293b;
+  --tb-card: #1f2937;
+  --tb-navbar: #111827;
+  --tb-border: rgba(255, 255, 255, 0.08);
+  --tb-primary: #ef4444;
+  --tb-primary-hover: #f87171;
+  --tb-text: #f8fafc;
+  --tb-text-secondary: #cbd5e1;
+  --tb-muted: #94a3b8;
+  --tb-success: #22c55e;
+  --tb-warning: #f59e0b;
+}
+
+html.dark body,
+html.dark app-root {
+  background: var(--tb-bg);
+  color: var(--tb-text);
+}
+
+html.dark :is(app-navbar, app-footer, app-landing-page, app-select-bus-page, app-payment-page, app-profile-page) {
+  transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
+}
+
+html.dark :is(button, input, select, textarea, .mat-mdc-menu-panel, .mat-mdc-dialog-surface, .mat-drawer, .mat-drawer-container) {
+  transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, transform 180ms ease;
+}
+
+html.dark :is(input, select, textarea) {
+  min-height: 2.75rem;
+  border: 1px solid var(--tb-border) !important;
+  border-radius: 0.75rem;
+  background: #111827 !important;
+  color: var(--tb-text) !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.18);
+}
+
+html.dark :is(input, select, textarea):focus {
+  outline: none;
+  border-color: var(--tb-primary) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.16) !important;
+}
+
+html.dark ::placeholder {
+  color: var(--tb-muted) !important;
+  opacity: 1;
+}
+
+html.dark footer {
+  background: #111827 !important;
+  color: var(--tb-text-secondary);
+  border-top: 1px solid var(--tb-border);
+}
+
+html.dark footer :is(li:first-child, a:hover) {
+  color: var(--tb-text);
+}
+
+html.dark :is(.bg-white, .bg-white-100, .bg-gray-50, .bg-gray-100, .bg-slate-50, .bg-slate-100) {
+  background-color: #1e293b !important;
+}
+
+html.dark :is(.border-gray-100, .border-gray-200, .border-gray-300, .border-gray-400, .border-gray-500, .border-slate-100, .border-slate-200) {
+  border-color: #475569 !important;
+}
+
+html.dark :is(.text-black, .text-gray-400, .text-gray-500, .text-gray-600, .text-gray-700, .text-slate-500, .text-slate-600, .text-slate-700) {
+  color: #cbd5e1 !important;
+}
+
+html.dark :is(input, select, textarea) {
+  background-color: #0f172a !important;
+  color: #e2e8f0 !important;
+  border-color: #475569 !important;
+}
+
+html.dark :is(.mat-mdc-menu-panel, .mat-mdc-dialog-surface, .mat-drawer, .mat-drawer-container) {
+  background-color: #1e293b !important;
+  color: #e2e8f0 !important;
+}
+
+html.dark .mat-mdc-menu-item,
+html.dark .mat-mdc-menu-item .mat-mdc-menu-item-text {
+  color: #e2e8f0 !important;
+}
+
+html.dark .mat-mdc-menu-item:hover {
+  background-color: #334155 !important;
+}
+
+html.dark .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  background-color: #1e293b;
+  color: #e2e8f0;
+}
+
+/* Component styles use several light card and panel colours. These semantic
+   selectors cover the booking, payment, profile, and seat-selection views. */
+html.dark app-select-bus-page :is([class*='card'], [class*='panel'], [class*='box'], [class*='section'], [class*='form'], [class*='summary'], [class*='sidebar']),
+html.dark app-payment-page :is([class*='card'], [class*='panel'], [class*='box'], [class*='section'], [class*='form'], [class*='summary']),
+html.dark app-profile-page :is([class*='card'], [class*='panel'], [class*='box'], [class*='section']) {
+  background-color: #1e293b;
+}
+
+html.dark app-select-bus-page :is(p, h1, h2, h3, h4, h5, h6, label, span, td, th, small),
+html.dark app-payment-page :is(p, h1, h2, h3, h4, h5, h6, label, span, td, th, small),
+html.dark app-profile-page :is(p, h1, h2, h3, h4, h5, h6, label, span, td, th, small) {
+  color: #e2e8f0 !important;
+}

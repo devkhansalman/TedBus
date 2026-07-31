@@ -103,3 +103,15 @@
     width: 100vw;
   }
 }
+
+:host-context(html.dark) .drawer-panel {
+  background: #0f172a;
+}
+
+:host-context(html.dark) .drawer-panel::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+:host-context(html.dark) .drawer-panel::-webkit-scrollbar-thumb {
+  background: #475569;
+}

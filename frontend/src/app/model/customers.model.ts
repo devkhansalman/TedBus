@@ -7,4 +7,5 @@ export interface Customers{
     email:string;
     dateofbirth?:string;
     profilePicture?:string;
+    themePreference?: 'light' | 'dark';
 }

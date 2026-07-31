@@ -1,4 +1,6 @@
-import { Component,Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { BusService } from '../../../service/bus';
 
 @Component({
   selector: 'app-my-trip',
@@ -6,8 +8,10 @@ import { Component,Input } from '@angular/core';
   templateUrl: './my-trip.html',
   styleUrl: './my-trip.css',
 })
-export class MyTrip {
+export class MyTrip implements OnInit {
    @Input() booking:any[]=[]
+
+  constructor(private busbooking: BusService, private route: ActivatedRoute) {}
  
 
   imageArr = [
@@ -140,9 +144,29 @@ export class MyTrip {
 
 
   randomimage:string=''
-  ngOnInit(){
+  ngOnInit(): void {
     const randomindex=Math.floor(Math.random() * this.imageArr.length);
     this.randomimage=this.imageArr[randomindex].images
+
+    // When rendered inside ProfilePage, bookings continue to come through @Input.
+    // When opened through /my-trips, load the same existing booking endpoint directly.
+    if (this.route.snapshot.routeConfig?.path === 'my-trips') {
+      const savedUser = sessionStorage.getItem('Loggedinuser');
+      if (!savedUser) return;
+
+      try {
+        const user = JSON.parse(savedUser);
+        const customerId = user._id || user.id;
+        if (customerId) {
+          this.busbooking.getbusmongo(customerId).subscribe({
+            next: (bookings) => this.booking = bookings,
+            error: (error) => console.error('Unable to load trips', error),
+          });
+        }
+      } catch {
+        sessionStorage.removeItem('Loggedinuser');
+      }
+    }
   }
   // getrandomimage():string{
   //   return this.imageArr[Math.floor(Math.random()*(18-0+1)+0)].images

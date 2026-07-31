@@ -106,3 +106,43 @@
     align-items: center;
     cursor: pointer;
   }
+
+  .security-container,
+  .main-container {
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    background: #fff;
+    padding: .8rem 1rem;
+    height: auto;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, .05);
+  }
+
+  .main-container > div {
+    min-height: 2.25rem;
+    padding: 0 .6rem;
+    border-radius: .6rem;
+    transition: background-color .2s ease, color .2s ease;
+  }
+
+  .main-container > div:hover {
+    background: #fff1f2;
+    color: #dc2626;
+  }
+
+  :host-context(html.dark) :is(.security-container, .main-container) {
+    background: var(--tb-card);
+    border-color: var(--tb-border);
+    color: var(--tb-text-secondary);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .18);
+  }
+
+  :host-context(html.dark) .security-container > div,
+  :host-context(html.dark) .main-container > div,
+  :host-context(html.dark) .main-container1 > div:nth-child(1) {
+    color: var(--tb-text-secondary);
+  }
+
+  :host-context(html.dark) .main-container > div:hover {
+    background: rgba(239, 68, 68, .12);
+    color: var(--tb-primary-hover);
+  }

@@ -21,3 +21,10 @@
     border-radius: 2px;
     outline:none
 }
+
+:host-context(html.dark) .HeaderOne,
+:host-context(html.dark) .HeaderTwo > button {
+    background-color: #1e293b;
+    color: #e2e8f0;
+    border-color: #475569;
+}

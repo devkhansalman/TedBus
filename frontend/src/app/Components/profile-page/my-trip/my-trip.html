@@ -1,57 +1,92 @@
-<div class="SingleTrip" *ngFor="let booking of booking">
-    <div class="SingleTrip__image">
-      <img [src]="randomimage" alt="bus" />
-    </div>
-    <div style="display: flex; justify-content: space-evenly">
-      <div class="SingleTrip__busdetails">
-        <div class="heading" style="font-weight: 600; font-size: large;">Bus Details</div>
-        <!-- Insertion for Departure, Arrival details, and fare -->
-        <p>
-          <span class="material-icons" >radio_button_checked</span> Departure Location: {{ booking.departureDetails.city }}
-        </p>
-        <p>
-          <span class="material-icons" >radio_button_checked</span> Departure Time: {{ booking.departureDetails.time }}:00 hrs
-        </p>
-        <p>
-          <span class="material-icons" >radio_button_checked</span> Departure Date: {{ booking.departureDetails.date }}
-        </p>
-        <p>
-          <span class="material-icons" >radio_button_checked</span> Arrival Location: {{ booking.arrivalDetails.city }}
-        </p>
-        <p>
-          <span class="material-icons" >radio_button_checked</span> Arrival Time: {{ booking.arrivalDetails.time }}:00 hrs
-        </p>
-        <p>
-          <span class="material-icons" >radio_button_checked</span> Arrival Date: {{ booking.arrivalDetails.date }}
-        </p>
-        <p>
-          <span class="material-icons" >radio_button_checked</span> Total Fare: {{ booking.fare }}
-        </p>
-      </div>
-      <div class="SingleTrip__persondetails">
-        <div class="heading" style="font-weight: 600; font-size: large;">Passenger Details</div>
+<section class="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+  <div *ngIf="booking.length > 0" class="space-y-5">
+    <article
+      *ngFor="let trip of booking"
+      class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg shadow-slate-900/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-white/8 dark:bg-[#1F2937] dark:shadow-black/25">
 
-        <!-- Insertion for Passenger details -->
-        <p>
-          <span class="material-icons" >arrow_right_alt</span> Contact Email: {{ booking.email }}
-          </p>
-          <p>
-            <span class="material-icons" >arrow_right_alt</span> Contact Phone Number: {{ booking.phoneNumber }}
-          </p>
-          <div class="SingleTrip__customerDetails__passenger">
-            <div *ngFor="let passenger of booking.passengerDetails">
-              <p>
-                <span class="material-icons" >arrow_right_alt</span> Name: {{ passenger.name }}
-              </p>
-              <p>
-                <span class="material-icons" >arrow_right_alt</span> Gender: {{ passenger.gender }}
-              </p>
-              <p>
-                <span class="material-icons" >arrow_right_alt</span> Age: {{ passenger.age }}
-              </p>
+      <div class="flex flex-col gap-4 border-b border-slate-200 px-5 py-5 sm:flex-row sm:items-start sm:justify-between sm:px-7 dark:border-white/8">
+        <div class="flex min-w-0 items-center gap-3">
+          <div class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-red-50 text-red-500 dark:bg-red-500/15 dark:text-red-400">
+            <span class="material-icons text-[23px]">directions_bus</span>
+          </div>
+          <div class="min-w-0">
+            <p class="truncate text-base font-bold text-slate-900 dark:text-[#F8FAFC]">{{ trip.operatorName || 'Tedbus Partner' }}</p>
+            <p class="mt-0.5 text-sm text-slate-500 dark:text-[#94A3B8]">{{ trip.busType || 'Premium bus service' }}</p>
+          </div>
+        </div>
+        <span class="inline-flex w-fit items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400">
+          <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
+          {{ trip.status || 'Confirmed' }}
+        </span>
+      </div>
+
+      <div class="px-5 py-6 sm:px-7">
+        <div class="grid gap-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(240px,.85fr)]">
+          <div>
+            <div class="flex items-center gap-3 text-slate-900 dark:text-[#F8FAFC]">
+              <span class="min-w-0 flex-1 truncate text-xl font-extrabold sm:text-2xl">{{ trip.departureDetails.city }}</span>
+              <span class="material-icons text-red-500">arrow_right_alt</span>
+              <span class="min-w-0 flex-1 truncate text-right text-xl font-extrabold sm:text-2xl">{{ trip.arrivalDetails.city }}</span>
+            </div>
+
+            <div class="mt-5 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+              <div>
+                <p class="text-lg font-bold text-slate-900 dark:text-[#F8FAFC]">{{ trip.departureDetails.time }}:00</p>
+                <p class="mt-1 text-xs font-medium text-slate-500 dark:text-[#94A3B8]">Departure</p>
+              </div>
+              <div class="flex w-24 items-center gap-1 sm:w-36">
+                <span class="h-2 w-2 rounded-full border-2 border-red-500 bg-white dark:bg-[#1F2937]"></span>
+                <span class="h-px flex-1 border-t border-dashed border-slate-300 dark:border-white/20"></span>
+                <span class="h-2 w-2 rounded-full bg-red-500"></span>
+              </div>
+              <div class="text-right">
+                <p class="text-lg font-bold text-slate-900 dark:text-[#F8FAFC]">{{ trip.arrivalDetails.time }}:00</p>
+                <p class="mt-1 text-xs font-medium text-slate-500 dark:text-[#94A3B8]">Arrival</p>
+              </div>
+            </div>
+
+            <div class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate-600 dark:text-[#CBD5E1]">
+              <span class="inline-flex items-center gap-1.5"><span class="material-icons text-[17px] text-slate-400 dark:text-[#94A3B8]">calendar_today</span>{{ trip.departureDetails.date }}</span>
+              <span class="inline-flex items-center gap-1.5"><span class="material-icons text-[17px] text-slate-400 dark:text-[#94A3B8]">schedule</span>{{ trip.duration || 'Journey details available' }}</span>
+              <span class="inline-flex items-center gap-1.5"><span class="material-icons text-[17px] text-slate-400 dark:text-[#94A3B8]">event_seat</span>Seat {{ trip.seats?.join(', ') || 'Not assigned' }}</span>
             </div>
           </div>
+
+          <div class="rounded-xl border border-slate-200 bg-slate-50 p-4 pr-10 dark:border-white/8 dark:bg-[#111827]/60">
+            <p class="text-xs font-bold uppercase tracking-[.12em] text-slate-500 dark:text-[#94A3B8]">Passenger</p>
+            <div *ngFor="let passenger of trip.passengerDetails; let first = first" [class.hidden]="!first" class="mt-3">
+              <p class="text-base font-bold text-slate-900 dark:text-[#F8FAFC]">{{ passenger.name }}</p>
+              <p class="mt-1 text-sm text-slate-600 dark:text-[#CBD5E1]">{{ passenger.gender }} <span class="mx-1 text-slate-300 dark:text-white/20">•</span> Age {{ passenger.age }}</p>
+            </div>
+            <div class="mt-4 border-t border-slate-200 pt-3 dark:border-white/8">
+              <div class="flex items-center justify-between gap-3 text-sm">
+                <span class="text-slate-500 dark:text-[#94A3B8]">Booking ID</span>
+                <span class="font-semibold text-slate-800 dark:text-[#F8FAFC]">{{ trip._id || trip.id || trip.busId }}</span>
+              </div>
+              <div class="mt-2 flex items-center justify-between text-sm">
+                <span class="text-slate-500 dark:text-[#94A3B8]">Total fare</span>
+                <span class="text-lg font-extrabold text-slate-900 dark:text-[#F8FAFC]">₹{{ trip.fare }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <div class="flex flex-col gap-3 border-t border-slate-200 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7 dark:border-white/8">
+        <p class="inline-flex items-center gap-1.5 text-xs text-slate-500 dark:text-[#94A3B8]"><span class="material-icons text-[16px]">mail_outline</span>{{ trip.email }}</p>
+        <div class="flex flex-wrap gap-2">
+          <button type="button" class="inline-flex items-center justify-center gap-1.5 rounded-lg bg-red-500 px-3.5 py-2 text-sm font-bold text-white shadow-lg shadow-red-500/20 transition hover:scale-[1.02] hover:bg-red-400"><span class="material-icons text-[17px]">confirmation_number</span>View Ticket</button>
+          <button type="button" class="inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-300 px-3.5 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-white/12 dark:text-[#CBD5E1] dark:hover:bg-white/8"><span class="material-icons text-[17px]">download</span>Download Ticket</button>
+          <button type="button" class="inline-flex items-center justify-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 dark:text-[#CBD5E1] dark:hover:bg-white/8"><span class="material-icons text-[17px]">support_agent</span>Need Help</button>
+        </div>
+      </div>
+    </article>
   </div>
-  
+
+  <div *ngIf="booking.length === 0" class="mx-auto flex max-w-md flex-col items-center rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-6 py-14 text-center dark:border-white/12 dark:bg-[#1F2937]">
+    <div class="grid h-16 w-16 place-items-center rounded-2xl bg-red-50 text-red-500 dark:bg-red-500/15 dark:text-red-400"><span class="material-icons text-3xl">luggage</span></div>
+    <h2 class="mt-5 text-xl font-bold text-slate-900 dark:text-[#F8FAFC]">No trips booked yet</h2>
+    <p class="mt-2 text-sm leading-6 text-slate-500 dark:text-[#94A3B8]">Your booked journeys will appear here as beautiful travel tickets.</p>
+    <button type="button" class="mt-6 rounded-lg bg-red-500 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-red-500/20 transition hover:scale-[1.02] hover:bg-red-400">Book Now</button>
+  </div>
+</section>

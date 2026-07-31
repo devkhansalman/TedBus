@@ -25,14 +25,14 @@
     </div>
     <div class="seprator"></div>
   
-    <div *ngIf="selecteditem === 'dashboard'" >
+    <div *ngIf="selecteditem === 'dashboard'" class="rightPannel">
       Dashboard feature coming soon...
     </div>
-    <div *ngIf="selecteditem === 'trips'">
+    <div *ngIf="selecteditem === 'trips'" class="rightPannel">
       <!-- MyTrips component or content -->
       <app-my-trip [booking]="mytrip"></app-my-trip> 
     </div>
-    <div *ngIf="selecteditem === 'wallet'">
+    <div *ngIf="selecteditem === 'wallet'" class="rightPannel">
       Wallet feature coming soon...
     </div>
     <div *ngIf="selecteditem === 'profile'" class="rightPannel">

@@ -1,4 +1,27 @@
 .SelectBUS_MAINCONTENT{
     display: grid;
     grid-template-columns: 20% 80%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 1rem;
+    gap: 1rem;
+    background: #f8fafc;
+}
+
+:host-context(html.dark) .selectBus,
+:host-context(html.dark) .SelectBUS_MAINCONTENT {
+    background: var(--tb-bg);
+}
+
+@media (max-width: 1024px) {
+    .SelectBUS_MAINCONTENT {
+        grid-template-columns: minmax(220px, 28%) 1fr;
+    }
+}
+
+@media (max-width: 720px) {
+    .SelectBUS_MAINCONTENT {
+        grid-template-columns: 1fr;
+        padding: .75rem;
+    }
 }

@@ -110,7 +110,7 @@ export class PaymentPage implements OnInit {
     const date = new Date();
     
     let myBooking: Booking = {
-      customerId: this.customerid._id,
+      customerId: this.customerid._id || this.customerid.id || this.customerid.googleId,
       passengerDetails: this.passengerdetails,
       email: this.customerid.email,
       phoneNumber: String(this.phonenumber),
