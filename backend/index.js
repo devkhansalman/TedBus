@@ -29,7 +29,9 @@ app.use(communityroute)
 
 
 const DB_URL="mongodb://127.0.0.1:27017/tedbus-server"
-mongoose.connect(DB_URL).then(()=>console.log("Connected successfully")).catch((err)=>console.error("Error in connecting to DB", err))
+mongoose.connect(DB_URL)
+.then(()=>console.log("Connected successfully"))
+.catch((err)=>console.error("Error in connecting to DB", err))
 
 app.get("/",(req,res)=>{
     res.send({message:"Hello from tedbus server bro!"})

@@ -1,273 +1,258 @@
 body {
-    color: #4a4a4a;
-    word-break: break-word;
+  color: #4a4a4a;
+  word-break: break-word;
+  font-size: 14px;
+  font-weight: 400;
+}
+:host {
+  display: block;
+  width: 100%;
+  min-height: 100%;
+}
+/* Stripe payment start */
+.Payment__stripe {
+  margin-top: 24px;
+}
+.Payment__stripe button {
+  width: 100%;
+  border: none;
+  outline: none;
+}
+.Payment__stripe__button {
+  background-color: #d84f57;
+  color: white;
+  height: 50px;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(216, 79, 87, 0.3);
+  transition: transform 0.2s ease;
+}
+.Payment__stripe__button:hover {
+  transform: translateY(-2px);
+}
+/* Stripe payment end */
 
-    font-size: 14px;
-    font-weight: 400;
-  }
-  /* Stripe payment start */
-  .Payment__stripe {
-    /* border: 1px solid red; */
-    margin-top: 50px;
-  }
-  .Payment__stripe button {
-    width: 100%;
-    border: none;
-    outline: none;
-  }
-  .Payment__stripe__button {
-    background-color: #d84f57;
-    color: white;
-    height: 50px;
-    font-weight: bold;
-    font-size: 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  }
-  /* Stripe payment end */
-  .payment__main_header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2px 20px !important;
-    min-width: 1200px;
-    box-sizing: border-box;
-  }
-  .payment__header {
-    background-color: #d84e55;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    height: 64px;
-    padding: 0 5%;
-    font-family: Montserrat;
-    font-size: 14px;
-    font-weight: 400;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1.25;
-    color: #ffef96;
-  }
+.payment__fullContainer {
+  margin: 2rem auto;
+  max-width: 1280px;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+.icons {
+  font-size: 24px;
+}
+.payment__fullContainer_leftContainer {
+  width: 60%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.payment__fullContainer_rightContainer {
+  width: 38%;
+  display: flex;
+  flex-direction: column;
+}
+.payment__fullContainer_rightContainer_inputOfferCOde {
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 3px 11px 0px;
+  padding: 16px 20px;
+  border: 1px solid #e2e8f0;
+  width: 100%;
+  font-size: 14px;
+}
+.payment__fullContainer_rightContainer_infobar {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: 1px dashed rgb(221, 221, 221);
+  padding: 12px 16px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 12px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.payment__fullContainer_leftContainer_paymentInstruments {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+.payment__fullContainer_leftContainer_paymentInstrument {
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 3px 11px 0px;
+  padding: 20px;
+  border: 1px solid #f1f5f9;
+  background: white;
+}
+.payment__fullContainer_leftContainer_eachPaymentInstruments {
+  border-radius: 8px;
+  background-color: rgb(255, 255, 255);
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 1px solid rgb(238, 238, 238);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.payment_icon_img {
+  height: 20px;
+  margin-left: 10px;
+}
+.radioButton {
+  z-index: 1;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.radioButtonText {
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: rgb(70, 70, 87);
+}
+.choose_payment_heading {
+  margin: 1.5em 0 0.75em;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.26;
+  color: #3e3e52;
+}
+.banner_chip {
+  display: flex;
+  align-items: center;
+}
+.banner_text {
+  margin-left: 8px;
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  font-size: 12px;
+  color: rgb(126, 126, 140);
+}
+.UpiPaymentText {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.43;
+  color: #747f8d;
+  margin: 1.5em 0 0.5em;
+}
+.payment__fullContainer_leftContainer_eachPaymentInstruments_new {
+  margin-left: 8px;
+  border-radius: 4px;
+  background-color: rgb(56, 184, 124);
+  font-size: 10px;
+  font-weight: 800;
+  color: rgb(255, 255, 255);
+  text-transform: uppercase;
+  text-align: center;
+  padding: 2px 6px;
+}
+.payment__fullContainer_rightContainer_trip_container {
+  border-radius: 16px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 3px 11px 0px;
+  padding: 20px;
+  background: white;
+  border: 1px solid #f1f5f9;
+}
+.payment__fullContainer_rightContainer_fair_container {
+  margin: 20px 0;
+  border-radius: 16px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 3px 11px 0px;
+  padding: 20px;
+  background: white;
+  border: 1px solid #f1f5f9;
+}
+.travel_operator_info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1 1 0%;
+}
+.travel_title {
+  color: rgb(216, 78, 85);
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.38;
+}
+.travel_specification {
+  color: rgb(116, 127, 141);
+  font-size: 13px;
+  line-height: 1.33;
+}
+.line {
+  height: 1px;
+  background-color: rgb(238, 238, 238);
+  margin: 12px 0;
+}
+.passangerInfo {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  background-color: rgb(254, 242, 242);
+  padding: 12px 16px;
+  border-radius: 12px;
+}
+.passangerName {
+  color: rgb(116, 127, 141);
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+.payment_banner_icon_img {
+  height: 25px;
+}
+.paymentIconList {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
   .payment__fullContainer {
-    margin: 3% 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    flex-direction: column-reverse;
+    margin: 1rem auto;
+    padding: 0 0.75rem;
+    gap: 1.5rem;
   }
-  .icons {
-    font-size: 30px;
-  }
-  .payment__fullContainer_leftContainer {
-    width: 55%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-  }
-  
+  .payment__fullContainer_leftContainer,
   .payment__fullContainer_rightContainer {
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    padding: 1.12em;
+    width: 100%;
   }
-  .payment__fullContainer_rightContainer_inputOfferCOde {
-    border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 11px 0px;
-    padding: 20px 20px;
-    border: none;
-  }
-  .payment__fullContainer_rightContainer_infobar {
-    margin-top: 20px;
-    display: flex;
-    -moz-box-pack: justify;
-    justify-content: space-between;
-    -moz-box-align: center;
-    align-items: center;
-    width: auto;
-    height: 60px;
-    border: 1px dashed rgb(221, 221, 221);
-    padding: 0px 20px;
-    background-color: rgb(255, 255, 255);
-  }
-  .payment__fullContainer_leftContainer_paymentInstruments {
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-  }
-  .payment__fullContainer_leftContainer_paymentInstrument {
-    border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 11px 0px;
-    padding: 20px 20px;
-    border: none;
-  }
-  .payment__fullContainer_leftContainer_eachPaymentInstruments {
-    border-radius: 2px;
-    background-color: rgb(255, 255, 255);
-    padding: 1.3em;
-    display: flex;
-  
-    -moz-box-pack: center;
-    justify-content: flex-start;
-    border-bottom: 1px solid rgb(221, 221, 221);
-  }
-  .payment_icon_img {
-    height: 20px;
-    margin-left: 20px;
-  }
-  .radioButton {
-    z-index: 1;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    cursor: pointer;
-  }
-  .radioButtonText {
-    cursor: pointer;
-    font-size: 20px;
-    line-height: 1.25;
-    color: rgb(70, 70, 87);
-  }
-  .choose_payment_heading {
-    margin-top: 30px;
-    margin: 2em 0 1em;
-    font-size: 19px;
-    font-weight: 700;
-    line-height: 1.26;
-    color: #3e3e52;
-  }
-  .banner_chip {
-    display: flex;
-    align-items: center;
-  }
-  .banner_text {
-    margin-left: 10px;
-    display: flex;
-    flex-direction: column;
-    font-weight: 500;
-    color: rgb(126, 126, 140);
-  }
-  .UpiPaymentText {
-    margin-top: 50px;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1.43;
-    color: #747f8d;
-    margin: 1em 0;
-  }
-  .payment__fullContainer_leftContainer_eachPaymentInstruments_new {
-    margin-left: 10px;
-    border-radius: 2px;
-    background-color: rgb(56, 184, 124);
-    font-size: 10px;
-    color: rgb(255, 255, 255);
-    text-transform: uppercase;
-    text-align: center;
-    padding: 5px 5px;
-  }
-  .payment__fullContainer_rightContainer_trip_container {
-    border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 11px 0px;
-    padding: 20px 20px;
-    border: none;
-  }
-  .payment__fullContainer_rightContainer_fair_container {
-    margin: 30px 0px;
-    border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 11px 0px;
-    padding: 20px 30px;
-    border: none;
-  }
-  .travel_operator_info {
-    display: flex;
-    -moz-box-align: center;
-    align-items: center;
-    -moz-box-pack: start;
-    justify-content: flex-start;
-    flex: 1 1 0%;
-  }
-  .travel_title {
-    color: rgb(216, 78, 85);
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 1.38;
-    padding-right: 3%;
-  }
-  .travel_specification {
-    color: rgb(116, 127, 141);
-    font-size: 14px;
-    line-height: 1.33;
-  }
-  .line {
-    height: 1em;
-    border-bottom: 0.5px solid rgb(222, 222, 222);
-    margin-bottom: 1em;
-  }
-  .passangerInfo {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 20px;
-    background-color: rgb(250, 229, 229);
-    padding: 1.12em;
-    min-height: 1.76em;
-    -moz-box-pack: center;
-  }
-  .passangerName {
-    color: rgb(116, 127, 141);
-    font-size: 14px;
-    line-height: 1.33;
-    font-weight: 400;
-    margin-left: 10px;
-  }
-  .payment_banner_icon_img {
-    height: 25px;
-    margin-left: 20px;
-  }
-  .paymentIconList{
-    display: flex;
-  }
-  .icons{
-    width:auto;
-    height:auto
-  }
+}
 
-  :host-context(html.dark) .payment__fullContainer {
-    color: #e2e8f0;
-  }
-  :host-context(html.dark) :is(.payment__fullContainer_rightContainer_infobar, .payment__fullContainer_leftContainer_eachPaymentInstruments, .payment__fullContainer_rightContainer_trip_container, .payment__fullContainer_rightContainer_fair_container) {
-    background-color: #1e293b;
-    border-color: #475569;
-    box-shadow: 0 3px 11px rgba(0, 0, 0, 0.35);
-  }
-  :host-context(html.dark) :is(.radioButtonText, .choose_payment_heading, .banner_text, .UpiPaymentText, .travel_specification, .passangerName) {
-    color: #cbd5e1;
-  }
-  :host-context(html.dark) .passangerInfo {
-    background-color: #40242a;
-  }
-  :host-context(html.dark) .line {
-    border-color: #475569;
-  }
-
-  :host-context(html.dark) .payment__fullContainer_rightContainer_inputOfferCOde {
-    background: #111827;
-    border: 1px solid var(--tb-border);
-    color: var(--tb-text);
-    border-radius: .75rem;
-  }
-  :host-context(html.dark) :is(.payment__fullContainer_leftContainer_paymentInstrument, .payment__fullContainer_rightContainer_trip_container, .payment__fullContainer_rightContainer_fair_container) {
-    background: var(--tb-card);
-    border: 1px solid var(--tb-border);
-    border-radius: 1rem;
-  }
-  :host-context(html.dark) .Payment__stripe__button {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-    border-radius: .75rem;
-    box-shadow: 0 8px 18px rgba(239, 68, 68, .28);
-    transition: transform .2s ease, box-shadow .2s ease;
-  }
-  :host-context(html.dark) .Payment__stripe__button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 22px rgba(239, 68, 68, .36);
-  }
+:host-context(html.dark) .payment__fullContainer {
+  color: #e2e8f0;
+}
+:host-context(html.dark) :is(.payment__fullContainer_rightContainer_infobar, .payment__fullContainer_leftContainer_eachPaymentInstruments, .payment__fullContainer_rightContainer_trip_container, .payment__fullContainer_rightContainer_fair_container, .payment__fullContainer_leftContainer_paymentInstrument) {
+  background-color: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 3px 11px rgba(0, 0, 0, 0.35);
+}
+:host-context(html.dark) :is(.radioButtonText, .choose_payment_heading, .banner_text, .UpiPaymentText, .travel_specification, .passangerName) {
+  color: #cbd5e1;
+}
+:host-context(html.dark) .passangerInfo {
+  background-color: #40242a;
+}
+:host-context(html.dark) .line {
+  background-color: #334155;
+}
+:host-context(html.dark) .payment__fullContainer_rightContainer_inputOfferCOde {
+  background: #0f172a;
+  border: 1px solid #334155;
+  color: #f8fafc;
+}
+:host-context(html.dark) .Payment__stripe__button {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 8px 18px rgba(239, 68, 68, 0.28);
+}

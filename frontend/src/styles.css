@@ -122,3 +122,63 @@ html.dark app-payment-page :is(p, h1, h2, h3, h4, h5, h6, label, span, td, th, s
 html.dark app-profile-page :is(p, h1, h2, h3, h4, h5, h6, label, span, td, th, small) {
   color: #e2e8f0 !important;
 }
+
+/* ============================================================
+   DATEPICKER OVERLAY FIX
+   The Angular CDK appends .cdk-overlay-container directly to
+   <body> at z-index 1000 by default.  Our sticky navbar sits
+   at z-[1050], so raise the overlay container above it.
+   ============================================================ */
+.cdk-overlay-container {
+  z-index: 1100 !important;
+}
+
+/* The invisible trigger input that anchors the datepicker overlay
+   must not be affected by the global dark-mode input rules that add
+   min-height / border / background — it must stay truly invisible
+   and zero-impact on layout (absolute positioned, opacity-0). */
+html.dark input.mat-datepicker-input[class*="opacity-0"] {
+  min-height: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Dark mode calendar panel */
+html.dark .mat-datepicker-content {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5) !important;
+}
+
+html.dark .mat-calendar-body-cell-content,
+html.dark .mat-calendar-body-label,
+html.dark .mat-calendar-period-button,
+html.dark .mat-calendar-arrow,
+html.dark .mat-calendar-next-button,
+html.dark .mat-calendar-previous-button {
+  color: #f8fafc !important;
+}
+
+html.dark .mat-calendar-body-selected {
+  background-color: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+html.dark .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border-color: #ef4444 !important;
+}
+
+html.dark .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
+  > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+  background-color: rgba(239,68,68,0.15) !important;
+}
+
+html.dark .mat-calendar-header,
+html.dark .mat-calendar-table-header {
+  color: #94a3b8 !important;
+}
+

@@ -1,314 +1,221 @@
-<section
-    class="h-128 bg-main-color bg-[url('/assets/hero-img.png')] bg-center  bg-no-repeat bg-cover flex justify-center">
-    <div class="flex flex-col items-center w-full max-w-350">
-        <h1 class="text-2xl mx-4 md:text-[2rem] text-white font-bold mt-16 mb-4 text-center">{{ 'HOME.HERO_TITLE' | translate }}</h1>
+<section class="min-h-[480px] bg-[#D84E55] bg-[url('/assets/hero-img.png')] bg-center bg-no-repeat bg-cover flex justify-center items-center py-12 px-4 transition-colors duration-300">
+  <div class="flex flex-col items-center w-full max-w-6xl">
+    <h1 class="text-2xl sm:text-3xl lg:text-4xl text-white font-extrabold mb-6 text-center leading-tight drop-shadow-md">
+      {{ 'HOME.HERO_TITLE' | translate }}
+    </h1>
+
+    <!-- Travel Search Card Container -->
+    <div class="w-full max-w-4xl bg-white dark:bg-[#1E293B] rounded-3xl shadow-2xl p-4 sm:p-6 transition-all duration-300">
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 items-center">
         
-        <!-- travel search section sharts here -->
-        <div
-            class="w-[90%] sm:w-[80%] lg:h-24 mt-4 bg-white cursor-pointer relative bottom-7 sm:bottom-0 flex flex-col lg:flex-row rounded-3xl overflow-hidden hover:drop-shadow-lg">
-            
-            <!-- travel search left side  -->
-            <div class="h-full flex flex-col sm:flex-row items-center justify-center lg:w-1/2">
-                <div class="h-full border-b sm:border-r border-gray-300 w-full md:w-[50%] sm:w-auto">
-                    <div class="px-7 py-8 flex items-center h-full gap-3">
-                        <i class="fa-solid fa-bus-simple text-gray-500 text-2xl"></i>
-                        <input class="outline-none w-full" type="text" name="" id="" [placeholder]="'COMMON.FROM' | translate" [(ngModel)]="fromOption"
-                            [matMenuTriggerFor]="menu" >
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item (click)="fromEvent('Delhi')">Delhi</button>
-                            <button mat-menu-item (click)="fromEvent('Mumbai')">Mumbai</button>
-                            <button mat-menu-item (click)="fromEvent('Bangalore')">Bangalore</button>
-                            <button mat-menu-item (click)="fromEvent('Kolkata')">Kolkata</button>
-                            <button mat-menu-item (click)="fromEvent('Chennai')">Chennai</button>
-                        </mat-menu>
-                    </div>
-                </div>
-                <div class="w-10 h-10 bg-white rounded-full  grid place-content-center absolute border border-gray-300">
-                    <i class="fa-solid fa-arrows-turn-to-dots text-gray-500 text-xl"></i>
-                </div>
-                <div class="h-full border-b sm:border-r border-gray-300 w-full md:w-[50%] sm:w-auto">
-                    <div class="px-7 py-8 flex items-center h-full gap-3">
-                        <i class="fa-solid fa-person-walking-luggage text-gray-500 text-2xl"></i>
-                        <input class="outline-none w-full" type="text" name="" id="" [placeholder]="'COMMON.TO' | translate"
-                            [matMenuTriggerFor]="menu2" [(ngModel)]="toOption">
-                        <mat-menu #menu2="matMenu">
-                            <button mat-menu-item (click)="toEvent('Jaipur')">Jaipur</button>
-                            <button mat-menu-item (click)="toEvent('Goa')">Goa</button>
-                            <button mat-menu-item (click)="toEvent('Mysore')">Mysore</button>
-                            <button mat-menu-item (click)="toEvent('Darjeeling')">Darjeeling</button>
-                            <button mat-menu-item (click)="toEvent('Pondicherry')">Pondicherry</button>
-                        </mat-menu>
-                    </div>
-                </div>
-            </div>
-            <!-- travel search right section  -->
-            <div class="flex bg-white flex-col sm:flex-row lg:w-1/2">
-                <div class="h-full border-b sm:border-r border-gray-300 sm:w-1/2 w-full">
-                    <div class="px-7 py-8 flex items-center h-full gap-3 group relative pr-12">
-
-                       <i class="fa-solid fa-calendar-days text-gray-500 text-2xl"></i>
-                        <input matInput class="outline-none opacity-0 scale-[3] h-14 w-7.5 absolute left-14 z-10 cursor-pointer"
-                            [placeholder]="'COMMON.DATE' | translate" (dateChange)="matchDate($event)" [matDatepicker]="picker" (click)="picker.open()"
-                            >
-                        <p [class]="date && date !== 'null' ? 'text-gray-700' : 'text-gray-400'">{{ (date && date !== 'null') ? date : ('COMMON.DATE' | translate) }}</p>
-                        <mat-datepicker #picker></mat-datepicker>
-                        <!-- <p class="text-gray-400">Date</p> -->
-                    </div>
-                </div>
-                <button
-                    class=" px-7 py-8 flex items-center justify-center bg-red-400 whitespace-nowrap text-white font-bold w-full sm:w-1/2 text-center"
-                    (click)="submit()">
-                    {{ 'COMMON.SEARCH' | translate }}
-                </button>
-            </div>
-
+        <!-- From City Input -->
+        <div class="relative flex items-center gap-3 p-3.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 min-h-[52px]">
+          <span class="material-icons text-slate-400 text-xl">directions_bus</span>
+          <input type="text"
+                 [placeholder]="'COMMON.FROM' | translate"
+                 [(ngModel)]="fromOption"
+                 [matMenuTriggerFor]="fromMenu"
+                 readonly
+                 class="w-full bg-transparent text-sm font-bold text-slate-900 dark:text-[#F8FAFC] focus:outline-none cursor-pointer" />
+          <span class="material-icons text-slate-400 text-sm">expand_more</span>
+          <mat-menu #fromMenu="matMenu">
+            <button mat-menu-item (click)="fromEvent('Delhi')">Delhi</button>
+            <button mat-menu-item (click)="fromEvent('Mumbai')">Mumbai</button>
+            <button mat-menu-item (click)="fromEvent('Bangalore')">Bangalore</button>
+            <button mat-menu-item (click)="fromEvent('Kolkata')">Kolkata</button>
+            <button mat-menu-item (click)="fromEvent('Chennai')">Chennai</button>
+          </mat-menu>
         </div>
-        <!-- travel search section ends here -->
-    </div>
-</section>
-<!-- -------------------------- hero section ends here ---------------------------  -->
 
-
-
-
-
-<!-- ------------------------------- offers section starts here -------------------- -->
-<section class="flex relative md:bottom-37.5 mb-20 mt-10 md:my-0 justify-center">
-    <div class="flex flex-col items-center w-full max-w-350 py-6 pb-0">
-        <div class="w-full md:w-[83%] md:p-8 flex flex-col gap-6 bg-white md:rounded-3xl md:drop-shadow-xl">
-            <div class="flex justify-between px-4 md:px-0">
-                <h2 class="text-xl md:text-3xl text-gray-600">{{ 'HOME.TRENDING_OFFERS' | translate }}</h2>
-                <button
-                    class="text-blue-600 py-1 font-semibold text-base  px-4 rounded-full border border-gray-500 hover:shadow-lg">{{ 'COMMON.VIEW_ALL' | translate }}</button>
-            </div>
-            <div class="flex text-white gap-6 overflow-auto pl-4 md:pl-0">
-
-                <!-- offer card one  -->
-                <div
-                    class="h-36 w-64 rounded-xl bg-linear-to-r from-blue-800 to-blue-500 flex p-3 cursor-pointer shrink-0">
-                    <div class="h-full grid place-content-center px-2">
-                        <img class="rounded-full w-24" src="/assets/offer1.png" alt="">
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <p class="text-xs px-1 py-px bg-[#ffffff4c] rounded-full w-10 grid place-content-center">BUS
-                        </p>
-                        <h3 class="font-bold text-base leading-5">Save up to Rs 250 on bus tickets</h3>
-                        <p class="text-xs">Valid till 30 Nov</p>
-                        <div class="flex gap-3 items-center">
-                            <p
-                                class="grid place-content-center bg-[#ffffff4c] h-6 font-semibold px-2 rounded-sm border border-dashed border-white text-xs">
-                                FIRST</p>
-                            <i class="fa-regular fa-copy text-xl"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- offer card two  -->
-                <div
-                    class="h-36 w-64 rounded-xl bg-linear-to-r from-red-800 to-red-500 flex p-3 cursor-pointer shrink-0">
-                    <div class="h-full grid place-content-center px-2">
-                        <img class="rounded-full w-24" src="/assets/offer2.png" alt="">
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <p class="text-xs px-1 py-px bg-[#ffffff4c] rounded-full w-10 grid place-content-center">BUS
-                        </p>
-                        <h3 class="font-bold text-base leading-5">Save up to Rs 300 on AP, TS routes</h3>
-                        <p class="text-xs">Valid till 30 Nov</p>
-                        <div class="flex gap-3 items-center">
-                            <p
-                                class="grid place-content-center bg-[#ffffff4c] h-6 font-semibold px-2 rounded-sm border border-dashed border-white text-xs">
-                                SUPERHIT</p>
-                            <i class="fa-regular fa-copy text-xl"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- offer card three  -->
-                <div
-                    class="h-36 w-64 rounded-xl bg-linear-to-r from-green-800 to-green-500 flex p-3 cursor-pointer shrink-0">
-                    <div class="h-full grid place-content-center px-2">
-                        <img class="rounded-full w-24" src="/assets/offer3.png" alt="">
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <p class="text-xs px-1 py-px bg-[#ffffff4c] rounded-full w-10 grid place-content-center">BUS
-                        </p>
-                        <h3 class="font-bold text-base leading-5">Save up to Rs 300 on RJ,MH, Goa, MP,</h3>
-                        <p class="text-xs">Valid till 30 Nov</p>
-                        <div class="flex gap-3 items-center">
-                            <p
-                                class="grid place-content-center bg-[#ffffff4c] h-6 font-semibold px-2 rounded-sm border border-dashed border-white text-xs">
-                                BUS300</p>
-                            <i class="fa-regular fa-copy text-xl"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- offer card four  -->
-                <div
-                    class="h-36 w-64 rounded-xl bg-linear-to-r from-sky-800 to-sky-500 flex p-3 cursor-pointer shrink-0">
-                    <div class="h-full grid place-content-center px-2">
-                        <img class="rounded-full w-24" src="/assets/offer4.png" alt="">
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <p class="text-xs px-1 py-px bg-[#ffffff4c] rounded-full w-10 grid place-content-center">BUS
-                        </p>
-                        <h3 class="font-bold text-base leading-5">Save up to Rs 200 in Kerala routes.</h3>
-                        <p class="text-xs">Valid till 30 Nov</p>
-                        <div class="flex gap-3 items-center">
-                            <p
-                                class="grid place-content-center bg-[#ffffff4c] h-6 font-semibold px-2 rounded-sm border border-dashed border-white text-xs">
-                                RBTRIP</p>
-                            <i class="fa-regular fa-copy text-xl"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- To City Input -->
+        <div class="relative flex items-center gap-3 p-3.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 min-h-[52px]">
+          <span class="material-icons text-slate-400 text-xl">place</span>
+          <input type="text"
+                 [placeholder]="'COMMON.TO' | translate"
+                 [(ngModel)]="toOption"
+                 [matMenuTriggerFor]="toMenu"
+                 readonly
+                 class="w-full bg-transparent text-sm font-bold text-slate-900 dark:text-[#F8FAFC] focus:outline-none cursor-pointer" />
+          <span class="material-icons text-slate-400 text-sm">expand_more</span>
+          <mat-menu #toMenu="matMenu">
+            <button mat-menu-item (click)="toEvent('Jaipur')">Jaipur</button>
+            <button mat-menu-item (click)="toEvent('Goa')">Goa</button>
+            <button mat-menu-item (click)="toEvent('Mysore')">Mysore</button>
+            <button mat-menu-item (click)="toEvent('Darjeeling')">Darjeeling</button>
+            <button mat-menu-item (click)="toEvent('Pondicherry')">Pondicherry</button>
+          </mat-menu>
         </div>
+
+        <!-- Date Picker Input -->
+        <div class="relative flex items-center gap-3 p-3.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 min-h-[52px] cursor-pointer"
+             (click)="picker.open()">
+          <span class="material-icons text-slate-400 text-xl">calendar_today</span>
+          <span class="text-sm font-bold truncate flex-1" [class]="date && date !== 'null' ? 'text-slate-900 dark:text-[#F8FAFC]' : 'text-slate-400'">
+            {{ (date && date !== 'null') ? date : ('COMMON.DATE' | translate) }}
+          </span>
+          <!--
+            IMPORTANT: Do NOT use class="hidden" or display:none here.
+            Angular CDK overlay anchors the datepicker popup to the bounding
+            rect of this matInput element. When it is display:none the rect is
+            0×0 and the overlay falls back to the viewport top-left corner.
+            Instead we make it visually invisible (opacity-0, pointer-events-none)
+            while keeping it positioned to fill the parent container so the CDK
+            gets a real bounding box to anchor against.
+          -->
+          <input matInput
+                 [matDatepicker]="picker"
+                 (dateChange)="matchDate($event)"
+                 class="absolute inset-0 w-full h-full opacity-0 pointer-events-none border-0 bg-transparent p-0 m-0" />
+          <mat-datepicker #picker
+                          xPosition="start"
+                          yPosition="below">
+          </mat-datepicker>
+        </div>
+
+        <!-- Search Button -->
+        <button (click)="submit()"
+                type="button"
+                class="w-full py-3.5 px-6 rounded-2xl bg-red-600 hover:bg-red-700 active:scale-95 text-white font-extrabold text-sm sm:text-base shadow-lg transition flex items-center justify-center gap-2 min-h-[52px] cursor-pointer">
+          <span class="material-icons text-xl">search</span>
+          <span>{{ 'COMMON.SEARCH' | translate }}</span>
+        </button>
+
+      </div>
     </div>
+  </div>
 </section>
 
+<!-- Offers Section -->
+<section class="py-12 px-4 sm:px-6 lg:px-12 bg-slate-50 dark:bg-[#0F172A] transition-colors duration-300">
+  <div class="mx-auto max-w-6xl space-y-6">
+    
+    <div class="flex items-center justify-between">
+      <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-[#F8FAFC]">
+        {{ 'HOME.TRENDING_OFFERS' | translate }}
+      </h2>
+      <button type="button" class="text-xs font-bold text-red-600 hover:text-red-700 border border-slate-200 dark:border-slate-700 dark:text-red-400 px-4 py-2 rounded-xl bg-white dark:bg-[#1E293B] shadow-sm cursor-pointer">
+        {{ 'COMMON.VIEW_ALL' | translate }}
+      </button>
+    </div>
 
-
-<section class="flex justify-center  my-20 md:my-40">
-    <div class="flex flex-col w-full px-6 md:px-0 md:w-[80%] max-w-325">
-        <h1 class="text-gray-700 text-2xl md:text-[2.5rem] mb-6 md:mb-12">{{ 'HOME.FAQ' | translate }}</h1>
-
-        <!-- faq navigation buttons starts here  -->
-        <div class="flex gap-6 text-sm md:text-base lg:text-lg">
-            <a class="py-2 px-2 border-b-[3px] border-main-color text-main-color" href="">{{ 'HOME.FAQ_GENERAL' | translate }}</a>
-            <a class="py-2 px-2 hover:border-b-[3px] border-gray-300" href="">{{ 'HOME.FAQ_TICKET' | translate }}</a>
-            <a href=""
-                class=" leading-none flex justify-center items-center gap-3 py-2 px-2 hover:border-b-[3px] border-gray-300 sm:hidden">More
-                <i class="fa-solid fa-chevron-right"></i></a>
-            <a class="hidden sm:inline-block py-2 px-2 hover:border-b-[3px] border-gray-300" href="">{{ 'HOME.FAQ_PAYMENT' | translate }}</a>
-            <a class="hidden sm:inline-block py-2 px-2 hover:border-b-[3px] border-gray-300" href="">{{ 'HOME.FAQ_CANCELLATION' | translate }}</a>
-            <a class="hidden sm:inline-block py-2 px-2 hover:border-b-[3px] border-gray-300" href="">{{ 'HOME.FAQ_INSURANCE' | translate }}</a>
+    <!-- Scrollable Horizontal Offer Cards -->
+    <div class="flex gap-4 overflow-x-auto pb-4 pt-1 snap-x scrollbar-thin">
+      
+      <!-- Offer Card 1 -->
+      <div class="min-w-[280px] sm:min-w-[320px] rounded-2xl bg-gradient-to-br from-blue-700 to-blue-500 p-4 text-white shadow-md flex items-center gap-4 shrink-0 snap-start cursor-pointer hover:scale-[1.02] transition">
+        <div class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
+          <span class="material-icons text-3xl text-white">confirmation_number</span>
         </div>
-        <!-- faq navigation buttons starts here  -->
-
-        <!-- faq ans stats here  -->
-        <div class="flex flex-col gap-6 md:gap-10 mt-11">
-
-            <!-- 1st faq  -->
-            <div class="p-4 md:p-7 cursor-pointer bg-white group hover:bg-slate-100 rounded-2xl border border-gray-100">
-                <!-- displayed part  -->
-                <div class="flex md:text-base text-sm justify-between items-center font-semibold gap-2">
-                    <h3>{{ 'HOME.FAQ_Q1' | translate }}</h3>
-                    <i class="fa-solid fa-plus inline-block group-hover:hidden"></i>
-                    <i class="fa-solid fa-minus hidden group-hover:inline-block"></i>
-                </div>
-
-                <!-- hidden content -->
-                <div class="text-xs md:text-sm mt-6 hidden group-hover:inline-block">
-                    <p>{{ 'HOME.FAQ_A1' | translate }}</p>
-                </div>
-            </div>
-            <!-- 1st faq ends here  -->
-
-
-
-
-            <div
-                class="p-4 md:p-7  cursor-pointer bg-white group hover:bg-slate-100 rounded-2xl border border-gray-100">
-                <!-- displayed part  -->
-                <div class="flex md:text-base text-sm justify-between items-center font-semibold gap-2">
-                    <h3>{{ 'HOME.FAQ_Q2' | translate }}</h3>
-                    <i class="fa-solid fa-plus inline-block group-hover:hidden"></i>
-                    <i class="fa-solid fa-minus hidden group-hover:inline-block"></i>
-                </div>
-
-                <!-- hidden content -->
-                <div class="text-xs md:text-sm mt-6 hidden group-hover:inline-block">
-                    <p>{{ 'HOME.FAQ_A2' | translate }}</p>
-                </div>
-            </div>
-
-
-            <div
-                class="p-4 md:p-7  cursor-pointer bg-white group hover:bg-slate-100 rounded-2xl border border-gray-100">
-                <!-- displayed part  -->
-                <div class="flex md:text-base text-sm justify-between items-center font-semibold gap-2">
-                    <h3>{{ 'HOME.FAQ_Q3' | translate }}</h3>
-                    <i class="fa-solid fa-plus inline-block group-hover:hidden"></i>
-                    <i class="fa-solid fa-minus hidden group-hover:inline-block"></i>
-                </div>
-
-                <!-- hidden content -->
-                <div class="text-xs md:text-sm mt-6 hidden group-hover:inline-block">
-                    <p>{{ 'HOME.FAQ_A3' | translate }}</p>
-                </div>
-            </div>
-
-
-
-            <div
-                class="p-4 md:p-7  cursor-pointer bg-white group hover:bg-slate-100 rounded-2xl border border-gray-100">
-                <!-- displayed part  -->
-                <div class="flex md:text-base text-sm justify-between items-center font-semibold gap-2">
-                    <h3>{{ 'HOME.FAQ_Q4' | translate }}</h3>
-                    <i class="fa-solid fa-plus inline-block group-hover:hidden"></i>
-                    <i class="fa-solid fa-minus hidden group-hover:inline-block"></i>
-                </div>
-
-                <!-- hidden content -->
-                <div class="text-xs md:text-sm mt-6 hidden group-hover:inline-block">
-                    <p>{{ 'HOME.FAQ_A4' | translate }}</p>
-                </div>
-            </div>
-
-
-
-            <div
-                class="p-4 md:p-7  cursor-pointer bg-white group hover:bg-slate-100 rounded-2xl border border-gray-100">
-                <!-- displayed part  -->
-                <div class="flex md:text-base text-sm justify-between items-center font-semibold gap-2">
-                    <h3>{{ 'HOME.FAQ_Q5' | translate }}</h3>
-                    <i class="fa-solid fa-plus inline-block group-hover:hidden"></i>
-                    <i class="fa-solid fa-minus hidden group-hover:inline-block"></i>
-                </div>
-
-                <!-- hidden content -->
-                <div class="text-xs md:text-sm mt-6 hidden group-hover:inline-block">
-                    <p>{{ 'HOME.FAQ_A5' | translate }}</p>
-                </div>
-            </div>
-
-
-
-            <div
-                class="p-4 md:p-7  cursor-pointer bg-white group hover:bg-slate-100 rounded-2xl border border-gray-100">
-                <!-- displayed part  -->
-                <div class="flex md:text-base text-sm justify-between items-center font-semibold gap-2">
-                    <h3>{{ 'HOME.FAQ_Q6' | translate }}</h3>
-                    <i class="fa-solid fa-plus inline-block group-hover:hidden"></i>
-                    <i class="fa-solid fa-minus hidden group-hover:inline-block"></i>
-                </div>
-
-                <!-- hidden content -->
-                <div class="text-xs md:text-sm mt-6 hidden group-hover:inline-block">
-                    <p>{{ 'HOME.FAQ_A6' | translate }}</p>
-                </div>
-            </div>
-
-
-            <div
-                class="p-4 md:p-7  cursor-pointer bg-white group hover:bg-slate-100 rounded-2xl border border-gray-100">
-                <!-- displayed part  -->
-                <div class="flex md:text-base text-sm justify-between items-center font-semibold gap-2">
-                    <h3>{{ 'HOME.FAQ_Q7' | translate }}</h3>
-                    <i class="fa-solid fa-plus inline-block group-hover:hidden"></i>
-                    <i class="fa-solid fa-minus hidden group-hover:inline-block"></i>
-                </div>
-
-                <!-- hidden content -->
-                <div class="text-xs md:text-sm mt-6 hidden group-hover:inline-block">
-                    <p>{{ 'HOME.FAQ_A7' | translate }}</p>
-                </div>
-            </div>
-
-
+        <div class="space-y-1">
+          <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/20">BUS</span>
+          <h3 class="font-extrabold text-sm leading-tight">Save up to ₹250 on bus tickets</h3>
+          <p class="text-[11px] opacity-90">Valid till 30 Nov</p>
+          <div class="flex items-center gap-2 pt-1">
+            <span class="px-2 py-0.5 rounded border border-dashed border-white/60 text-xs font-black bg-white/10">FIRST</span>
+          </div>
         </div>
-        <!-- faq ans ends here  -->
+      </div>
+
+      <!-- Offer Card 2 -->
+      <div class="min-w-[280px] sm:min-w-[320px] rounded-2xl bg-gradient-to-br from-red-700 to-red-500 p-4 text-white shadow-md flex items-center gap-4 shrink-0 snap-start cursor-pointer hover:scale-[1.02] transition">
+        <div class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
+          <span class="material-icons text-3xl text-white">local_offer</span>
+        </div>
+        <div class="space-y-1">
+          <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/20">BUS</span>
+          <h3 class="font-extrabold text-sm leading-tight">Save up to ₹300 on AP, TS routes</h3>
+          <p class="text-[11px] opacity-90">Valid till 30 Nov</p>
+          <div class="flex items-center gap-2 pt-1">
+            <span class="px-2 py-0.5 rounded border border-dashed border-white/60 text-xs font-black bg-white/10">SUPERHIT</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Offer Card 3 -->
+      <div class="min-w-[280px] sm:min-w-[320px] rounded-2xl bg-gradient-to-br from-emerald-700 to-emerald-500 p-4 text-white shadow-md flex items-center gap-4 shrink-0 snap-start cursor-pointer hover:scale-[1.02] transition">
+        <div class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
+          <span class="material-icons text-3xl text-white">loyalty</span>
+        </div>
+        <div class="space-y-1">
+          <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/20">BUS</span>
+          <h3 class="font-extrabold text-sm leading-tight">Save up to ₹300 on RJ, MH, Goa routes</h3>
+          <p class="text-[11px] opacity-90">Valid till 30 Nov</p>
+          <div class="flex items-center gap-2 pt-1">
+            <span class="px-2 py-0.5 rounded border border-dashed border-white/60 text-xs font-black bg-white/10">BUS300</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Offer Card 4 -->
+      <div class="min-w-[280px] sm:min-w-[320px] rounded-2xl bg-gradient-to-br from-indigo-700 to-indigo-500 p-4 text-white shadow-md flex items-center gap-4 shrink-0 snap-start cursor-pointer hover:scale-[1.02] transition">
+        <div class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
+          <span class="material-icons text-3xl text-white">card_giftcard</span>
+        </div>
+        <div class="space-y-1">
+          <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/20">BUS</span>
+          <h3 class="font-extrabold text-sm leading-tight">Save up to ₹200 on Kerala routes</h3>
+          <p class="text-[11px] opacity-90">Valid till 30 Nov</p>
+          <div class="flex items-center gap-2 pt-1">
+            <span class="px-2 py-0.5 rounded border border-dashed border-white/60 text-xs font-black bg-white/10">RBTRIP</span>
+          </div>
+        </div>
+      </div>
 
     </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-12 px-4 sm:px-6 lg:px-12 bg-white dark:bg-[#1E293B] transition-colors duration-300">
+  <div class="mx-auto max-w-4xl space-y-6">
+    <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-[#F8FAFC]">
+      {{ 'HOME.FAQ' | translate }}
+    </h2>
+
+    <!-- FAQ Accordion List -->
+    <div class="space-y-4">
+      
+      <div class="p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 group cursor-pointer transition">
+        <div class="flex items-center justify-between font-bold text-sm sm:text-base text-slate-900 dark:text-[#F8FAFC] gap-3">
+          <h3>{{ 'HOME.FAQ_Q1' | translate }}</h3>
+          <span class="material-icons text-slate-400 group-hover:rotate-180 transition-transform">expand_more</span>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-3 hidden group-hover:block leading-relaxed">
+          {{ 'HOME.FAQ_A1' | translate }}
+        </p>
+      </div>
+
+      <div class="p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 group cursor-pointer transition">
+        <div class="flex items-center justify-between font-bold text-sm sm:text-base text-slate-900 dark:text-[#F8FAFC] gap-3">
+          <h3>{{ 'HOME.FAQ_Q2' | translate }}</h3>
+          <span class="material-icons text-slate-400 group-hover:rotate-180 transition-transform">expand_more</span>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-3 hidden group-hover:block leading-relaxed">
+          {{ 'HOME.FAQ_A2' | translate }}
+        </p>
+      </div>
+
+      <div class="p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 group cursor-pointer transition">
+        <div class="flex items-center justify-between font-bold text-sm sm:text-base text-slate-900 dark:text-[#F8FAFC] gap-3">
+          <h3>{{ 'HOME.FAQ_Q3' | translate }}</h3>
+          <span class="material-icons text-slate-400 group-hover:rotate-180 transition-transform">expand_more</span>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-3 hidden group-hover:block leading-relaxed">
+          {{ 'HOME.FAQ_A3' | translate }}
+        </p>
+      </div>
+
+      <div class="p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 group cursor-pointer transition">
+        <div class="flex items-center justify-between font-bold text-sm sm:text-base text-slate-900 dark:text-[#F8FAFC] gap-3">
+          <h3>{{ 'HOME.FAQ_Q4' | translate }}</h3>
+          <span class="material-icons text-slate-400 group-hover:rotate-180 transition-transform">expand_more</span>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-3 hidden group-hover:block leading-relaxed">
+          {{ 'HOME.FAQ_A4' | translate }}
+        </p>
+      </div>
+
+    </div>
+  </div>
 </section>

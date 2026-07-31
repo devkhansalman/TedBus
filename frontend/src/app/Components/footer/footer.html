@@ -1,128 +1,84 @@
-<footer class="flex flex-col bg-white-100 py-16 items-center">
-    <div class="flex flex-col-reverse md:text-base text-sm md:flex-col w-full px-6 md:px-0 md:w-[80%] max-w-325">
+<footer class="w-full bg-slate-100 dark:bg-[#1E293B] border-t border-slate-200 dark:border-white/10 py-12 px-4 sm:px-6 lg:px-12 text-slate-700 dark:text-slate-300 transition-colors duration-300">
+  <div class="mx-auto max-w-7xl space-y-10">
 
-        <!-- footer upper part starts here  -->
-        <div class="flex justify-between flex-col md:flex-row gap-6">
-            <ul class="flex flex-col gap-2">
-                <li class="text-xl font-bold">{{ 'FOOTER.TOP_RTCS' | translate }}</li>
-                <li><a href="">APSRTC</a></li>
-                <li><a href="">GSRTC</a></li>
-                <li><a href="">MSRTC</a></li>
-                <li><a href="">TNSTC</a></li>
-                <li><a href="">{{ 'COMMON.VIEW_ALL' | translate }}</a></li>
-            </ul>
+    <!-- Footer Upper Links Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 text-xs sm:text-sm">
+      
+      <div class="space-y-3">
+        <h3 class="text-sm font-extrabold uppercase tracking-wider text-slate-900 dark:text-[#F8FAFC]">
+          {{ 'FOOTER.TOP_RTCS' | translate }}
+        </h3>
+        <ul class="space-y-2 text-slate-600 dark:text-slate-400">
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">APSRTC</a></li>
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">GSRTC</a></li>
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">MSRTC</a></li>
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">TNSTC</a></li>
+          <li><a href="#" class="font-bold text-red-600 dark:text-red-400">{{ 'COMMON.VIEW_ALL' | translate }}</a></li>
+        </ul>
+      </div>
 
+      <div class="space-y-3">
+        <h3 class="text-sm font-extrabold uppercase tracking-wider text-slate-900 dark:text-[#F8FAFC]">
+          {{ 'FOOTER.OTHERS' | translate }}
+        </h3>
+        <ul class="space-y-2 text-slate-600 dark:text-slate-400">
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">TSRTC</a></li>
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">SBSTC</a></li>
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">RSRTC</a></li>
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">Kerala RTC</a></li>
+          <li><a href="#" class="font-bold text-red-600 dark:text-red-400">{{ 'COMMON.VIEW_ALL' | translate }}</a></li>
+        </ul>
+      </div>
 
+      <div class="space-y-3">
+        <h3 class="text-sm font-extrabold uppercase tracking-wider text-slate-900 dark:text-[#F8FAFC]">
+          {{ 'FOOTER.TOP_ROUTES' | translate }}
+        </h3>
+        <ul class="space-y-2 text-slate-600 dark:text-slate-400">
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">Delhi to Jaipur Bus</a></li>
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">Mumbai to Goa Bus</a></li>
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">Bangalore to Mysore Bus</a></li>
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">Pune to Bangalore Bus</a></li>
+        </ul>
+      </div>
 
-            <ul class="flex flex-col gap-2">
-                <li class="text-xl font-bold">{{ 'FOOTER.OTHERS' | translate }}</li>
-                <li><a href="">TSRTC</a></li>
-                <li><a href="">SBSTC</a></li>
-                <li><a href="">RSRTC</a></li>
-                <li><a href="">Kerala RTC</a></li>
-                <li><a href="">{{ 'COMMON.VIEW_ALL' | translate }}</a></li>
-            </ul>
+      <div class="space-y-3">
+        <h3 class="text-sm font-extrabold uppercase tracking-wider text-slate-900 dark:text-[#F8FAFC]">
+          {{ 'FOOTER.TOP_CITIES' | translate }}
+        </h3>
+        <ul class="space-y-2 text-slate-600 dark:text-slate-400">
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">Delhi Bus Tickets</a></li>
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">Jaipur Bus Tickets</a></li>
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">Mumbai Bus Tickets</a></li>
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">Bangalore Bus Tickets</a></li>
+        </ul>
+      </div>
 
-
-            <ul class="flex flex-col gap-2">
-                <li class="text-xl font-bold">{{ 'FOOTER.TOP_ROUTES' | translate }}</li>
-                <li><a href="">Hyderabad to Bangalore Bus</a></li>
-                <li><a href="">Bangalore to Chennai Bus</a></li>
-                <li><a href="">Pune to Bangalore Bus</a></li>
-                <li><a href="">Mumbai to Bangalore Bus</a></li>
-                <li><a href="">{{ 'COMMON.VIEW_ALL' | translate }}</a></li>
-            </ul>
-
-
-            <ul class="flex flex-col gap-2">
-                <li class="text-xl font-bold">{{ 'FOOTER.TOP_CITIES' | translate }}</li>
-                <li><a href="">Hyderabad Bus Tickets</a></li>
-                <li><a href="">Bangalore Bus Tickets</a></li>
-                <li><a href="">Chennai Bus Tickets</a></li>
-                <li><a href="">Pune Bus Tickets</a></li>
-                <li><a href="">{{ 'COMMON.VIEW_ALL' | translate }}</a></li>
-            </ul>
-
-
-            <ul class="flex flex-col gap-2">
-                <li class="text-xl font-bold">redRail</li>
-                <li><a href="">{{ 'FOOTER.BOOK_TRAIN' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.PNR_STATUS' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.LIVE_TRAIN_STATUS' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.TRAIN_SEAT_AVAILABILITY' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.TRAINS_BETWEEN_STATIONS' | translate }}</a></li>
-            </ul>
-
-
-        </div>
-        <!-- footer upper part ends here  -->
-
-        <hr class="my-8">
-        <!-- footer bottom part starts here  -->
-        <div class="flex justify-between flex-col md:flex-row gap-6">
-
-            <div class="flex flex-col gap-2 md:w-[25%]">
-                <div>
-                    <img class="w-28" src="assets/red-bus-with-word-bus-it_600323-482.avif">
-                </div>
-                <p>{{ 'FOOTER.ABOUT_DESC' | translate }}</p>
-            </div>
-
-
-            <ul class="flex flex-col gap-2">
-                <li class="text-xl font-bold">{{ 'FOOTER.ABOUT' | translate }} tedbus</li>
-                <li><a href="">{{ 'FOOTER.ABOUT' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.INVESTOR_RELATIONS' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.CONTACT' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.MOBILE_VERSION' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.TEDBUS_ON_MOBILE' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.SITEMAP' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.OFFERS' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.CAREERS' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.VALUES' | translate }}</a></li>
-            </ul>
-
-
-
-            <ul class="flex flex-col gap-2">
-                <li class="text-xl font-bold">{{ 'FOOTER.INFO' | translate }}</li>
-                <li><a href="">{{ 'FOOTER.TERMS' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.PRIVACY_POLICY' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.HELP' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.BLOG' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.BUS_OPERATOR_REG' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.AGENT_REG' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.INSURANCE_PARTNER' | translate }}</a></li>
-                <li><a href="">{{ 'FOOTER.USER_AGREEMENT' | translate }}</a></li>
-            </ul>
-
-
-            <ul class="flex flex-col gap-2">
-                <li class="text-xl font-bold">{{ 'FOOTER.GLOBAL_SITES' | translate }}</li>
-                <li><a href="">India</a></li>
-                <li><a href="">Singapore</a></li>
-                <li><a href="">Malaysia</a></li>
-                <li><a href="">Indonesia</a></li>
-                <li><a href="">Peru</a></li>
-                <li><a href="">Colombia</a></li>
-            </ul>
-
-
-            <ul class="flex flex-col gap-2">
-                <li class="text-xl font-bold">{{ 'FOOTER.OUR_PARTNERS' | translate }}</li>
-                <li><a href="">Goibibo Bus</a></li>
-                <li><a href="">Goibibo Hotels</a></li>
-                <li><a href="">Makemytrip Bus</a></li>
-                <li><a href="">Makemytrip Hotels</a></li>
-            </ul>
-
-
-        </div>
-        <!-- footer bottom part ends here  -->
-
-        <div class="mt-8 border-t border-gray-200 pt-4 text-center text-sm text-gray-500">
-            {{ 'FOOTER.COPYRIGHT' | translate }}
-        </div>
+      <div class="space-y-3">
+        <h3 class="text-sm font-extrabold uppercase tracking-wider text-slate-900 dark:text-[#F8FAFC]">
+          {{ 'FOOTER.OUR_PARTNERS' | translate }}
+        </h3>
+        <ul class="space-y-2 text-slate-600 dark:text-slate-400">
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">Goibibo Bus</a></li>
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">MakeMyTrip Bus</a></li>
+          <li><a href="#" class="hover:text-red-600 dark:hover:text-red-400 transition">RedBus India</a></li>
+        </ul>
+      </div>
 
     </div>
+
+    <div class="border-t border-slate-200 dark:border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img class="w-11 h-11 rounded-full object-cover border border-slate-200 dark:border-slate-700 shadow-sm" src="assets/red-bus-with-word-bus-it_600323-482.avif" alt="Tedbus Logo" />
+        <p class="text-xs text-slate-500 dark:text-slate-400 max-w-md">
+          {{ 'FOOTER.ABOUT_DESC' | translate }}
+        </p>
+      </div>
+
+      <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 text-center md:text-right">
+        {{ 'FOOTER.COPYRIGHT' | translate }}
+      </p>
+    </div>
+
+  </div>
 </footer>

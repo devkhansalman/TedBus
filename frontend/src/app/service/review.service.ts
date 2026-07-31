@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Review } from '../model/review.model';
+import { url } from '../config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReviewService {
-  private baseUrl = 'http://localhost:8000';
+  private baseUrl = url;
 
   constructor(private http: HttpClient) {}
 
@@ -18,20 +19,20 @@ export class ReviewService {
     review: string;
   }): Observable<{ success: boolean; message: string; review?: Review }> {
     return this.http.post<{ success: boolean; message: string; review?: Review }>(
-      `${this.baseUrl}/reviews`,
+      `${this.baseUrl}reviews`,
       payload
     );
   }
 
   getBusReviews(busId: string): Observable<{ success: boolean; reviews: Review[] }> {
     return this.http.get<{ success: boolean; reviews: Review[] }>(
-      `${this.baseUrl}/reviews/bus/${busId}`
+      `${this.baseUrl}reviews/bus/${busId}`
     );
   }
 
   checkEligibility(bookingId: string): Observable<{ hasReview: boolean; review: Review | null }> {
     return this.http.get<{ hasReview: boolean; review: Review | null }>(
-      `${this.baseUrl}/reviews/check/${bookingId}`
+      `${this.baseUrl}reviews/check/${bookingId}`
     );
   }
 }

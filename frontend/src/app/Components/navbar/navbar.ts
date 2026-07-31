@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Customer } from '../../service/customer';
 import { Customers } from '../../model/customers.model';
 import { ThemeService } from '../../service/theme.service';
-import { LanguageService, SupportedLanguage } from '../../service/language.service';
+import { LanguageService } from '../../service/language.service';
 import { NotificationService } from '../../service/notification.service';
 import { Subscription } from 'rxjs';
 
@@ -19,6 +19,7 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
 
   isLoggedIn = false;
   isNotificationPanelOpen = false;
+  isMobileMenuOpen = false;
   unreadCount = 0;
   private notificationSub: Subscription | null = null;
 
@@ -106,7 +107,6 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
     };
 
     this.customerservice.addcustomermongo(payload).subscribe({
-
       next: (res) => {
         sessionStorage.setItem("Loggedinuser", JSON.stringify(res));
         this.themeService.loadUserTheme(res.email, res.themePreference);
@@ -121,29 +121,23 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
         this.notificationService.fetchUnreadCount();
 
         this.isLoggedIn = true;
-
         this.cdr.detectChanges();
-
         this.router.navigateByUrl("/");
       },
-
       error: (err) => {
         console.error(err);
-
         sessionStorage.setItem("Loggedinuser", JSON.stringify(fallbackUser));
-
         this.isLoggedIn = true;
-
         this.cdr.detectChanges();
-
         this.router.navigateByUrl("/");
       }
-
     });
   }
 
   handlelogout(): void {
-    google.accounts.id.disableAutoSelect();
+    if (typeof google !== 'undefined' && google.accounts) {
+      google.accounts.id.disableAutoSelect();
+    }
 
     sessionStorage.removeItem("Loggedinuser");
     this.themeService.clearUserTheme();
@@ -155,15 +149,15 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
     }
     this.unreadCount = 0;
     this.isNotificationPanelOpen = false;
-
+    this.isMobileMenuOpen = false;
     this.isLoggedIn = false;
 
     this.cdr.detectChanges();
-
     window.location.reload();
   }
 
   navigate(route: string, tab?: string): void {
+    this.isMobileMenuOpen = false;
     if (tab) {
       this.router.navigate([route], { queryParams: { tab } });
     } else {
@@ -184,5 +178,9 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
       event.stopPropagation();
     }
     this.isNotificationPanelOpen = !this.isNotificationPanelOpen;
+  }
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 }
