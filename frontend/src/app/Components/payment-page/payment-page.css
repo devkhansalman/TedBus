@@ -217,6 +217,41 @@ body {
   align-items: center;
 }
 
+.trip_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.trip_subcol {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex: 1;
+}
+.trip_subcol_text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.trip_subcol_seats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.seats_badge {
+  font-weight: 700;
+  color: #dc2626;
+}
+.security_badges {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 1rem;
+  width: 100%;
+  gap: 0.5rem;
+}
+
 @media (max-width: 1024px) {
   .payment__fullContainer {
     flex-direction: column-reverse;
@@ -227,6 +262,47 @@ body {
   .payment__fullContainer_leftContainer,
   .payment__fullContainer_rightContainer {
     width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .payment__fullContainer {
+    padding: 0 0.5rem;
+    margin: 0.5rem auto;
+    gap: 1rem;
+  }
+  .payment__fullContainer_rightContainer_infobar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+  .payment__fullContainer_leftContainer_paymentInstrument {
+    padding: 0.75rem;
+  }
+  .payment__fullContainer_leftContainer_eachPaymentInstruments {
+    padding: 0.75rem 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .paymentIconList {
+    margin-left: auto;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+  .payment_icon_img {
+    margin-left: 4px;
+    height: 18px;
+  }
+  .trip_row {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .trip_subcol_seats {
+    align-items: flex-start;
+  }
+  .security_badges img {
+    height: 20px;
   }
 }
 
@@ -256,3 +332,4 @@ body {
   background: linear-gradient(135deg, #ef4444, #dc2626);
   box-shadow: 0 8px 18px rgba(239, 68, 68, 0.28);
 }
+

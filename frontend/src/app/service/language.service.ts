@@ -9,6 +9,9 @@ export interface SupportedLanguage {
   flag?: string;
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 export class CustomMissingTranslationHandler implements MissingTranslationHandler {
   handle(params: MissingTranslationHandlerParams): string {
     if (typeof console !== 'undefined' && console.warn) {

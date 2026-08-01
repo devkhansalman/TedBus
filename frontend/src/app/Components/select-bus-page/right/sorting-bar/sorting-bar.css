@@ -146,3 +146,51 @@
     background: rgba(239, 68, 68, .12);
     color: var(--tb-primary-hover);
   }
+
+  /* Mobile responsiveness for sorting bar */
+  @media (max-width: 768px) {
+    .security-container {
+      font-size: 11px;
+      padding: 0.5rem;
+      height: auto;
+    }
+
+    .main-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 0.5rem;
+      gap: 4px;
+      border-radius: 0.75rem;
+      white-space: nowrap;
+      height: auto;
+      scrollbar-width: none; /* Firefox */
+    }
+
+    .main-container::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Edge */
+    }
+
+    .main-container > div {
+      flex-shrink: 0;
+      min-width: max-content;
+      font-size: 11px;
+      padding: 0.35rem 0.6rem;
+      min-height: auto;
+      border-radius: 0.5rem;
+    }
+
+    .main-container1 {
+      width: auto;
+      gap: 8px;
+    }
+
+    .main-container2,
+    .main-container3,
+    .main-container4,
+    .main-container5,
+    .main-container6,
+    .main-container7 {
+      width: auto;
+    }
+  }
+

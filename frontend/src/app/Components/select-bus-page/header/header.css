@@ -28,3 +28,16 @@
     color: #e2e8f0;
     border-color: #475569;
 }
+
+@media (max-width: 768px) {
+    .HeaderOne {
+        padding: 8px 12px;
+        font-size: 12px;
+        word-break: break-word;
+    }
+    .HeaderTwo h3 {
+        font-size: 15px;
+        line-height: 1.3;
+    }
+}
+

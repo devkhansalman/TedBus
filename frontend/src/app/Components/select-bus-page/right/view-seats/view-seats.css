@@ -255,3 +255,29 @@
 :host-context(html.dark) .legend-dot.available { background: #22c55e; }
 :host-context(html.dark) .legend-dot.selected { background: #ef4444; }
 :host-context(html.dark) .legend-dot.booked { background: #64748b; }
+
+@media (max-width: 768px) {
+  .mainContainer {
+    flex-direction: column;
+    padding: 10px 8px;
+    gap: 12px;
+  }
+
+  .mainContainer1,
+  .mainContainer2 {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .mainContainer1Right {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 8px;
+  }
+
+  .mainContainer2 {
+    padding: 12px;
+    position: static;
+  }
+}
+

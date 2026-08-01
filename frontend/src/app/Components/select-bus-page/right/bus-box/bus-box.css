@@ -317,3 +317,85 @@
     border-color: rgba(248, 113, 113, .2);
     color: #fda4af;
   }
+
+  /* Mobile responsiveness for bus-box */
+  @media (max-width: 768px) {
+    .bus-box {
+      padding: 0.85rem;
+      margin-top: 0.75rem;
+      border-radius: 0.75rem;
+    }
+
+    .busBoxSection1 {
+      flex-wrap: wrap;
+      height: auto;
+      gap: 0.75rem 0.5rem;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 0.75rem;
+    }
+
+    .busBoxSection11 {
+      width: 60%;
+      min-width: 140px;
+    }
+
+    .busBoxSection16 {
+      width: 35%;
+      min-width: 90px;
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .busBoxSection16 > div:nth-child(1) {
+      justify-content: flex-end;
+    }
+
+    .busBoxSection16 > div:nth-child(2) {
+      justify-content: flex-end;
+    }
+
+    .busBoxSection12 {
+      width: 30%;
+    }
+
+    .busBoxSection13 {
+      width: 35%;
+      text-align: center;
+    }
+
+    .busBoxSection14 {
+      width: 30%;
+      text-align: right;
+    }
+
+    .busBoxSection15 {
+      width: auto;
+      flex-direction: row;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .busBoxSection17 {
+      width: auto;
+      margin-left: auto;
+    }
+
+    .busBoxSection2 {
+      flex-wrap: wrap;
+      height: auto;
+      gap: 8px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    .busBoxSection21 {
+      width: 100%;
+    }
+
+    .busBoxSection22 {
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+  }
+

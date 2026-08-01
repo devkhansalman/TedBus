@@ -22,6 +22,7 @@ const bookingroute=require("./routes/booking")
 const reviewroute=require("./routes/review");
 const notificationroute = require('./routes/notification');
 const communityroute = require('./routes/community');
+const { Timestamp } = require("mongodb");
 
 app.use(bookingroute)
 app.use(routesroute)
@@ -31,7 +32,7 @@ app.use(notificationroute)
 app.use(communityroute)
 
 
-const DB_URL=`${process.env.DB_URL}`
+const DB_URL="mongodb://localhost:27017/tedbus-server" || process.env.DB_URL
 mongoose.connect(DB_URL)
 .then(()=>console.log("Connected successfully"))
 .catch((err)=>console.error("Error in connecting to DB", err))
@@ -39,7 +40,9 @@ mongoose.connect(DB_URL)
 app.get("/",(req,res)=>{
     res.send({message:"Hello from tedbus server bro!"})
 })
-
+app.get("/health",(req,res)=>{
+    res.status(200).json({success:true,status:"ok",Timestamp:new Date().toISOString()})
+})
 
 app.listen(process.env.PORT,()=>{
     console.log(`Server running on PORT: ${process.env.PORT}`);

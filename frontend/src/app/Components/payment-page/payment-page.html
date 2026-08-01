@@ -120,39 +120,36 @@
             <div class="travel_specification">Seater / A/C / Sleeper</div>
           </div>
           <div class="line"></div>
-          <div style="display: flex; justify-content: space-between;">
-            <div style="display: flex; justify-content: space-between; width: 200px;">
+          <div class="trip_row">
+            <div class="trip_subcol">
               <mat-icon class="icons">date_range</mat-icon>
-              <div style="display: flex; flex-direction: column;">
+              <div class="trip_subcol_text">
                 <div class="travel_specification">{{ 'COMMON.DATE' | translate }}</div>
-                <div style="display: flex; width: 150px;">
-                  <div>{{ bookingdate | date: 'yyyy-MM-dd' }}</div>
-                </div>
+                <div>{{ bookingdate | date: 'yyyy-MM-dd' }}</div>
               </div>
             </div>
-            <div style="display: flex; flex-direction: column; margin-right: 10px;">
-              <div>{{ 'BOOKING.SEATS_BOOKED' | translate }}</div>
-              <div>{{ passseatarray }}</div>
+            <div class="trip_subcol_seats">
+              <div class="travel_specification">{{ 'BOOKING.SEATS_BOOKED' | translate }}</div>
+              <div class="seats_badge">{{ passseatarray }}</div>
             </div>
           </div>
           <div class="line"></div>
-          <div style="display: flex; justify-content: space-between;">
-            <div style="display: flex; justify-content: space-between; width: 150px;">
+          <div class="trip_row">
+            <div class="trip_subcol">
               <mat-icon class="icons">location_on</mat-icon>
-              <div style="display: flex; flex-direction: column;">
+              <div class="trip_subcol_text">
                 <div class="travel_specification">{{ 'BOOKING.BOARDING_POINT' | translate }}</div>
-                <div>{{ routedetails?.departureLocation?.name }}</div>                
-                <div>{{ bookingdate }}</div>
+                <div class="font-bold text-slate-800 dark:text-slate-200">{{ routedetails?.departureLocation?.name }}</div>                
                 <div>{{ busdepauturetime }}:00</div> 
-                 <div>{{routedetails?.departureLocation?.name}}</div>
-                
               </div>
             </div>
-            <div style="display: flex; flex-direction: column;">
-              <div class="travel_specification">{{ 'BOOKING.DROPPING_POINT' | translate }}</div>
-              <div>{{ routedetails?.arrivalLocation?.name }}</div> 
-              <div>{{ bookingdate }}</div>
-              <div>{{ busarrivaltime }}:00</div>
+            <div class="trip_subcol">
+              <mat-icon class="icons">place</mat-icon>
+              <div class="trip_subcol_text">
+                <div class="travel_specification">{{ 'BOOKING.DROPPING_POINT' | translate }}</div>
+                <div class="font-bold text-slate-800 dark:text-slate-200">{{ routedetails?.arrivalLocation?.name }}</div> 
+                <div>{{ busarrivaltime }}:00</div>
+              </div>
             </div>
           </div>
           <div class="passangerInfo">
@@ -165,13 +162,12 @@
             <div class="travel_title">{{ 'BOOKING.FARE_SUMMARY' | translate }}</div>
             <img src="https://s3.rdbuz.com/Images/webplatform/Common/Payment/down.svg" width="14" height="14" alt="">
           </div>
-          <div style="display: flex; justify-content: space-between; margin-top: 10px;"></div>
           <div style="display: flex; justify-content: space-between; margin-top: 10px;">
             <div class="travel_specification" style="font-weight: bold;">{{ 'COMMON.TOTAL' | translate }}</div>
             <div class="travel_specification" style="font-weight: bold;">Rs. {{passfare}}</div>
           </div>
         </div>
-        <div style="display: flex; justify-content: space-around; margin-top: 10px; width: 95%;">
+        <div class="security_badges">
           <img class="payment_banner_icon_img" src="https://s3.rdbuz.com/Images/webplatform/Common/Payment/master-card-secure-code.png" alt="">
           <img class="payment_banner_icon_img" src="https://s3.rdbuz.com/Images/webplatform/Common/Payment/verified-by-visa.svg" alt="">
           <img class="payment_banner_icon_img" src="https://s3.rdbuz.com/Images/webplatform/Common/Payment/verisign-secured.png" alt="">
