@@ -59,7 +59,7 @@ The application uses Angular 21 for the single-page frontend UI, Express for RES
 ### Installation
 
 ```bash
-git clone https://github.com/M-Salman-khan/Tedbus.git
+git clone https://github.com/devkhansalman/TedBus.git
 cd Tedbus
 
 # Install backend dependencies

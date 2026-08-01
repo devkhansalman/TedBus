@@ -2,7 +2,7 @@
 
 **Project Title:** Tedbus - Online Bus Ticket Booking, Real-Time Tracking & Community Platform  
 **Technology Stack:** Angular 21, TypeScript 5.9, RxJS, Node.js, Express 5, MongoDB, Mongoose 9, Tailwind CSS 4, Angular Material, Leaflet Maps, ngx-translate  
-**Live Frontend Deployment:** [https://superlative-crisp-69dd61.netlify.app/](https://superlative-crisp-69dd61.netlify.app/)  
+**Live Frontend Deployment:** [https://my-ted-bus.netlify.app/](https://my-ted-bus.netlify.app/)  
 **Live Backend Deployment:** [https://tedbus-45ol.onrender.com/](https://tedbus-45ol.onrender.com/)  
 **Submission Date:** August 1, 2026  
 
@@ -152,4 +152,4 @@ All **6 assigned internship tasks** have been fully implemented, integrated, tes
 
 ---
 *Report Submitted by:* **Salman Khan**  
-*Date:* August 1, 2026  
+*Date:* July 31, 2026  

@@ -1,6 +1,6 @@
 node_modules
 pnpm-*
 
-fix-bus-routes.js
+# fix-bus-routes.js
 seed-completed-booking.js
 .env
