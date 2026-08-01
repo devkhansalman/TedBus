@@ -2,5 +2,5 @@ node_modules
 pnpm-*
 
 # fix-bus-routes.js
-seed-completed-booking.js
+seed-completed-bookings.js
 .env

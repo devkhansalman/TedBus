@@ -1,0 +1,38 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: tedbus-backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - PORT=${PORT:-8000}
+      - DB_URL=${DB_URL}
+    ports:
+      - "${PORT:-8000}:${PORT:-8000}"
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:${PORT:-8000}/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: tedbus-frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-80}:4200"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:4200/ || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
