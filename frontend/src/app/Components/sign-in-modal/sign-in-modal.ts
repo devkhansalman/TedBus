@@ -27,7 +27,7 @@ export class SignInModal implements OnInit, AfterViewInit {
     if (typeof google !== 'undefined' && google.accounts) {
       try {
         google.accounts.id.initialize({
-          client_id: '23806936469-5l4854derbp1fospau6nf9imp66t0nfj.apps.googleusercontent.com',
+          client_id: '23806936469-7c99sb1b7dr8c994vic0t2cjl8pohog6.apps.googleusercontent.com',
           callback: (response: any) => this.handleGoogleLogin(response)
         });
       } catch (e) {

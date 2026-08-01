@@ -177,8 +177,18 @@ html.dark .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
   background-color: rgba(239,68,68,0.15) !important;
 }
 
-html.dark .mat-calendar-header,
-html.dark .mat-calendar-table-header {
-  color: #94a3b8 !important;
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
 }
+
+/* Utility to hide scrollbars while allowing swipe/scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 

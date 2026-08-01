@@ -1,59 +1,94 @@
-<div class="mainBar">
-  <div class="tab-item" [class.active]="tabstate[0]" (click)="handletabstate(0)">
-    <i class="material-icons" style="font-size:14px;">local_offer</i>
-    {{ 'BOOKING.AMENITIES' | translate }}
+<div class="mainBar flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 pb-1 pt-2 border-t border-slate-100 dark:border-slate-700/60 w-full max-w-full overflow-hidden">
+  <div class="flex items-center gap-1 sm:gap-2 text-xs font-semibold text-slate-600 dark:text-slate-300 overflow-x-auto no-scrollbar max-w-full">
+    <button
+      type="button"
+      [class.text-red-500]="tabstate[0]"
+      [class.bg-red-50]="tabstate[0]"
+      [class.dark:bg-slate-700]="tabstate[0]"
+      (click)="handletabstate(0)"
+      class="flex items-center gap-1 px-2.5 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer shrink-0"
+    >
+      <mat-icon class="text-xs">local_offer</mat-icon>
+      <span>{{ 'BOOKING.AMENITIES' | translate }}</span>
+    </button>
+
+    <button
+      type="button"
+      [class.text-red-500]="tabstate[1]"
+      [class.bg-red-50]="tabstate[1]"
+      [class.dark:bg-slate-700]="tabstate[1]"
+      (click)="handletabstate(1)"
+      class="flex items-center gap-1 px-2.5 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer shrink-0"
+    >
+      <mat-icon class="text-xs">location_on</mat-icon>
+      <span>{{ 'BOOKING.STOPS' | translate }}</span>
+    </button>
+
+    <button
+      type="button"
+      [class.text-red-500]="tabstate[2]"
+      [class.bg-red-50]="tabstate[2]"
+      [class.dark:bg-slate-700]="tabstate[2]"
+      (click)="handletabstate(2)"
+      class="flex items-center gap-1 px-2.5 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer shrink-0"
+    >
+      <mat-icon class="text-xs">star</mat-icon>
+      <span>{{ 'REVIEW.TITLE' | translate }}</span>
+    </button>
+
+    <button
+      type="button"
+      [class.text-red-500]="tabstate[3]"
+      [class.bg-red-50]="tabstate[3]"
+      [class.dark:bg-slate-700]="tabstate[3]"
+      (click)="handletabstate(3)"
+      class="flex items-center gap-1 px-2.5 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer shrink-0"
+    >
+      <mat-icon class="text-xs">policy</mat-icon>
+      <span>{{ 'BOOKING.POLICIES' | translate }}</span>
+    </button>
   </div>
-  <span class="tab-separator">|</span>
-  <div class="tab-item" [class.active]="tabstate[1]" (click)="handletabstate(1)">
-    <i class="material-icons" style="font-size:14px;">location_on</i>
-    {{ 'BOOKING.STOPS' | translate }}
-  </div>
-  <span class="tab-separator">|</span>
-  <div class="tab-item" [class.active]="tabstate[2]" (click)="handletabstate(2)">
-    <i class="material-icons" style="font-size:14px;">star</i>
-    {{ 'REVIEW.TITLE' | translate }}
-  </div>
-  <span class="tab-separator">|</span>
-  <div class="tab-item" [class.active]="tabstate[3]" (click)="handletabstate(3)">
-    <i class="material-icons" style="font-size:14px;">policy</i>
-    {{ 'BOOKING.POLICIES' | translate }}
-  </div>
-  <span class="tab-separator">|</span>
-  <div class="tab-item view-seats-tab" [class.active]="tabstate[4]" (click)="handletabstate(4)">
-    <i class="material-icons" style="font-size:14px;">event_seat</i>
-    {{ 'COMMON.SEATS' | translate }}
-  </div>
+
+  <!-- VIEW SEATS CTA BUTTON -->
+  <button
+    type="button"
+    (click)="handletabstate(4)"
+    class="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-red-500 hover:bg-red-600 text-white font-extrabold text-xs shadow-2xs shadow-red-500/20 transition cursor-pointer shrink-0 sm:ml-auto"
+  >
+    <mat-icon class="text-sm">event_seat</mat-icon>
+    <span>{{ tabstate[4] ? ('COMMON.CLOSE' | translate) : ('COMMON.SEATS' | translate) }}</span>
+  </button>
 </div>
 
-<div class="displayArea" *ngIf="tabstate[0]">
-  <div class="tab-placeholder">
-    <i class="material-icons" style="font-size:32px;color:#ddd;display:block;margin-bottom:8px;">local_offer</i>
+<div class="displayArea mt-3" *ngIf="tabstate[0]">
+  <div class="tab-placeholder p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-700/60 text-xs text-slate-500 dark:text-slate-400 text-center">
+    <mat-icon class="text-slate-400 text-2xl mb-1 block mx-auto">local_offer</mat-icon>
     {{ 'BOOKING.AMENITIES_COMING_SOON' | translate }}
   </div>
 </div>
 
-<div class="displayArea" *ngIf="tabstate[1]">
-  <div class="tab-placeholder">
-    <i class="material-icons" style="font-size:32px;color:#ddd;display:block;margin-bottom:8px;">location_on</i>
+<div class="displayArea mt-3" *ngIf="tabstate[1]">
+  <div class="tab-placeholder p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-700/60 text-xs text-slate-500 dark:text-slate-400 text-center">
+    <mat-icon class="text-slate-400 text-2xl mb-1 block mx-auto">location_on</mat-icon>
     {{ 'BOOKING.STOPS_COMING_SOON' | translate }}
   </div>
 </div>
 
-<div class="displayArea" *ngIf="tabstate[2]">
-  <div class="tab-placeholder">
-    <i class="material-icons" style="font-size:32px;color:#ddd;display:block;margin-bottom:8px;">star</i>
+<div class="displayArea mt-3" *ngIf="tabstate[2]">
+  <div class="tab-placeholder p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-700/60 text-xs text-slate-500 dark:text-slate-400 text-center">
+    <mat-icon class="text-slate-400 text-2xl mb-1 block mx-auto">star</mat-icon>
     {{ 'REVIEW.REVIEWS_COMING_SOON' | translate }}
   </div>
 </div>
 
-<div class="displayArea" *ngIf="tabstate[3]">
-  <div class="tab-placeholder">
-    <i class="material-icons" style="font-size:32px;color:#ddd;display:block;margin-bottom:8px;">policy</i>
+<div class="displayArea mt-3" *ngIf="tabstate[3]">
+  <div class="tab-placeholder p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-700/60 text-xs text-slate-500 dark:text-slate-400 text-center">
+    <mat-icon class="text-slate-400 text-2xl mb-1 block mx-auto">policy</mat-icon>
     {{ 'BOOKING.POLICIES_COMING_SOON' | translate }}
   </div>
 </div>
 
-<div class="displayArea" *ngIf="tabstate[4]">
+<div class="displayArea mt-3 w-full overflow-hidden" *ngIf="tabstate[4]">
   <app-view-seats
     [filledseats]="filledseats"
     [seatprice]="seatprice"

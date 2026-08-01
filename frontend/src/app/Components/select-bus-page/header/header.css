@@ -1,43 +1,6 @@
-.HeaderOne{
-    background-color: #f8f4f4;
-    padding:10px 10px;
-    margin-bottom: 10px;
-}
-.HeaderOne > p:nth-child(1){
-    margin: 10px 0px;
-}
-.HeaderTwo{
-    padding:10px 10px
-}
-.HeaderTwo > *{
-    display: inline-block;
-    margin-right: 10px;
-}
-.HeaderTwo > button{
-    padding: 5px;
-    width: 100px;
-    background-color: #f8f4f4;
-    border: 1px solid black;
-    border-radius: 2px;
-    outline:none
+:host {
+  display: block;
+  width: 100%;
 }
 
-:host-context(html.dark) .HeaderOne,
-:host-context(html.dark) .HeaderTwo > button {
-    background-color: #1e293b;
-    color: #e2e8f0;
-    border-color: #475569;
-}
-
-@media (max-width: 768px) {
-    .HeaderOne {
-        padding: 8px 12px;
-        font-size: 12px;
-        word-break: break-word;
-    }
-    .HeaderTwo h3 {
-        font-size: 15px;
-        line-height: 1.3;
-    }
-}
 

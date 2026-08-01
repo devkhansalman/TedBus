@@ -4,25 +4,3 @@
   min-height: 100%;
 }
 
-.SelectBUS_MAINCONTENT {
-  display: grid;
-  grid-template-columns: minmax(240px, 280px) 1fr;
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem;
-  gap: 1.5rem;
-  align-items: start;
-}
-
-:host-context(html.dark) .selectBus,
-:host-context(html.dark) .SelectBUS_MAINCONTENT {
-  background: #0F172A;
-}
-
-@media (max-width: 1024px) {
-  .SelectBUS_MAINCONTENT {
-    grid-template-columns: 1fr;
-    padding: 1rem 0.75rem;
-    gap: 1rem;
-  }
-}

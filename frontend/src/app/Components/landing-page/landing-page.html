@@ -87,77 +87,78 @@
 </section>
 
 <!-- Offers Section -->
-<section class="py-12 px-4 sm:px-6 lg:px-12 bg-slate-50 dark:bg-[#0F172A] transition-colors duration-300">
-  <div class="mx-auto max-w-6xl space-y-6">
+<section class="py-8 sm:py-12 px-4 sm:px-6 lg:px-12 bg-slate-50 dark:bg-[#0F172A] transition-colors duration-300 overflow-hidden">
+  <div class="mx-auto max-w-6xl space-y-5 sm:space-y-6">
     
-    <div class="flex items-center justify-between">
-      <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-[#F8FAFC]">
+    <!-- Section Header -->
+    <div class="flex items-center justify-between gap-3">
+      <h2 class="text-lg sm:text-2xl font-black text-slate-900 dark:text-[#F8FAFC]">
         {{ 'HOME.TRENDING_OFFERS' | translate }}
       </h2>
-      <button type="button" class="text-xs font-bold text-red-600 hover:text-red-700 border border-slate-200 dark:border-slate-700 dark:text-red-400 px-4 py-2 rounded-xl bg-white dark:bg-[#1E293B] shadow-sm cursor-pointer">
+      <button type="button" class="text-xs font-bold text-red-600 hover:text-red-700 border border-slate-200 dark:border-slate-700 dark:text-red-400 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white dark:bg-[#1E293B] shadow-2xs cursor-pointer shrink-0">
         {{ 'COMMON.VIEW_ALL' | translate }}
       </button>
     </div>
 
-    <!-- Scrollable Horizontal Offer Cards -->
-    <div class="flex gap-4 overflow-x-auto pb-4 pt-1 snap-x scrollbar-thin">
+    <!-- Swipeable Horizontal / Desktop 4-Grid Offer Cards -->
+    <div class="flex lg:grid lg:grid-cols-4 gap-4 overflow-x-auto lg:overflow-visible pb-4 pt-1 snap-x snap-mandatory no-scrollbar w-full max-w-full">
       
       <!-- Offer Card 1 -->
-      <div class="min-w-[280px] sm:min-w-[320px] rounded-2xl bg-gradient-to-br from-blue-700 to-blue-500 p-4 text-white shadow-md flex items-center gap-4 shrink-0 snap-start cursor-pointer hover:scale-[1.02] transition">
-        <div class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
-          <span class="material-icons text-3xl text-white">confirmation_number</span>
+      <div class="w-[85%] sm:w-[45%] lg:w-full shrink-0 snap-start rounded-2xl bg-gradient-to-br from-blue-700 to-blue-500 p-4 text-white shadow-md flex items-center gap-3.5 cursor-pointer hover:scale-[1.02] transition min-h-[120px]">
+        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
+          <span class="material-icons text-2xl sm:text-3xl text-white">confirmation_number</span>
         </div>
-        <div class="space-y-1">
-          <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/20">BUS</span>
-          <h3 class="font-extrabold text-sm leading-tight">Save up to ₹250 on bus tickets</h3>
+        <div class="space-y-1 min-w-0 flex-1">
+          <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/20 inline-block">BUS</span>
+          <h3 class="font-extrabold text-xs sm:text-sm leading-snug line-clamp-2">Save up to ₹250 on bus tickets</h3>
           <p class="text-[11px] opacity-90">Valid till 30 Nov</p>
-          <div class="flex items-center gap-2 pt-1">
-            <span class="px-2 py-0.5 rounded border border-dashed border-white/60 text-xs font-black bg-white/10">FIRST</span>
+          <div class="pt-0.5">
+            <span class="inline-block px-2 py-0.5 rounded border border-dashed border-white/60 text-[11px] font-black bg-white/10">FIRST</span>
           </div>
         </div>
       </div>
 
       <!-- Offer Card 2 -->
-      <div class="min-w-[280px] sm:min-w-[320px] rounded-2xl bg-gradient-to-br from-red-700 to-red-500 p-4 text-white shadow-md flex items-center gap-4 shrink-0 snap-start cursor-pointer hover:scale-[1.02] transition">
-        <div class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
-          <span class="material-icons text-3xl text-white">local_offer</span>
+      <div class="w-[85%] sm:w-[45%] lg:w-full shrink-0 snap-start rounded-2xl bg-gradient-to-br from-red-700 to-red-500 p-4 text-white shadow-md flex items-center gap-3.5 cursor-pointer hover:scale-[1.02] transition min-h-[120px]">
+        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
+          <span class="material-icons text-2xl sm:text-3xl text-white">local_offer</span>
         </div>
-        <div class="space-y-1">
-          <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/20">BUS</span>
-          <h3 class="font-extrabold text-sm leading-tight">Save up to ₹300 on AP, TS routes</h3>
+        <div class="space-y-1 min-w-0 flex-1">
+          <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/20 inline-block">BUS</span>
+          <h3 class="font-extrabold text-xs sm:text-sm leading-snug line-clamp-2">Save up to ₹300 on AP, TS routes</h3>
           <p class="text-[11px] opacity-90">Valid till 30 Nov</p>
-          <div class="flex items-center gap-2 pt-1">
-            <span class="px-2 py-0.5 rounded border border-dashed border-white/60 text-xs font-black bg-white/10">SUPERHIT</span>
+          <div class="pt-0.5">
+            <span class="inline-block px-2 py-0.5 rounded border border-dashed border-white/60 text-[11px] font-black bg-white/10">SUPERHIT</span>
           </div>
         </div>
       </div>
 
       <!-- Offer Card 3 -->
-      <div class="min-w-[280px] sm:min-w-[320px] rounded-2xl bg-gradient-to-br from-emerald-700 to-emerald-500 p-4 text-white shadow-md flex items-center gap-4 shrink-0 snap-start cursor-pointer hover:scale-[1.02] transition">
-        <div class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
-          <span class="material-icons text-3xl text-white">loyalty</span>
+      <div class="w-[85%] sm:w-[45%] lg:w-full shrink-0 snap-start rounded-2xl bg-gradient-to-br from-emerald-700 to-emerald-500 p-4 text-white shadow-md flex items-center gap-3.5 cursor-pointer hover:scale-[1.02] transition min-h-[120px]">
+        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
+          <span class="material-icons text-2xl sm:text-3xl text-white">loyalty</span>
         </div>
-        <div class="space-y-1">
-          <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/20">BUS</span>
-          <h3 class="font-extrabold text-sm leading-tight">Save up to ₹300 on RJ, MH, Goa routes</h3>
+        <div class="space-y-1 min-w-0 flex-1">
+          <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/20 inline-block">BUS</span>
+          <h3 class="font-extrabold text-xs sm:text-sm leading-snug line-clamp-2">Save up to ₹300 on RJ, MH, Goa routes</h3>
           <p class="text-[11px] opacity-90">Valid till 30 Nov</p>
-          <div class="flex items-center gap-2 pt-1">
-            <span class="px-2 py-0.5 rounded border border-dashed border-white/60 text-xs font-black bg-white/10">BUS300</span>
+          <div class="pt-0.5">
+            <span class="inline-block px-2 py-0.5 rounded border border-dashed border-white/60 text-[11px] font-black bg-white/10">BUS300</span>
           </div>
         </div>
       </div>
 
       <!-- Offer Card 4 -->
-      <div class="min-w-[280px] sm:min-w-[320px] rounded-2xl bg-gradient-to-br from-indigo-700 to-indigo-500 p-4 text-white shadow-md flex items-center gap-4 shrink-0 snap-start cursor-pointer hover:scale-[1.02] transition">
-        <div class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
-          <span class="material-icons text-3xl text-white">card_giftcard</span>
+      <div class="w-[85%] sm:w-[45%] lg:w-full shrink-0 snap-start rounded-2xl bg-gradient-to-br from-indigo-700 to-indigo-500 p-4 text-white shadow-md flex items-center gap-3.5 cursor-pointer hover:scale-[1.02] transition min-h-[120px]">
+        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
+          <span class="material-icons text-2xl sm:text-3xl text-white">card_giftcard</span>
         </div>
-        <div class="space-y-1">
-          <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/20">BUS</span>
-          <h3 class="font-extrabold text-sm leading-tight">Save up to ₹200 on Kerala routes</h3>
+        <div class="space-y-1 min-w-0 flex-1">
+          <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/20 inline-block">BUS</span>
+          <h3 class="font-extrabold text-xs sm:text-sm leading-snug line-clamp-2">Save up to ₹200 on Kerala routes</h3>
           <p class="text-[11px] opacity-90">Valid till 30 Nov</p>
-          <div class="flex items-center gap-2 pt-1">
-            <span class="px-2 py-0.5 rounded border border-dashed border-white/60 text-xs font-black bg-white/10">RBTRIP</span>
+          <div class="pt-0.5">
+            <span class="inline-block px-2 py-0.5 rounded border border-dashed border-white/60 text-[11px] font-black bg-white/10">RBTRIP</span>
           </div>
         </div>
       </div>

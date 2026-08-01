@@ -1,15 +1,15 @@
 <div class="booking-wizard-sidebar space-y-3">
 
   <!-- ── WIZARD STEPPER HEADER ──────────────────────────────────────── -->
-  <div class="stepper-nav p-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
-    <div class="stepper-track flex items-center justify-between">
+  <div class="stepper-nav p-2 sm:p-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xs overflow-x-auto no-scrollbar w-full max-w-full">
+    <div class="stepper-track flex items-center justify-between gap-1 w-full min-w-0">
       <!-- Step 1 Badge -->
-      <button type="button" class="stepper-item flex flex-col items-center gap-1 text-[11px] font-bold transition"
+      <button type="button" class="stepper-item flex flex-col items-center gap-0.5 text-[9px] sm:text-[11px] font-bold transition shrink-0 min-w-0"
               [class.text-red-500]="currentStep === 1"
               [class.text-emerald-600]="maxReachedStep > 1"
               [class.text-slate-400]="currentStep !== 1 && maxReachedStep <= 1"
               (click)="setStep(1)">
-        <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold border transition"
+        <div class="step-circle w-5 h-5 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-extrabold border transition shrink-0"
              [class.bg-red-500]="currentStep === 1"
              [class.text-white]="currentStep === 1"
              [class.border-red-500]="currentStep === 1"
@@ -21,19 +21,19 @@
           <i *ngIf="maxReachedStep > 1 && currentStep !== 1" class="material-icons text-xs text-white">check</i>
           <span *ngIf="maxReachedStep <= 1 || currentStep === 1">1</span>
         </div>
-        <span>{{ 'COMMON.SEATS' | translate }}</span>
+        <span class="truncate max-w-[45px] sm:max-w-none text-center">{{ 'COMMON.SEATS' | translate }}</span>
       </button>
 
-      <div class="stepper-line flex-1 h-0.5 mx-1.5 transition-colors" [class.bg-emerald-500]="maxReachedStep >= 2" [class.bg-slate-200]="maxReachedStep < 2" [class.dark:bg-slate-800]="maxReachedStep < 2"></div>
+      <div class="stepper-line flex-1 h-0.5 mx-0.5 sm:mx-1.5 transition-colors" [class.bg-emerald-500]="maxReachedStep >= 2" [class.bg-slate-200]="maxReachedStep < 2" [class.dark:bg-slate-800]="maxReachedStep < 2"></div>
 
       <!-- Step 2 Badge -->
-      <button type="button" class="stepper-item flex flex-col items-center gap-1 text-[11px] font-bold transition"
+      <button type="button" class="stepper-item flex flex-col items-center gap-0.5 text-[9px] sm:text-[11px] font-bold transition shrink-0 min-w-0"
               [class.text-red-500]="currentStep === 2"
               [class.text-emerald-600]="maxReachedStep > 2"
               [class.text-slate-400]="currentStep !== 2 && maxReachedStep <= 2"
               [disabled]="maxReachedStep < 2"
               (click)="setStep(2)">
-        <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold border transition"
+        <div class="step-circle w-5 h-5 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-extrabold border transition shrink-0"
              [class.bg-red-500]="currentStep === 2"
              [class.text-white]="currentStep === 2"
              [class.border-red-500]="currentStep === 2"
@@ -45,19 +45,19 @@
           <i *ngIf="maxReachedStep > 2 && currentStep !== 2" class="material-icons text-xs text-white">check</i>
           <span *ngIf="maxReachedStep <= 2 || currentStep === 2">2</span>
         </div>
-        <span>{{ 'BOOKING.PASSENGER_DETAILS' | translate }}</span>
+        <span class="truncate max-w-[50px] sm:max-w-none text-center">{{ 'BOOKING.PASSENGER_DETAILS' | translate }}</span>
       </button>
 
-      <div class="stepper-line flex-1 h-0.5 mx-1.5 transition-colors" [class.bg-emerald-500]="maxReachedStep >= 3" [class.bg-slate-200]="maxReachedStep < 3" [class.dark:bg-slate-800]="maxReachedStep < 3"></div>
+      <div class="stepper-line flex-1 h-0.5 mx-0.5 sm:mx-1.5 transition-colors" [class.bg-emerald-500]="maxReachedStep >= 3" [class.bg-slate-200]="maxReachedStep < 3" [class.dark:bg-slate-800]="maxReachedStep < 3"></div>
 
       <!-- Step 3 Badge -->
-      <button type="button" class="stepper-item flex flex-col items-center gap-1 text-[11px] font-bold transition"
+      <button type="button" class="stepper-item flex flex-col items-center gap-0.5 text-[9px] sm:text-[11px] font-bold transition shrink-0 min-w-0"
               [class.text-red-500]="currentStep === 3"
               [class.text-emerald-600]="maxReachedStep > 3"
               [class.text-slate-400]="currentStep !== 3 && maxReachedStep <= 3"
               [disabled]="maxReachedStep < 3"
               (click)="setStep(3)">
-        <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold border transition"
+        <div class="step-circle w-5 h-5 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-extrabold border transition shrink-0"
              [class.bg-red-500]="currentStep === 3"
              [class.text-white]="currentStep === 3"
              [class.border-red-500]="currentStep === 3"
@@ -69,19 +69,19 @@
           <i *ngIf="maxReachedStep > 3 && currentStep !== 3" class="material-icons text-xs text-white">check</i>
           <span *ngIf="maxReachedStep <= 3 || currentStep === 3">3</span>
         </div>
-        <span>{{ 'BOOKING.CONTACT_INFO' | translate }}</span>
+        <span class="truncate max-w-[45px] sm:max-w-none text-center">{{ 'BOOKING.CONTACT_INFO' | translate }}</span>
       </button>
 
-      <div class="stepper-line flex-1 h-0.5 mx-1.5 transition-colors" [class.bg-emerald-500]="maxReachedStep >= 4" [class.bg-slate-200]="maxReachedStep < 4" [class.dark:bg-slate-800]="maxReachedStep < 4"></div>
+      <div class="stepper-line flex-1 h-0.5 mx-0.5 sm:mx-1.5 transition-colors" [class.bg-emerald-500]="maxReachedStep >= 4" [class.bg-slate-200]="maxReachedStep < 4" [class.dark:bg-slate-800]="maxReachedStep < 4"></div>
 
       <!-- Step 4 Badge -->
-      <button type="button" class="stepper-item flex flex-col items-center gap-1 text-[11px] font-bold transition"
+      <button type="button" class="stepper-item flex flex-col items-center gap-0.5 text-[9px] sm:text-[11px] font-bold transition shrink-0 min-w-0"
               [class.text-red-500]="currentStep === 4"
               [class.text-emerald-600]="maxReachedStep > 4"
               [class.text-slate-400]="currentStep !== 4 && maxReachedStep <= 4"
               [disabled]="maxReachedStep < 4"
               (click)="setStep(4)">
-        <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold border transition"
+        <div class="step-circle w-5 h-5 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-extrabold border transition shrink-0"
              [class.bg-red-500]="currentStep === 4"
              [class.text-white]="currentStep === 4"
              [class.border-red-500]="currentStep === 4"
@@ -93,18 +93,18 @@
           <i *ngIf="maxReachedStep > 4 && currentStep !== 4" class="material-icons text-xs text-white">check</i>
           <span *ngIf="maxReachedStep <= 4 || currentStep === 4">4</span>
         </div>
-        <span>{{ 'BOOKING.TRAVEL_EXTRAS' | translate }}</span>
+        <span class="truncate max-w-[45px] sm:max-w-none text-center">{{ 'BOOKING.TRAVEL_EXTRAS' | translate }}</span>
       </button>
 
-      <div class="stepper-line flex-1 h-0.5 mx-1.5 transition-colors" [class.bg-emerald-500]="maxReachedStep >= 5" [class.bg-slate-200]="maxReachedStep < 5" [class.dark:bg-slate-800]="maxReachedStep < 5"></div>
+      <div class="stepper-line flex-1 h-0.5 mx-0.5 sm:mx-1.5 transition-colors" [class.bg-emerald-500]="maxReachedStep >= 5" [class.bg-slate-200]="maxReachedStep < 5" [class.dark:bg-slate-800]="maxReachedStep < 5"></div>
 
       <!-- Step 5 Badge -->
-      <button type="button" class="stepper-item flex flex-col items-center gap-1 text-[11px] font-bold transition"
+      <button type="button" class="stepper-item flex flex-col items-center gap-0.5 text-[9px] sm:text-[11px] font-bold transition shrink-0 min-w-0"
               [class.text-red-500]="currentStep === 5"
               [class.text-slate-400]="currentStep !== 5"
               [disabled]="maxReachedStep < 5"
               (click)="setStep(5)">
-        <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold border transition"
+        <div class="step-circle w-5 h-5 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-extrabold border transition shrink-0"
              [class.bg-red-500]="currentStep === 5"
              [class.text-white]="currentStep === 5"
              [class.border-red-500]="currentStep === 5"
@@ -113,7 +113,7 @@
              [class.border-slate-300]="currentStep !== 5">
           <span>5</span>
         </div>
-        <span>{{ 'BOOKING.PROCEED' | translate }}</span>
+        <span class="truncate max-w-[45px] sm:max-w-none text-center">{{ 'BOOKING.PROCEED' | translate }}</span>
       </button>
     </div>
   </div>

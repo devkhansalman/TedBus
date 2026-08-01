@@ -1,101 +1,119 @@
-<div class="left">
-  <div class="left_filters">
-    <p>{{ 'BOOKING.FILTERS' | translate }}</p>
-    <ul>
-      <li (click)="handlelivetrackingclick()">
-        <div class="first-section">
-          <mat-icon>gps_fixed</mat-icon>
+<div class="left space-y-4">
+  <!-- Features Section (Live Tracking / Reschedulable) -->
+  <div class="left_filters p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700/70 shadow-2xs space-y-2">
+    <h4 class="text-xs font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-2">
+      {{ 'BOOKING.FILTERS' | translate }}
+    </h4>
+    <ul class="space-y-1.5">
+      <li (click)="handlelivetrackingclick()"
+          class="flex items-center justify-between p-2.5 rounded-xl cursor-pointer transition select-none hover:bg-red-50 dark:hover:bg-slate-700/60"
+          [class.bg-red-50]="sidefiltervalues.livetracking"
+          [class.dark:bg-slate-700/60]="sidefiltervalues.livetracking">
+        <div class="flex items-center gap-2.5 text-xs font-semibold text-slate-700 dark:text-slate-300">
+          <mat-icon class="text-red-500 text-sm">gps_fixed</mat-icon>
           <span>{{ 'BOOKING.LIVE_TRACKING' | translate }}</span>
-
-          @if (sidefiltervalues.livetracking) {
-            <mat-icon style="color: green;">check_circle_outline</mat-icon>
-          }
         </div>
+        <mat-icon *ngIf="sidefiltervalues.livetracking" class="text-emerald-500 text-sm">check_circle</mat-icon>
       </li>
 
-      <li (click)="handlerescheduleclick()">
-        <div class="first-section">
-          <mat-icon>restore</mat-icon>
+      <li (click)="handlerescheduleclick()"
+          class="flex items-center justify-between p-2.5 rounded-xl cursor-pointer transition select-none hover:bg-red-50 dark:hover:bg-slate-700/60"
+          [class.bg-red-50]="sidefiltervalues.reschedulable"
+          [class.dark:bg-slate-700/60]="sidefiltervalues.reschedulable">
+        <div class="flex items-center gap-2.5 text-xs font-semibold text-slate-700 dark:text-slate-300">
+          <mat-icon class="text-red-500 text-sm">restore</mat-icon>
           <span>{{ 'BOOKING.RESCHEDULABLE' | translate }}</span>
-
-          @if (sidefiltervalues.reschedulable) {
-            <mat-icon style="color: green;">check_circle_outline</mat-icon>
-          }
         </div>
+        <mat-icon *ngIf="sidefiltervalues.reschedulable" class="text-emerald-500 text-sm">check_circle</mat-icon>
       </li>
     </ul>
   </div>
 
-  <div class="left_filters">
-    <p>{{ 'BOOKING.DEPARTURE_TIME' | translate }}</p>
-    <ul>
+  <!-- Departure Time -->
+  <div class="left_filters p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700/70 shadow-2xs space-y-2">
+    <h4 class="text-xs font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-2">
+      {{ 'BOOKING.DEPARTURE_TIME' | translate }}
+    </h4>
+    <ul class="space-y-1.5">
       @for (key of getobjectkey(sidefiltervalues.departuretime); track key) {
-        <li class="first-section">
+        <li class="flex items-center gap-2.5 p-2 rounded-xl transition hover:bg-slate-50 dark:hover:bg-slate-700/40">
           <input
             type="checkbox"
             [name]="key"
-            [id]="key"
+            [id]="'dept-' + key"
             [checked]="sidefiltervalues.departuretime[key]"
             (change)="handledeparturetimeclick($event, key)"
+            class="w-4 h-4 rounded border-slate-300 text-red-500 focus:ring-red-500 accent-red-500 cursor-pointer"
           />
-          <label [for]="key">
-              <mat-icon>av_timer</mat-icon>
-              <span>{{ key }}</span>
-            </label>
+          <label [for]="'dept-' + key" class="flex items-center gap-2 text-xs font-medium text-slate-700 dark:text-slate-300 cursor-pointer flex-1 capitalize">
+            <mat-icon class="text-slate-400 text-sm">av_timer</mat-icon>
+            <span>{{ key }}</span>
+          </label>
         </li>
       }
     </ul>
   </div>
 
-  <div class="left_filters">
-    <p>{{ 'BOOKING.BUS_TYPES' | translate }}</p>
-    <ul>
+  <!-- Bus Types -->
+  <div class="left_filters p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700/70 shadow-2xs space-y-2">
+    <h4 class="text-xs font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-2">
+      {{ 'BOOKING.BUS_TYPES' | translate }}
+    </h4>
+    <ul class="space-y-1.5">
       @for (key of getobjectkey(sidefiltervalues.bustype); track key) {
-        <li class="first-section">
+        <li class="flex items-center gap-2.5 p-2 rounded-xl transition hover:bg-slate-50 dark:hover:bg-slate-700/40">
           <input
             type="checkbox"
-            [id]="key"
+            [id]="'type-' + key"
             [name]="key"
             [checked]="sidefiltervalues.bustype[key]"
             (change)="handlebustypeclick($event, key)"
+            class="w-4 h-4 rounded border-slate-300 text-red-500 focus:ring-red-500 accent-red-500 cursor-pointer"
           />
-          <label [for]="key">
-              <mat-icon>airline_seat_legroom_extra</mat-icon>
-              <span>{{ key }}</span>
-            </label>  
+          <label [for]="'type-' + key" class="flex items-center gap-2 text-xs font-medium text-slate-700 dark:text-slate-300 cursor-pointer flex-1 capitalize">
+            <mat-icon class="text-slate-400 text-sm">airline_seat_legroom_extra</mat-icon>
+            <span>{{ key }}</span>
+          </label>
         </li>
       }
     </ul>
   </div>
 
-  <div class="left_filters">
-    <p>{{ 'BOOKING.ARRIVAL_TIME' | translate }}</p>
-    <ul>
+  <!-- Arrival Time -->
+  <div class="left_filters p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700/70 shadow-2xs space-y-2">
+    <h4 class="text-xs font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-2">
+      {{ 'BOOKING.ARRIVAL_TIME' | translate }}
+    </h4>
+    <ul class="space-y-1.5">
       @for (key of getobjectkey(sidefiltervalues.arrivaltime); track key) {
-        <li class="first-section">
+        <li class="flex items-center gap-2.5 p-2 rounded-xl transition hover:bg-slate-50 dark:hover:bg-slate-700/40">
           <input
             type="checkbox"
+            [id]="'arr-' + key"
             [name]="key"
             [checked]="sidefiltervalues.arrivaltime[key]"
             (change)="handlearivaltimeclick($event, key)"
+            class="w-4 h-4 rounded border-slate-300 text-red-500 focus:ring-red-500 accent-red-500 cursor-pointer"
           />
-          <label >
-
-              <mat-icon>av_timer</mat-icon>
-              <span>{{ key }}</span>
-            </label>
+          <label [for]="'arr-' + key" class="flex items-center gap-2 text-xs font-medium text-slate-700 dark:text-slate-300 cursor-pointer flex-1 capitalize">
+            <mat-icon class="text-slate-400 text-sm">av_timer</mat-icon>
+            <span>{{ key }}</span>
+          </label>
         </li>
       }
     </ul>
   </div>
 
-  <div class="left_filters">
-    <p>{{ 'BOOKING.AMENITIES' | translate }}</p>
-    <ul>
+  <!-- Amenities -->
+  <div class="left_filters p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700/70 shadow-2xs space-y-2">
+    <h4 class="text-xs font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-2">
+      {{ 'BOOKING.AMENITIES' | translate }}
+    </h4>
+    <ul class="space-y-1.5">
       @for (key of getobjectkey(sidefiltervalues.amenities); track key) {
-        <li class="first-section">
-          <mat-icon>{{ amenityIcon[key] }}</mat-icon>
-          <span>{{ key }}</span>
+        <li class="flex items-center gap-2.5 p-2 text-xs font-medium text-slate-700 dark:text-slate-300 rounded-xl">
+          <mat-icon class="text-slate-400 text-sm">{{ amenityIcon[key] || 'star' }}</mat-icon>
+          <span class="capitalize">{{ key }}</span>
         </li>
       }
     </ul>

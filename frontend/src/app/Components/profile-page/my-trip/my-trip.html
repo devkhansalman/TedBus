@@ -1,117 +1,194 @@
-<section class="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
-  <div *ngIf="booking.length > 0" class="space-y-5">
+<section class="mx-auto w-full max-w-5xl px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
+  <div *ngIf="booking.length > 0" class="space-y-4 sm:space-y-6">
     <article
       *ngFor="let trip of booking"
-      class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg shadow-slate-900/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-white/8 dark:bg-[#1F2937] dark:shadow-black/25">
-
-      <div class="flex flex-col gap-4 border-b border-slate-200 px-5 py-5 sm:flex-row sm:items-start sm:justify-between sm:px-7 dark:border-white/8">
-        <div class="flex min-w-0 items-center gap-3">
-          <div class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-red-50 text-red-500 dark:bg-red-500/15 dark:text-red-400">
-            <span class="material-icons text-[23px]">directions_bus</span>
+      class="group overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1F2937] shadow-md hover:shadow-xl transition duration-300 w-full"
+    >
+      <!-- CARD HEADER: Operator info + Status Badge -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-white/10 p-4 sm:px-6 sm:py-5">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="grid h-10 w-10 sm:h-11 sm:w-11 shrink-0 place-items-center rounded-xl bg-red-50 text-red-500 dark:bg-red-500/15 dark:text-red-400">
+            <span class="material-icons text-xl sm:text-[23px]">directions_bus</span>
           </div>
-          <div class="min-w-0">
-            <p class="truncate text-base font-bold text-slate-900 dark:text-[#F8FAFC]">{{ trip.operatorName || 'Tedbus Partner' }}</p>
-            <p class="mt-0.5 text-sm text-slate-500 dark:text-[#94A3B8]">{{ trip.busType || 'Premium bus service' }}</p>
+          <div class="min-w-0 flex-1">
+            <p class="truncate text-sm sm:text-base font-bold text-slate-900 dark:text-[#F8FAFC]">
+              {{ trip.operatorName || 'Tedbus Partner' }}
+            </p>
+            <p class="mt-0.5 truncate text-xs sm:text-sm text-slate-500 dark:text-[#94A3B8]">
+              {{ trip.busType || 'Premium bus service' }}
+            </p>
           </div>
         </div>
-        <span class="inline-flex w-fit items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold"
-              [ngClass]="{
-                'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400': isCompleted(trip),
-                'bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400': !isCompleted(trip)
-              }">
+
+        <span
+          class="inline-flex w-fit items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold shrink-0"
+          [ngClass]="{
+            'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400': isCompleted(trip),
+            'bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400': !isCompleted(trip)
+          }"
+        >
           <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
           {{ trip.status || 'Confirmed' }}
         </span>
       </div>
 
-      <div class="px-5 py-6 sm:px-7">
-        <div class="grid gap-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(240px,.85fr)]">
-          <div>
-            <div class="flex items-center gap-3 text-slate-900 dark:text-[#F8FAFC]">
-              <span class="min-w-0 flex-1 truncate text-xl font-extrabold sm:text-2xl">{{ trip.departureDetails?.city }}</span>
-              <span class="material-icons text-red-500">arrow_right_alt</span>
-              <span class="min-w-0 flex-1 truncate text-right text-xl font-extrabold sm:text-2xl">{{ trip.arrivalDetails?.city }}</span>
+      <!-- CARD BODY: Route & Passenger Info -->
+      <div class="p-4 sm:p-6 lg:p-7 space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          
+          <!-- LEFT / MAIN: Route Cities, Timings & Features (Col 1-7 on LG) -->
+          <div class="lg:col-span-7 space-y-5 min-w-0">
+            <!-- Cities Header -->
+            <div class="flex items-center justify-between gap-2 text-slate-900 dark:text-[#F8FAFC]">
+              <span class="min-w-0 flex-1 truncate text-lg sm:text-xl md:text-2xl font-extrabold" title="{{ trip.departureDetails?.city }}">
+                {{ trip.departureDetails?.city }}
+              </span>
+              <span class="material-icons text-red-500 text-lg sm:text-xl shrink-0">arrow_right_alt</span>
+              <span class="min-w-0 flex-1 truncate text-right text-lg sm:text-xl md:text-2xl font-extrabold" title="{{ trip.arrivalDetails?.city }}">
+                {{ trip.arrivalDetails?.city }}
+              </span>
             </div>
 
-            <div class="mt-5 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
-              <div>
-                <p class="text-lg font-bold text-slate-900 dark:text-[#F8FAFC]">{{ trip.departureDetails?.time }}:00</p>
-                <p class="mt-1 text-xs font-medium text-slate-500 dark:text-[#94A3B8]">{{ 'BOOKING.DEPARTURE_TIME' | translate }}</p>
+            <!-- Timings Timeline Row -->
+            <div class="p-3 sm:p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
+              <div class="text-left min-w-0">
+                <p class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-[#F8FAFC]">
+                  {{ trip.departureDetails?.time }}:00
+                </p>
+                <p class="mt-0.5 text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-[#94A3B8]">
+                  {{ 'BOOKING.DEPARTURE_TIME' | translate }}
+                </p>
               </div>
-              <div class="flex w-24 items-center gap-1 sm:w-36">
-                <span class="h-2 w-2 rounded-full border-2 border-red-500 bg-white dark:bg-[#1F2937]"></span>
-                <span class="h-px flex-1 border-t border-dashed border-slate-300 dark:border-white/20"></span>
-                <span class="h-2 w-2 rounded-full bg-red-500"></span>
+
+              <div class="flex flex-col items-center px-2 min-w-[70px] sm:min-w-[100px]">
+                <span class="text-[10px] sm:text-xs font-bold text-slate-400 dark:text-slate-500 mb-0.5">
+                  {{ trip.duration || 'Direct' }}
+                </span>
+                <div class="flex items-center w-full">
+                  <span class="h-1.5 w-1.5 rounded-full border-2 border-red-500 bg-white dark:bg-[#1F2937] shrink-0"></span>
+                  <span class="h-px flex-1 border-t border-dashed border-slate-300 dark:border-white/20"></span>
+                  <span class="h-1.5 w-1.5 rounded-full bg-red-500 shrink-0"></span>
+                </div>
               </div>
-              <div class="text-right">
-                <p class="text-lg font-bold text-slate-900 dark:text-[#F8FAFC]">{{ trip.arrivalDetails?.time }}:00</p>
-                <p class="mt-1 text-xs font-medium text-slate-500 dark:text-[#94A3B8]">{{ 'BOOKING.ARRIVAL_TIME' | translate }}</p>
+
+              <div class="text-right min-w-0">
+                <p class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-[#F8FAFC]">
+                  {{ trip.arrivalDetails?.time }}:00
+                </p>
+                <p class="mt-0.5 text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-[#94A3B8]">
+                  {{ 'BOOKING.ARRIVAL_TIME' | translate }}
+                </p>
               </div>
             </div>
 
-            <div class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate-600 dark:text-[#CBD5E1]">
-              <span class="inline-flex items-center gap-1.5"><span class="material-icons text-[17px] text-slate-400 dark:text-[#94A3B8]">calendar_today</span>{{ trip.departureDetails?.date || trip.bookingDate }}</span>
-              <span class="inline-flex items-center gap-1.5"><span class="material-icons text-[17px] text-slate-400 dark:text-[#94A3B8]">schedule</span>{{ trip.duration || 'Journey details' }}</span>
-              <span class="inline-flex items-center gap-1.5"><span class="material-icons text-[17px] text-slate-400 dark:text-[#94A3B8]">event_seat</span>Seat {{ trip.seats?.join(', ') || 'Assigned' }}</span>
+            <!-- Trip Metadata Chips -->
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm text-slate-600 dark:text-[#CBD5E1]">
+              <span class="inline-flex items-center gap-1.5">
+                <span class="material-icons text-base text-slate-400 dark:text-[#94A3B8]">calendar_today</span>
+                <span>{{ trip.departureDetails?.date || trip.bookingDate }}</span>
+              </span>
+              <span class="inline-flex items-center gap-1.5">
+                <span class="material-icons text-base text-slate-400 dark:text-[#94A3B8]">schedule</span>
+                <span>{{ trip.duration || 'Journey details' }}</span>
+              </span>
+              <span class="inline-flex items-center gap-1.5">
+                <span class="material-icons text-base text-slate-400 dark:text-[#94A3B8]">event_seat</span>
+                <span>Seat {{ trip.seats?.join(', ') || 'Assigned' }}</span>
+              </span>
             </div>
           </div>
 
-          <div class="rounded-xl border border-slate-200 bg-slate-50 p-4 pr-10 dark:border-white/8 dark:bg-[#111827]/60">
-            <p class="text-xs font-bold uppercase tracking-[.12em] text-slate-500 dark:text-[#94A3B8]">{{ 'COMMON.PASSENGERS' | translate }}</p>
-            <div *ngFor="let passenger of trip.passengerDetails; let first = first" [class.hidden]="!first" class="mt-3">
-              <p class="text-base font-bold text-slate-900 dark:text-[#F8FAFC]">{{ passenger.name }}</p>
-              <p class="mt-1 text-sm text-slate-600 dark:text-[#CBD5E1]">{{ passenger.gender }} <span class="mx-1 text-slate-300 dark:text-white/20">•</span> {{ 'BOOKING.AGE' | translate }} {{ passenger.age }}</p>
-            </div>
-            <div class="mt-4 border-t border-slate-200 pt-3 dark:border-white/8">
-              <div class="flex items-center justify-between gap-3 text-sm">
-                <span class="text-slate-500 dark:text-[#94A3B8]">{{ 'BOOKING.BOOKING_ID' | translate }}</span>
-                <span class="font-semibold text-slate-800 dark:text-[#F8FAFC]">{{ trip._id || trip.id || trip.busId }}</span>
+          <!-- RIGHT / SIDEBAR: Passenger & Fare Box (Col 8-12 on LG) -->
+          <div class="lg:col-span-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#111827]/60 p-4 space-y-4">
+            <div>
+              <p class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 dark:text-[#94A3B8]">
+                {{ 'COMMON.PASSENGERS' | translate }}
+              </p>
+              <div *ngFor="let passenger of trip.passengerDetails; let first = first" [class.hidden]="!first" class="mt-2">
+                <p class="text-sm sm:text-base font-bold text-slate-900 dark:text-[#F8FAFC] truncate">
+                  {{ passenger.name }}
+                </p>
+                <p class="mt-0.5 text-xs text-slate-600 dark:text-[#CBD5E1]">
+                  {{ passenger.gender }} <span class="mx-1 text-slate-300 dark:text-white/20">•</span> {{ 'BOOKING.AGE' | translate }} {{ passenger.age }}
+                </p>
               </div>
-              <div class="mt-2 flex items-center justify-between text-sm">
+            </div>
+
+            <div class="border-t border-slate-200 dark:border-white/10 pt-3 space-y-2">
+              <div class="flex items-center justify-between gap-2 text-xs sm:text-sm">
+                <span class="text-slate-500 dark:text-[#94A3B8]">{{ 'BOOKING.BOOKING_ID' | translate }}</span>
+                <span class="font-bold text-slate-800 dark:text-[#F8FAFC] truncate max-w-[160px]" title="{{ trip._id || trip.id || trip.busId }}">
+                  {{ trip._id || trip.id || trip.busId }}
+                </span>
+              </div>
+              <div class="flex items-center justify-between text-xs sm:text-sm pt-1">
                 <span class="text-slate-500 dark:text-[#94A3B8]">{{ 'COMMON.TOTAL' | translate }}</span>
-                <span class="text-lg font-extrabold text-slate-900 dark:text-[#F8FAFC]">₹{{ trip.fare }}</span>
+                <span class="text-base sm:text-lg font-extrabold text-red-500 dark:text-red-400">
+                  ₹{{ trip.fare }}
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="flex flex-col gap-3 border-t border-slate-200 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7 dark:border-white/8">
-        <p class="inline-flex items-center gap-1.5 text-xs text-slate-500 dark:text-[#94A3B8]"><span class="material-icons text-[16px]">mail_outline</span>{{ trip.email }}</p>
-        <div class="flex flex-wrap items-center gap-2">
-          
-          <!-- Phase 1 Review Actions for Completed Trips ONLY -->
+      <!-- CARD FOOTER: Email + Action Buttons -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t border-slate-200 dark:border-white/10 p-4 sm:px-6 sm:py-4 bg-slate-50/50 dark:bg-slate-900/30">
+        <p class="inline-flex items-center gap-1.5 text-xs text-slate-500 dark:text-[#94A3B8] truncate">
+          <span class="material-icons text-base">mail_outline</span>
+          <span class="truncate">{{ trip.email }}</span>
+        </p>
+
+        <!-- Action Buttons Container (Full width on mobile) -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full sm:w-auto">
+          <!-- Write Review Button for completed trips -->
           <ng-container *ngIf="isCompleted(trip)">
-            <!-- Show Write Review if not reviewed yet -->
-            <button *ngIf="!reviewMap[trip._id || trip.id]"
-                    (click)="openWriteReview(trip)"
-                    type="button"
-                    class="inline-flex items-center justify-center gap-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white px-3.5 py-2 text-sm font-bold shadow-md shadow-amber-500/20 transition hover:scale-[1.02] cursor-pointer">
-              <span class="material-icons text-[17px]">rate_review</span>
-              {{ 'REVIEW.WRITE_REVIEW' | translate }}
+            <button
+              *ngIf="!reviewMap[trip._id || trip.id]"
+              (click)="openWriteReview(trip)"
+              type="button"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white px-4 py-2.5 text-xs sm:text-sm font-bold shadow-md shadow-amber-500/20 transition cursor-pointer active:scale-95"
+            >
+              <span class="material-icons text-base">rate_review</span>
+              <span>{{ 'REVIEW.WRITE_REVIEW' | translate }}</span>
             </button>
 
-            <!-- Show View Review if already submitted -->
-            <button *ngIf="reviewMap[trip._id || trip.id]"
-                    (click)="openViewReview(trip)"
-                    type="button"
-                    class="inline-flex items-center justify-center gap-1.5 rounded-lg border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 px-3.5 py-2 text-sm font-bold transition hover:bg-amber-100 cursor-pointer">
-              <span class="material-icons text-[17px] text-amber-500">star</span>
-              {{ 'REVIEW.VIEW_REVIEW' | translate }}
+            <!-- View Review Button if submitted -->
+            <button
+              *ngIf="reviewMap[trip._id || trip.id]"
+              (click)="openViewReview(trip)"
+              type="button"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-xl border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 px-4 py-2.5 text-xs sm:text-sm font-bold transition hover:bg-amber-100 cursor-pointer active:scale-95"
+            >
+              <span class="material-icons text-base text-amber-500">star</span>
+              <span>{{ 'REVIEW.VIEW_REVIEW' | translate }}</span>
             </button>
           </ng-container>
 
-          <button type="button" class="inline-flex items-center justify-center gap-1.5 rounded-lg bg-red-500 px-3.5 py-2 text-sm font-bold text-white shadow-lg shadow-red-500/20 transition hover:scale-[1.02] hover:bg-red-400">
-            <span class="material-icons text-[17px]">confirmation_number</span>{{ 'BOOKING.VIEW_TICKET' | translate }}
+          <!-- View Ticket Button -->
+          <button
+            type="button"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-xl bg-red-500 hover:bg-red-600 text-white px-4 py-2.5 text-xs sm:text-sm font-bold shadow-md shadow-red-500/20 transition cursor-pointer active:scale-95"
+          >
+            <span class="material-icons text-base">confirmation_number</span>
+            <span>{{ 'BOOKING.VIEW_TICKET' | translate }}</span>
           </button>
         </div>
       </div>
     </article>
   </div>
 
-  <div *ngIf="booking.length === 0" class="mx-auto flex max-w-md flex-col items-center rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-6 py-14 text-center dark:border-white/12 dark:bg-[#1F2937]">
-    <div class="grid h-16 w-16 place-items-center rounded-2xl bg-red-50 text-red-500 dark:bg-red-500/15 dark:text-red-400"><span class="material-icons text-3xl">luggage</span></div>
-    <h2 class="mt-5 text-xl font-bold text-slate-900 dark:text-[#F8FAFC]">{{ 'PROFILE.NO_TRIPS_BOOKED' | translate }}</h2>
-    <p class="mt-2 text-sm leading-6 text-slate-500 dark:text-[#94A3B8]">{{ 'PROFILE.NO_TRIPS_DESC' | translate }}</p>
+  <!-- EMPTY TRIPS STATE -->
+  <div *ngIf="booking.length === 0" class="mx-auto flex max-w-md flex-col items-center rounded-2xl border border-dashed border-slate-300 bg-white dark:bg-[#1F2937] p-8 sm:p-12 text-center dark:border-white/12">
+    <div class="grid h-14 w-14 sm:h-16 sm:w-16 place-items-center rounded-2xl bg-red-50 text-red-500 dark:bg-red-500/15 dark:text-red-400">
+      <span class="material-icons text-2xl sm:text-3xl">luggage</span>
+    </div>
+    <h2 class="mt-4 text-lg sm:text-xl font-bold text-slate-900 dark:text-[#F8FAFC]">
+      {{ 'PROFILE.NO_TRIPS_BOOKED' | translate }}
+    </h2>
+    <p class="mt-1.5 text-xs sm:text-sm leading-relaxed text-slate-500 dark:text-[#94A3B8]">
+      {{ 'PROFILE.NO_TRIPS_DESC' | translate }}
+    </p>
   </div>
 </section>
+

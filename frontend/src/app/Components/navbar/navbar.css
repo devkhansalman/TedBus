@@ -65,6 +65,19 @@
     color: #e2e8f0 !important;
 }
 
+#google-btn {
+    border-radius: 6px;
+    height: 36px;
+    padding: 0 4px;
+    overflow: hidden;
+}
+
+#google-btn iframe {
+    border-radius: 6px !important;
+    height: 36px !important;
+    padding: 0 4px !important;
+}
+
 @media (max-width: 767px) {
     .nav-actions {
         gap: 0;

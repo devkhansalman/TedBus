@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, OnDestroy, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Customer } from '../../service/customer';
@@ -63,6 +63,7 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    document.body.style.overflow = '';
     if (this.notificationSub) {
       this.notificationSub.unsubscribe();
     }
@@ -80,7 +81,7 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
     if (typeof google !== 'undefined' && google.accounts) {
       try {
         google.accounts.id.initialize({
-          client_id: "23806936469-5l4854derbp1fospau6nf9imp66t0nfj.apps.googleusercontent.com",
+          client_id: "23806936469-7c99sb1b7dr8c994vic0t2cjl8pohog6.apps.googleusercontent.com",
           callback: (response: any) => this.handlelogin(response)
         });
 
@@ -89,8 +90,8 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
           google.accounts.id.renderButton(googlebtn, {
             theme: "outline",
             size: "medium",
-            shape: "pill",
-            width: 150
+            shape: "rectangular",
+            width: 140
           });
         }
       } catch (err) {
@@ -127,6 +128,7 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openSignInModal(): void {
+    this.closeMobileMenu();
     const dialogRef = this.dialog.open(SignInModal, {
       width: '440px',
       maxWidth: '95vw',
@@ -161,6 +163,7 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
   }
 
   handlelogout(): void {
+    this.closeMobileMenu();
     if (typeof google !== 'undefined' && google.accounts) {
       try {
         google.accounts.id.disableAutoSelect();
@@ -177,7 +180,6 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
     }
     this.unreadCount = 0;
     this.isNotificationPanelOpen = false;
-    this.isMobileMenuOpen = false;
     this.isLoggedIn = false;
 
     this.cdr.detectChanges();
@@ -188,7 +190,7 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
   }
 
   navigate(route: string, tab?: string): void {
-    this.isMobileMenuOpen = false;
+    this.closeMobileMenu();
     if (tab) {
       this.router.navigate([route], { queryParams: { tab } });
     } else {
@@ -213,5 +215,25 @@ export class Navbar implements OnInit, AfterViewInit, OnDestroy {
 
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    if (this.isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }
+
+  closeMobileMenu(): void {
+    if (this.isMobileMenuOpen) {
+      this.isMobileMenuOpen = false;
+      document.body.style.overflow = '';
+    }
+  }
+
+  @HostListener('document:keydown.escape')
+  handleEscape(): void {
+    if (this.isMobileMenuOpen) {
+      this.closeMobileMenu();
+    }
   }
 }
+

@@ -1,4 +1,5 @@
-.no-buses {
-  margin: 32px;
-  color: #555;
+:host {
+  display: block;
+  width: 100%;
 }
+

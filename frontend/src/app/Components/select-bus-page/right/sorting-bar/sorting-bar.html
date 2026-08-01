@@ -1,18 +1,39 @@
-<div class="security-container">
-    <mat-icon style="font-size: 20px; padding-bottom: 10px;">security</mat-icon>
-    <div>{{ 'BOOKING.SAFETY_RATING_NOTE' | translate }}</div>
+<div class="sorting-wrapper space-y-3">
+  <!-- Safety Banner -->
+  <div class="p-3 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl border border-emerald-200 dark:border-emerald-800/60 flex items-center gap-2.5 text-xs text-emerald-800 dark:text-emerald-300">
+    <mat-icon class="text-emerald-600 dark:text-emerald-400 text-sm sm:text-base shrink-0">security</mat-icon>
+    <div class="font-medium leading-snug">{{ 'BOOKING.SAFETY_RATING_NOTE' | translate }}</div>
   </div>
-  <mat-divider></mat-divider>
-  <div class="main-container">
-    <div class="main-container1">
-      <div>{{ 'BOOKING.BUSES_LIST' | translate }}</div>
-      <div>{{ 'BOOKING.SORT_BY' | translate }} :</div>
+
+  <!-- Sorting Bar Container -->
+  <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700/70 shadow-2xs space-y-2 sm:space-y-0 sm:flex sm:items-center sm:justify-between sm:gap-3">
+    <div class="flex items-center gap-2 text-xs font-extrabold text-slate-800 dark:text-slate-200">
+      <mat-icon class="text-slate-400 text-sm">sort</mat-icon>
+      <span>{{ 'BOOKING.SORT_BY' | translate }}:</span>
     </div>
-    <div class="main-container2" >{{ 'BOOKING.DEPARTURE_TIME' | translate }}</div>
-    <div class="main-container3" >{{ 'BOOKING.DURATION' | translate }}</div>
-    <div class="main-container4" >{{ 'BOOKING.ARRIVAL_TIME' | translate }}</div>
-    <div class="main-container5" >{{ 'BOOKING.RATINGS' | translate }}</div>
-    <div class="main-container6">{{ 'COMMON.PRICE' | translate }}</div>
-    <div class="main-container7">{{ 'COMMON.SEATS' | translate }}</div>
+
+    <!-- Sort Options Pills Grid / Wrap -->
+    <div class="flex flex-wrap items-center gap-1.5 text-[11px] sm:text-xs">
+      <div class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-red-50 hover:text-red-600 dark:hover:bg-slate-600 font-semibold cursor-pointer transition">
+        {{ 'BOOKING.DEPARTURE_TIME' | translate }}
+      </div>
+      <div class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-red-50 hover:text-red-600 dark:hover:bg-slate-600 font-semibold cursor-pointer transition">
+        {{ 'BOOKING.DURATION' | translate }}
+      </div>
+      <div class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-red-50 hover:text-red-600 dark:hover:bg-slate-600 font-semibold cursor-pointer transition">
+        {{ 'BOOKING.ARRIVAL_TIME' | translate }}
+      </div>
+      <div class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-red-50 hover:text-red-600 dark:hover:bg-slate-600 font-semibold cursor-pointer transition">
+        {{ 'BOOKING.RATINGS' | translate }}
+      </div>
+      <div class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-red-50 hover:text-red-600 dark:hover:bg-slate-600 font-semibold cursor-pointer transition">
+        {{ 'COMMON.PRICE' | translate }}
+      </div>
+      <div class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-red-50 hover:text-red-600 dark:hover:bg-slate-600 font-semibold cursor-pointer transition">
+        {{ 'COMMON.SEATS' | translate }}
+      </div>
+    </div>
   </div>
+</div>
+
   
