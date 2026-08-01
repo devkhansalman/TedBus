@@ -32,7 +32,7 @@ app.use(notificationroute)
 app.use(communityroute)
 
 
-const DB_URL="mongodb://localhost:27017/tedbus-server" || process.env.DB_URL
+const DB_URL= process.env.DB_URL
 mongoose.connect(DB_URL)
 .then(()=>console.log("Connected successfully"))
 .catch((err)=>console.error("Error in connecting to DB", err))
