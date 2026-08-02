@@ -48,9 +48,31 @@ The application uses Angular 21 for the single-page frontend UI, Express for RES
 - State Management: RxJS `BehaviorSubject` Services
 - Package Manager: pnpm
 
-## Getting Started
+### Running with Docker (Recommended)
 
-### Prerequisites
+You can run the entire application (Backend + Frontend) with a single command on any machine using Docker:
+
+```bash
+# 1. Clone repository
+git clone https://github.com/devkhansalman/TedBus.git
+cd TedBus
+
+# 2. Copy environment file template
+cp .env.example .env
+
+# 3. Build and start containers
+docker compose up --build
+```
+
+Access the application:
+- **Frontend UI**: http://localhost:4200
+- **Backend API**: http://localhost:8000
+- **Backend Health Check**: http://localhost:8000/health
+
+---
+
+### Local Manual Installation
+
 
 - Node.js 18 or newer
 - MongoDB running locally on `127.0.0.1:27017`

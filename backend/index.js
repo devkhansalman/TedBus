@@ -32,18 +32,25 @@ app.use(notificationroute)
 app.use(communityroute)
 
 
-const DB_URL= process.env.DB_URL
-mongoose.connect(DB_URL)
-.then(()=>console.log("Connected successfully"))
-.catch((err)=>console.error("Error in connecting to DB", err))
+const DB_URL = process.env.DB_URL;
+if (!DB_URL) {
+    console.warn("WARNING: DB_URL environment variable is not defined!");
+} else {
+    mongoose.connect(DB_URL)
+        .then(() => console.log("Connected successfully to DB"))
+        .catch((err) => console.error("Error in connecting to DB", err));
+}
 
-app.get("/",(req,res)=>{
-    res.send({message:"Hello from tedbus server bro!"})
-})
-app.get("/health",(req,res)=>{
-    res.status(200).json({success:true,status:"ok",Timestamp:new Date().toISOString()})
-})
+app.get("/", (req, res) => {
+    res.send({ message: "Hello from tedbus server bro!" });
+});
+app.get("/health", (req, res) => {
+    res.status(200).json({ success: true, status: "ok", Timestamp: new Date().toISOString() });
+});
 
-app.listen(process.env.PORT,()=>{
-    console.log(`Server running on PORT: ${process.env.PORT}`);
-})
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on PORT: ${PORT}`);
+});
+
