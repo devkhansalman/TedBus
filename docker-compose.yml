@@ -1,4 +1,25 @@
+name: tedbus
+
 services:
+  mongodb:
+    image: mongo:7.0
+    container_name: tedbus-mongo
+    restart: unless-stopped
+    ports:
+      - "${MONGO_PORT:-27017}:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=tedbus-server
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh --eval 'db.adminCommand(\"ping\")' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - tedbus-network
+
   backend:
     build:
       context: ./backend
@@ -10,9 +31,13 @@ services:
         required: false
     environment:
       - PORT=${PORT:-8000}
-      - DB_URL=${DB_URL}
+      - DB_URL=${DB_URL:-mongodb://mongodb:27017/tedbus-server}
+      - NODE_ENV=production
     ports:
       - "${PORT:-8000}:${PORT:-8000}"
+    depends_on:
+      mongodb:
+        condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:${PORT:-8000}/health || exit 1"]
       interval: 10s
@@ -46,3 +71,6 @@ networks:
   tedbus-network:
     driver: bridge
 
+volumes:
+  mongo_data:
+    driver: local

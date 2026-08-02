@@ -1,35 +1,56 @@
-# Stage 1: Build Angular application
-FROM node:20-alpine AS builder
+# ==========================================
+# Frontend Dockerfile - Angular SPA + Nginx
+# ==========================================
+
+# --- Stage 1: Build Angular Application ---
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Copy package descriptors and lockfiles
-COPY package.json package-lock.json* pnpm-lock.yaml* ./
+# Enable Corepack for pnpm support (pinned to v9 for compatibility)
+RUN corepack enable && corepack prepare pnpm@9 --activate
 
-# Install dependencies fast without audit/fund delays
-RUN if [ -f package-lock.json ]; then npm ci --no-audit --no-fund; else npm install --no-audit --no-fund; fi
+# Copy package management files
+COPY package.json pnpm-lock.yaml* package-lock.json* ./
 
-# Copy full application code
+# Install all dependencies required for building
+RUN if [ -f pnpm-lock.yaml ]; then \
+      pnpm install --frozen-lockfile; \
+    elif [ -f package-lock.json ]; then \
+      npm ci --no-audit --no-fund; \
+    else \
+      npm install --no-audit --no-fund; \
+    fi
+
+# Copy full frontend application source
 COPY . .
 
 # Build production bundle
-RUN npm run build
+RUN if [ -f pnpm-lock.yaml ]; then pnpm run build; else npm run build; fi
 
-# Stage 2: Serve application using lightweight Nginx web server
+# Normalize build output directory to /app/app-dist
+RUN mkdir -p /app/app-dist && \
+    if [ -d "dist/frontend/browser" ]; then \
+      cp -r dist/frontend/browser/* /app/app-dist/; \
+    elif [ -d "dist/frontend" ]; then \
+      cp -r dist/frontend/* /app/app-dist/; \
+    fi
+
+# --- Stage 2: Serve application via Nginx ---
 FROM nginx:alpine AS production
 
-# Copy custom Nginx server configuration for Angular SPA client-side routing
+# Copy Nginx server configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy built production assets from builder stage into Nginx web root
-COPY --from=builder /app/dist/frontend/browser /usr/share/nginx/html
+# Copy compiled SPA assets from builder stage
+COPY --from=builder /app/app-dist /usr/share/nginx/html
 
-# Expose internal application port
+# Expose HTTP port
 EXPOSE 80
 
-# Health check to ensure web server is responding
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=5 \
+# Health check targeting /health endpoint
+HEALTHCHECK --interval=20s --timeout=5s --start-period=10s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://127.0.0.1/health || exit 1
 
-# Start Nginx web server in foreground
+# Start Nginx web server
 CMD ["nginx", "-g", "daemon off;"]
