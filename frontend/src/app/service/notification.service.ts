@@ -37,6 +37,11 @@ export class NotificationService {
   }
 
   fetchNotifications(): void {
+    const email = this.headers.get('x-user-email');
+    if (!email) {
+      this.notificationsSubject.next([]);
+      return;
+    }
     this.http.get<Notification[]>(`${url}notifications`, { headers: this.headers })
       .subscribe({
         next: (notifications) => {
@@ -50,6 +55,11 @@ export class NotificationService {
   }
 
   fetchUnreadCount(): void {
+    const email = this.headers.get('x-user-email');
+    if (!email) {
+      this.unreadCountSubject.next(0);
+      return;
+    }
     this.http.get<{ unreadCount: number }>(`${url}notifications/unread-count`, { headers: this.headers })
       .subscribe({
         next: (res) => {
