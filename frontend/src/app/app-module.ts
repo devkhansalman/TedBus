@@ -100,7 +100,7 @@ import { CustomMissingTranslationHandler } from './service/language.service';
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideTranslateService({ fallbackLang: 'en', lang: 'en' }),
-    provideTranslateHttpLoader({ prefix: './assets/i18n/', suffix: '.json' }),
+    provideTranslateHttpLoader({ prefix: '/assets/i18n/', suffix: '.json' }),
     provideMissingTranslationHandler(() => new CustomMissingTranslationHandler()),
   ],
   bootstrap: [App],
