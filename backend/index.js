@@ -12,7 +12,8 @@ require('dotenv').config(); //load all environment variables from main configura
 ;
 
 app.use(cors())
-app.use(bodyparse.json())
+app.use(bodyparse.json({ limit: '10mb' }))
+app.use(bodyparse.urlencoded({ limit: '10mb', extended: true }))
 // app.use(customerroutes)
 
 

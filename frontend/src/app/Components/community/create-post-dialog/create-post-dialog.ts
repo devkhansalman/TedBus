@@ -15,6 +15,7 @@ export class CreatePostDialog {
   postId: string = '';
   isLoading: boolean = false;
   errorMessage: string = '';
+  isDragging: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<CreatePostDialog>,
@@ -28,6 +29,59 @@ export class CreatePostDialog {
       this.content = data.post.content;
       this.imageUrl = data.post.images && data.post.images.length > 0 ? data.post.images[0] : '';
     }
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragging = true;
+  }
+
+  onDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragging = false;
+  }
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragging = false;
+
+    if (event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files.length > 0) {
+      const file = event.dataTransfer.files[0];
+      this.processImageFile(file);
+    }
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.processImageFile(input.files[0]);
+    }
+  }
+
+  private processImageFile(file: File): void {
+    if (!file.type.startsWith('image/')) {
+      this.errorMessage = 'Please drop a valid image file (PNG, JPG, WEBP, GIF, etc.).';
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      this.errorMessage = 'Image size should be less than 5MB.';
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.imageUrl = e.target.result;
+      this.errorMessage = '';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  removeImage(): void {
+    this.imageUrl = '';
   }
 
   onCancel(): void {

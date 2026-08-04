@@ -13,6 +13,7 @@ declare var google: any;
 export class SignInModal implements OnInit, AfterViewInit {
   name: string = '';
   email: string = '';
+  password: string = '';
   isLoading: boolean = false;
   errorMessage: string = '';
 
@@ -22,6 +23,13 @@ export class SignInModal implements OnInit, AfterViewInit {
     private customerService: Customer,
     private cdr: ChangeDetectorRef
   ) {}
+
+  loginAsDemo(): void {
+    this.name = 'Demo User';
+    this.email = 'demo@gmail.com';
+    this.password = 'demo';
+    this.onSubmitManual();
+  }
 
   ngOnInit(): void {
     if (typeof google !== 'undefined' && google.accounts) {

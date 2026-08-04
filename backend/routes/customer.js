@@ -7,5 +7,6 @@ router.get("/api/profile/theme", customercontroller.requireAuthenticatedCustomer
 router.put("/api/profile/theme", customercontroller.requireAuthenticatedCustomer, customercontroller.updateThemePreference)
 router.get("/users/preferences/language", customercontroller.requireAuthenticatedCustomer, customercontroller.getLanguagePreference)
 router.patch("/users/preferences/language", customercontroller.requireAuthenticatedCustomer, customercontroller.updateLanguagePreference)
+router.put("/api/profile", customercontroller.requireAuthenticatedCustomer, customercontroller.updateProfile)
 
 module.exports=router;

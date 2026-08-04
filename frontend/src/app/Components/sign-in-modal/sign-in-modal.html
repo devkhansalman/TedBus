@@ -22,8 +22,19 @@
   </div>
 
   <!-- Google Sign-In Section -->
-  <div class="flex flex-col items-center justify-center space-y-2 mb-5">
+  <div class="flex flex-col items-center justify-center space-y-2 mb-3">
     <div id="google-modal-btn" class="w-full flex justify-center"></div>
+  </div>
+
+  <!-- One-Click Demo Account Login -->
+  <div class="mb-4">
+    <button type="button"
+            (click)="loginAsDemo()"
+            [disabled]="isLoading"
+            class="w-full py-2.5 px-4 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer">
+      <span class="material-icons text-base">bolt</span>
+      <span>Sign In with Demo Account (demo@gmail.com)</span>
+    </button>
   </div>
 
   <!-- Divider -->

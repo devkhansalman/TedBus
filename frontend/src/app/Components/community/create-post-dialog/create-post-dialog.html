@@ -38,15 +38,55 @@
                 class="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-900 focus:border-red-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-[#F8FAFC]"></textarea>
     </div>
 
+    <!-- Drag and Drop Image Area -->
     <div>
       <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
-        {{ 'COMMUNITY.IMAGE_URL' | translate }} ({{ 'COMMUNITY.OPTIONAL' | translate }})
+        Add Travel Photo (Drag & Drop or Browse)
       </label>
-      <input type="url"
-             [(ngModel)]="imageUrl"
-             name="imageUrl"
-             placeholder="https://example.com/bus-photo.jpg"
-             class="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-900 focus:border-red-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-[#F8FAFC]" />
+
+      <!-- Drag & Drop Zone -->
+      <div *ngIf="!imageUrl"
+           (dragover)="onDragOver($event)"
+           (dragleave)="onDragLeave($event)"
+           (drop)="onDrop($event)"
+           class="relative border-2 border-dashed rounded-2xl p-5 text-center transition cursor-pointer flex flex-col items-center justify-center gap-2"
+           [ngClass]="isDragging ? 'border-red-500 bg-red-50/50 dark:bg-red-950/30' : 'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 hover:border-red-400'">
+        
+        <input type="file"
+               accept="image/*"
+               (change)="onFileSelected($event)"
+               class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+
+        <div class="p-3 rounded-full bg-red-100 dark:bg-red-950/60 text-red-600 dark:text-red-400">
+          <span class="material-icons text-2xl">cloud_upload</span>
+        </div>
+        <div class="space-y-0.5">
+          <p class="text-xs font-bold text-slate-800 dark:text-slate-200">
+            Drag & drop your photo here, or <span class="text-red-600 dark:text-red-400 underline">browse file</span>
+          </p>
+          <p class="text-[10px] text-slate-400">Supports PNG, JPG, WEBP, GIF (Max 5MB)</p>
+        </div>
+      </div>
+
+      <!-- Image Preview Card if Image Selected -->
+      <div *ngIf="imageUrl" class="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 group mt-1">
+        <img [src]="imageUrl" alt="Post Preview" class="w-full h-44 object-cover" />
+        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2">
+          <button type="button" (click)="removeImage()" class="px-3 py-1.5 rounded-xl bg-red-600 text-white text-xs font-bold shadow-md hover:bg-red-700 transition cursor-pointer flex items-center gap-1">
+            <span class="material-icons text-sm">delete</span>
+            <span>Remove Photo</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Optional URL fallback -->
+      <div class="mt-2" *ngIf="!imageUrl">
+        <input type="url"
+               [(ngModel)]="imageUrl"
+               name="imageUrl"
+               placeholder="Or paste image URL (https://...)"
+               class="w-full text-xs px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-red-500" />
+      </div>
     </div>
 
     <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-700">

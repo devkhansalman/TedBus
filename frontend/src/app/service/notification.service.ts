@@ -95,6 +95,25 @@ export class NotificationService {
       });
   }
 
+  addLocalNotification(notifData: Partial<Notification>): void {
+    const newNotif: Notification = {
+      _id: 'temp-' + Date.now(),
+      userId: this.headers.get('x-user-email') || '',
+      title: notifData.title || 'Notification',
+      message: notifData.message || '',
+      type: notifData.type || 'system',
+      priority: notifData.priority || 'low',
+      icon: notifData.icon || 'account_circle',
+      isRead: false,
+      createdAt: new Date().toISOString(),
+      metadata: notifData.metadata || {}
+    };
+
+    const current = this.notificationsSubject.value || [];
+    this.notificationsSubject.next([newNotif, ...current]);
+    this.unreadCountSubject.next((this.unreadCountSubject.value || 0) + 1);
+  }
+
   deleteNotification(id: string): void {
     this.http.delete(`${url}notifications/${id}`, { headers: this.headers })
       .subscribe({

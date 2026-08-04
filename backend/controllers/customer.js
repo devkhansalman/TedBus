@@ -93,3 +93,33 @@ exports.updateLanguagePreference = async (req, res) => {
         res.status(500).json({ error: "internal server error" });
     }
 };
+
+exports.updateProfile = async (req, res) => {
+    try {
+        const { name, phone, gender, dateOfBirth } = req.body;
+        const customer = req.customer;
+
+        if (name) customer.name = name;
+        if (phone !== undefined) customer.phone = phone;
+        if (gender !== undefined) customer.gender = gender;
+        if (dateOfBirth !== undefined) customer.dateOfBirth = dateOfBirth;
+
+        await customer.save();
+
+        // Automatically trigger in-app notification: Profile Updated
+        const notificationService = require('../services/notification.service');
+        await notificationService.createNotification({
+            userId: customer.email,
+            title: 'Profile Updated',
+            message: 'Your profile information has been updated successfully.',
+            type: 'system',
+            priority: 'low',
+            icon: 'account_circle'
+        });
+
+        res.json({ success: true, message: "Profile updated successfully", customer });
+    } catch (error) {
+        console.error('Error updating profile', error);
+        res.status(500).json({ error: "internal server error" });
+    }
+};

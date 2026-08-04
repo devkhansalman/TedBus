@@ -48,6 +48,12 @@ export class Customer {
     });
   }
 
+  updateProfileDetails(email: string, profileData: any): Observable<any> {
+    return this.http.put<any>(`${url}api/profile`, profileData, {
+      headers: this.profileHeaders(email),
+    });
+  }
+
   private profileHeaders(email: string): HttpHeaders {
     return new HttpHeaders({ 'x-user-email': email });
   }
